@@ -12,7 +12,7 @@ import javax.persistence.SequenceGenerator;
 @Entity(name = "ROL")
 public class Role implements Serializable {
 
-	private static final long serialVersionUID = -2969524610059270447L;
+	private static final long serialVersionUID = -6686735465791750607L;
 
 	@Id
 	@SequenceGenerator(name = "ROL_ID_SEQ", sequenceName = "ROL_ID_SEQ", allocationSize = 1)
@@ -24,6 +24,9 @@ public class Role implements Serializable {
 
 	@Column
 	private String description;
+	
+	public Role() {
+	}
 
 	public Long getId() {
 		return id;

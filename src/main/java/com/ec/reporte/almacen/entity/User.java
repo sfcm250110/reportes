@@ -27,16 +27,16 @@ public class User implements Serializable {
 
 	@Column
 	private String firstName;
-	
+
 	@Column
 	private String lastName;
-	
+
 	@Column(unique = true)
 	private String email;
-	
+
 	@Column(unique = true)
 	private String username;
-	
+
 	@Column
 	private String password;
 
@@ -45,7 +45,7 @@ public class User implements Serializable {
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "USUARIO_ROLES", joinColumns = @JoinColumn(name = "USUARIO_ID"), inverseJoinColumns = @JoinColumn(name = "ROL_ID"))
-	private Set roles;
+	private Set<Role> roles;
 
 	public User() {
 	}
@@ -110,11 +110,11 @@ public class User implements Serializable {
 		this.confirmPassword = confirmPassword;
 	}
 
-	public Set getRoles() {
+	public Set<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Set roles) {
+	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
 
