@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ec.reporte.almacen.entity.User;
+import com.sc.reporte.almacen.dto.ChangePasswordForm;
 import com.sc.reporte.almacen.repository.UserRepository;
 
 @Service
@@ -47,11 +48,34 @@ public class UserServiceImpl implements UserService {
 		return userRepository.save(toUser);
 	}
 
+	@Override
 	public void deleteUser(Long id) throws Exception {
 		User user = userRepository.findById(id)
 				.orElseThrow(() -> new Exception("UsernotFound in deleteUser -" + this.getClass().getName()));
 
 		userRepository.delete(user);
+	}
+
+	@Override
+	public User changePassword(ChangePasswordForm form) throws Exception {
+		User storedUser = userRepository.findById(form.getId())
+				.orElseThrow(() -> new Exception("UsernotFound in ChangePassword -" + this.getClass().getName()));
+
+		if (!storedUser.getPassword().equals(form.getCurrentPassword())) {
+			throw new Exception("Current Password invalido.");
+		}
+
+		if (storedUser.getPassword().equals(form.getNewPassword())) {
+			throw new Exception("Nuevo debe ser diferente al password actual.");
+		}
+
+		if (!form.getNewPassword().equals(form.getConfirmPassword())) {
+			throw new Exception("Nuevo Password y Confirm Password no coinciden.");
+		}
+
+		storedUser.setPassword(form.getNewPassword());
+
+		return userRepository.save(storedUser);
 	}
 
 	/**
