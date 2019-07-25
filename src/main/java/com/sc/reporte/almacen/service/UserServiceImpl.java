@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.ec.reporte.almacen.entity.User;
 import com.sc.reporte.almacen.dto.ChangePasswordForm;
+import com.sc.reporte.almacen.exception.UsernameOrIdNotFound;
 import com.sc.reporte.almacen.repository.UserRepository;
 
 @Service
@@ -38,15 +39,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getUserById(Long id) throws Exception {
-		User user = userRepository.findById(id).orElseThrow(() -> new Exception("Usuario no existe"));
+	public User getUserById(Long id) throws UsernameOrIdNotFound {
+		User user = userRepository.findById(id).orElseThrow(() -> new UsernameOrIdNotFound("El id del usuario no existe."));
 
 		return user;
 	}
 
 	@Override
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
-	public User updateUser(User fromUser) throws Exception {
+	public User updateUser(User fromUser) throws UsernameOrIdNotFound {
 		User toUser = getUserById(fromUser.getId());
 		mapUser(fromUser, toUser);
 
@@ -55,10 +56,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-	public void deleteUser(Long id) throws Exception {
-		User user = userRepository.findById(id)
-				.orElseThrow(() -> new Exception("UsernotFound in deleteUser -" + this.getClass().getName()));
-
+	public void deleteUser(Long id) throws UsernameOrIdNotFound {
+		User user = getUserById(id);
 		userRepository.delete(user);
 	}
 
