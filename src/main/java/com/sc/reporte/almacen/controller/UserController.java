@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.ec.reporte.almacen.entity.User;
 import com.sc.reporte.almacen.dto.ChangePasswordForm;
+import com.sc.reporte.almacen.exception.UsernameOrIdNotFound;
 import com.sc.reporte.almacen.repository.RoleRepository;
 import com.sc.reporte.almacen.service.UserService;
 
@@ -100,7 +101,7 @@ public class UserController {
 				model.addAttribute("userForm", new User());
 				model.addAttribute("listTab", "active");
 
-			} catch (Exception e) {
+			} catch (UsernameOrIdNotFound e) {
 				model.addAttribute("formErrorMessage", e.getMessage());
 				model.addAttribute("userForm", user);
 				model.addAttribute("formTab", "active");
@@ -128,7 +129,7 @@ public class UserController {
 		try {
 			userService.deleteUser(id);
 
-		} catch (Exception e) {
+		} catch (UsernameOrIdNotFound e) {
 			model.addAttribute("listErrorMessage", "El usuario no puede ser eliminado.");
 		}
 
