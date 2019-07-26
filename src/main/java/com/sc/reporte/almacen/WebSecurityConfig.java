@@ -7,9 +7,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import com.sc.reporte.almacen.service.UserDetailsServiceImpl;
 
 //Indica que esta clase es de configuracion y necesita ser cargada durante el inicio del server
 @Configuration
@@ -22,10 +21,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers(resources).permitAll().antMatchers("/", "/index").permitAll().anyRequest()
-				.authenticated().and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/userForm")
-				.failureUrl("/login?error=true").usernameParameter("username").passwordParameter("password").and()
-				.csrf().disable().logout().permitAll().logoutSuccessUrl("/login?logout");
+		http.authorizeRequests().antMatchers(resources).permitAll().antMatchers("/", "/index", "/signup").permitAll()
+				.anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll()
+				.defaultSuccessUrl("/userForm").failureUrl("/login?error=true").usernameParameter("username")
+				.passwordParameter("password").and().csrf().disable().logout().permitAll()
+				.logoutSuccessUrl("/login?logout");
 	}
 
 	BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -37,11 +37,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Autowired
-	UserDetailsServiceImpl userDetailsService;
+	UserDetailsService userDetailsService;
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		// Especificar el encargado del login y encriptacion del password
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 	}
+
 }
