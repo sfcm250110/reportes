@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.ec.reporte.almacen.entity.User;
 import com.sc.reporte.almacen.dto.ChangePasswordForm;
+import com.sc.reporte.almacen.exception.CustomeFieldValidationException;
 import com.sc.reporte.almacen.exception.UsernameOrIdNotFound;
 import com.sc.reporte.almacen.repository.UserRepository;
 
@@ -18,13 +19,33 @@ import com.sc.reporte.almacen.repository.UserRepository;
 public class UserServiceImpl implements UserService {
 
 	@Autowired
-	BCryptPasswordEncoder bCryptPasswordEncoder;
+	UserRepository repository;
 
 	@Autowired
-	UserRepository userRepository;
+	BCryptPasswordEncoder bCryptPasswordEncoder;
 
+	@Override
 	public Iterable<User> getAllUsers() {
-		return userRepository.findAll();
+		return repository.findAll();
+	}
+
+	private boolean checkUsernameAvailable(User user) throws Exception {
+		Optional<User> userFound = repository.findByUsername(user.getUsername());
+		if (userFound.isPresent()) {
+			throw new CustomeFieldValidationException("Username no disponible", "username");
+		}
+		return true;
+	}
+
+	private boolean checkPasswordValid(User user) throws Exception {
+		if (user.getConfirmPassword() == null || user.getConfirmPassword().isEmpty()) {
+			throw new CustomeFieldValidationException("Confirm Password es obligatorio", "confirmPassword");
+		}
+
+		if (!user.getPassword().equals(user.getConfirmPassword())) {
+			throw new CustomeFieldValidationException("Password y Confirm Password no son iguales", "password");
+		}
+		return true;
 	}
 
 	@Override
@@ -32,56 +53,21 @@ public class UserServiceImpl implements UserService {
 		if (checkUsernameAvailable(user) && checkPasswordValid(user)) {
 			String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
 			user.setPassword(encodedPassword);
-			user = userRepository.save(user);
+			user = repository.save(user);
 		}
-
 		return user;
 	}
 
 	@Override
 	public User getUserById(Long id) throws UsernameOrIdNotFound {
-		User user = userRepository.findById(id).orElseThrow(() -> new UsernameOrIdNotFound("El id del usuario no existe."));
-
-		return user;
+		return repository.findById(id).orElseThrow(() -> new UsernameOrIdNotFound("El Id del usuario no existe."));
 	}
 
 	@Override
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 	public User updateUser(User fromUser) throws UsernameOrIdNotFound {
 		User toUser = getUserById(fromUser.getId());
 		mapUser(fromUser, toUser);
-
-		return userRepository.save(toUser);
-	}
-
-	@Override
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-	public void deleteUser(Long id) throws UsernameOrIdNotFound {
-		User user = getUserById(id);
-		userRepository.delete(user);
-	}
-
-	@Override
-	public User changePassword(ChangePasswordForm form) throws Exception {
-		User storedUser = userRepository.findById(form.getId()).orElseThrow(() -> new Exception("UsernotFound in ChangePassword."));
-
-		if (!isLoggedUserADMIN() && form.getCurrentPassword().equals(storedUser.getPassword())) {
-			throw new Exception("Current Password incorrecto.");
-		}
-
-		if (storedUser.getPassword().equals(form.getNewPassword())) {
-			throw new Exception("Nuevo debe ser diferente al password actual.");
-		}
-
-		if (!form.getNewPassword().equals(form.getConfirmPassword())) {
-			throw new Exception("Nuevo Password y Confirm Password no coinciden.");
-		}
-
-		
-		String encoderPassword = bCryptPasswordEncoder.encode(form.getNewPassword());
-		storedUser.setPassword(encoderPassword);
-
-		return userRepository.save(storedUser);
+		return repository.save(toUser);
 	}
 
 	/**
@@ -98,51 +84,65 @@ public class UserServiceImpl implements UserService {
 		to.setRoles(from.getRoles());
 	}
 
-	private boolean checkUsernameAvailable(User user) throws Exception {
-		Optional<User> userFound = userRepository.findByUsername(user.getUsername());
-
-		if (userFound.isPresent()) {
-			throw new Exception("Username no disponible");
-			// throw new CustomeFieldValidationException("Username no disponible",
-			// "username");
-		}
-
-		return true;
+	@Override
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+	public void deleteUser(Long id) throws UsernameOrIdNotFound {
+		User user = getUserById(id);
+		repository.delete(user);
 	}
 
-	private boolean checkPasswordValid(User user) throws Exception {
-		if (user.getConfirmPassword() == null || user.getConfirmPassword().isEmpty()) {
-			throw new Exception("Confirm Password es obligatorio");
-			// throw new CustomeFieldValidationException("Confirm Password es obligatorio",
-			// "confirmPassword");
+	@Override
+	public User changePassword(ChangePasswordForm form) throws Exception {
+		User user = getUserById(form.getId());
+
+		if (!isLoggedUserADMIN() && !user.getPassword().equals(form.getCurrentPassword())) {
+			throw new Exception("Current Password invalido.");
 		}
 
-		if (!user.getPassword().equals(user.getConfirmPassword())) {
-			throw new Exception("Password y Confirm Password no son iguales");
-			// throw new CustomeFieldValidationException("Password y Confirm Password no son
-			// iguales", "password");
+		if (user.getPassword().equals(form.getNewPassword())) {
+			throw new Exception("Nuevo debe ser diferente al password actual.");
 		}
 
-		return true;
+		if (!form.getNewPassword().equals(form.getConfirmPassword())) {
+			throw new Exception("Nuevo Password y Confirm Password no coinciden.");
+		}
+
+		String encodePassword = bCryptPasswordEncoder.encode(form.getNewPassword());
+		user.setPassword(encodePassword);
+		return repository.save(user);
 	}
-	
+
 	private boolean isLoggedUserADMIN() {
-		return loggedUserHasRole("ROLE_ADMIN");
-	}
-
-	private boolean loggedUserHasRole(String role) {
+		// Obtener el usuario logeado
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
 		UserDetails loggedUser = null;
 		Object roles = null;
-		
+
+		// Verificar que ese objeto traido de sesion es el usuario
 		if (principal instanceof UserDetails) {
 			loggedUser = (UserDetails) principal;
 
-			roles = loggedUser.getAuthorities().stream().filter(x -> role.equals(x.getAuthority())).findFirst()
-					.orElse(null); // loggedUser = null;
+			roles = loggedUser.getAuthorities().stream().filter(x -> "ROLE_ADMIN".equals(x.getAuthority())).findFirst()
+					.orElse(null);
 		}
-		
 		return roles != null ? true : false;
 	}
 
+	protected User getLoggedUser() throws Exception {
+		// Obtener el usuario logeado
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		UserDetails loggedUser = null;
+
+		// Verificar que ese objeto traido de sesion es el usuario
+		if (principal instanceof UserDetails) {
+			loggedUser = (UserDetails) principal;
+		}
+
+		User myUser = repository.findByUsername(loggedUser.getUsername())
+				.orElseThrow(() -> new Exception("Error obteniendo el usuario logeado desde la sesion."));
+
+		return myUser;
+	}
 }
