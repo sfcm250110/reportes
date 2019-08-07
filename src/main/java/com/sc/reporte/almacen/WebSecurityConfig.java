@@ -17,6 +17,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+	@Autowired
+	UserDetailsService userDetailsService;
+
+	BCryptPasswordEncoder bCryptPasswordEncoder;
+
 	String[] resources = new String[] { "/include/**", "/css/**", "/icons/**", "/img/**", "/js/**", "/layer/**" };
 
 	@Override
@@ -26,18 +31,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.defaultSuccessUrl("/userForm").failureUrl("/login?error=true").usernameParameter("username")
 				.passwordParameter("password").and().csrf().disable().logout().permitAll()
 				.logoutSuccessUrl("/login?logout");
-	}
 
-	BCryptPasswordEncoder bCryptPasswordEncoder;
+		// TODO: http.csrf().disable();
+	}
 
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		bCryptPasswordEncoder = new BCryptPasswordEncoder(4);
 		return bCryptPasswordEncoder;
 	}
-
-	@Autowired
-	UserDetailsService userDetailsService;
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {

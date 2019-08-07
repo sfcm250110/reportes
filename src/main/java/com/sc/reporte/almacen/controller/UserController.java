@@ -187,4 +187,13 @@ public class UserController {
 		}
 		return ResponseEntity.ok("Success");
 	}
+
+	@GetMapping("/users")
+	public String users(Model model) {
+		model.addAttribute("userForm", new User());
+		model.addAttribute("userList", userService.getAllUsers());
+		model.addAttribute("roles", roleRepository.findAll());
+		model.addAttribute("listTab", "active");
+		return "user-form/users";
+	}
 }
