@@ -36,9 +36,24 @@ public class ActividadesController {
 		
 		return "actividades/registrar";
 	}
+
+	@GetMapping("/consultar")
+	public String consultar(Model model) {
+		model.addAttribute("userForm", new User());
+		model.addAttribute("userList", userService.getAllUsers());
+		model.addAttribute("roles", roleRepository.findAll());
+		model.addAttribute("listTab", "active");
+		
+		return "actividades/consultar";
+	}
+
+	@GetMapping("/home")
+	public String home(Model model) {
+		return "home";
+	}
 	
 	@PostMapping("agregar")
-	public ResponseEntity postEditUseChangePassword(@Valid @RequestBody ChangePasswordForm form, Errors errors) {
+	public ResponseEntity agregar(@Valid @RequestBody ChangePasswordForm form, Errors errors) {
 		try {
 			if (errors.hasErrors()) {
 				String result = errors.getAllErrors().stream().map(x -> x.getDefaultMessage())

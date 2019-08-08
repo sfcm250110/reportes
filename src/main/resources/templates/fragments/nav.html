@@ -1,0 +1,47 @@
+<div th:fragment="nav">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top py-4">
+		<div class="container">
+			<a class="navbar-brand" href="#">Gestión de Almacenes</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div id="navbarResponsive" class="collapse navbar-collapse">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="#" th:href="@{/home}">
+							<span>Inicio</span>
+						</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="actividadesDropdownId"
+							role="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false">
+							<span>Actividades</span>
+						</a>
+						<div class="dropdown-menu" aria-labelledby="actividadesDropdownId">
+							<a class="dropdown-item" href="#" th:href="@{/registrar}">
+								<span>Registrar</span>
+							</a>
+							<a class="dropdown-item" href="#" th:href="@{/consultar}">
+								<span>Consultar</span>
+							</a>
+						</div>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" href="#" th:href="@{/usuarios}">
+							<span>Usuarios</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#" th:href="@{/logout}">
+							<span>Salir</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</div>

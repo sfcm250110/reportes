@@ -105,7 +105,7 @@ body {
 	color: #777;
 }
 
-.card-signin .card-img-home {
+.card-img-home {
 	width: 100%;
 	background: scroll center url('../img/home.png');
 	background-size: cover;

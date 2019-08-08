@@ -83,13 +83,13 @@ public class UserController {
 		return "user-form/user-view";
 	}
 	
-	@GetMapping("/home")
+	@GetMapping("/home1")
 	public String userhome(Model model) {
 		model.addAttribute("userForm", new User());
 		model.addAttribute("userList", userService.getAllUsers());
 		model.addAttribute("roles", roleRepository.findAll());
 		model.addAttribute("listTab", "active");
-		return "home";
+		return "home1";
 	}
 
 	@PostMapping("/userForm")
