@@ -82,6 +82,15 @@ public class UserController {
 		model.addAttribute("listTab", "active");
 		return "user-form/user-view";
 	}
+	
+	@GetMapping("/home")
+	public String userhome(Model model) {
+		model.addAttribute("userForm", new User());
+		model.addAttribute("userList", userService.getAllUsers());
+		model.addAttribute("roles", roleRepository.findAll());
+		model.addAttribute("listTab", "active");
+		return "home";
+	}
 
 	@PostMapping("/userForm")
 	public String createUser(@Valid @ModelAttribute("userForm") User user, BindingResult result, ModelMap model) {
@@ -188,12 +197,12 @@ public class UserController {
 		return ResponseEntity.ok("Success");
 	}
 
-	@GetMapping("/users")
+	@GetMapping("/usuarios")
 	public String users(Model model) {
 		model.addAttribute("userForm", new User());
 		model.addAttribute("userList", userService.getAllUsers());
 		model.addAttribute("roles", roleRepository.findAll());
 		model.addAttribute("listTab", "active");
-		return "user-form/users";
+		return "user-form/usuarios";
 	}
 }
