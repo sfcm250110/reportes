@@ -1,44 +1,31 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/ui}">
-
-<head>
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-</head>
-
-<body>
-	<div class="col-lg-10 col-xl-12 mx-auto" layout:fragment="content">
-		<div class="card flex-row my-5 card-signin">
-			<div class="card-body">
-				<h5 class="card-title text-center">Pedidos Preparados</h5>
-				<form class="form-signin" th:action="@{/agregar}" method="post">
-					<div class="form-group row">
-						<label for="nombresComercialesId" class="col-sm-3 col-form-label">Nombre
-							comercial</label>
-						<div class="col-sm-9">
-							<select id="nombresComercialesId"
-								class="form-control form-control-sm">
-								<option>Frank</option>
-								<option>Vicente</option>
-								<option>George</option>
-								<option>Integra</option>
-							</select>
-						</div>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/ui}">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="Aplicacion para gestion de reportes">
+		<meta name="author" content="Santiago Cabrera M.">
+	
+		<title>Gestión de Almacenes</title>
+	</head>
+	
+	<body>
+		<div layout:fragment="content" th:remove="tag">
+			<div class="container">
+				container
+				<div class="row">
+					row
+					<div class="col">
+						col
 					</div>
-
-					<div class="form-group row">
-						<label for="cantidadId" class="col-sm-3 col-form-label">Cantidad</label>
-						<div class="col-sm-9">
-							<input type="text" class="form-control form-control-sm"
-								id="cantidadId" placeholder="Ingrese la cantidad">
-						</div>
+				</div>
+				<div class="row">
+					row
+					<div class="col">
+						col
 					</div>
-
-					<button type="submit"
-						class="btn btn-lg btn-primary btn-block mt-4">Agregar</button>
-				</form>
+				</div>
 			</div>
-		</div>
-	</div>
-</body>
-
+		</div>				
+	</body>
 </html>

@@ -6,3 +6,5 @@ https://igorski.co/java/spring-boot/layout-dialect-spring-boot-2/
 https://github.com/igorstojanovski/basic-spring-boot-example/blob/master/src/main/resources/static/css/core.css
 
 https://startbootstrap.com/previews/heroic-features/
+
+https://www.thymeleaf.org/doc/articles/layouts.html

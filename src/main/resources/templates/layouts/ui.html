@@ -1,29 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
 
 <head>
-        <title>Gestion de Almacenes</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-        <link rel="stylesheet" type="text/css" href="static/css/index.css" th:href="@{/css/index.css}" />
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Aplicacion para gestion de reportes">
+	<meta name="author" content="Santiago Cabrera M.">
+
+	<title>Gestión de Almacenes</title>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="static/css/index.css" th:href="@{/css/index.css}">
 </head>
 
 <body>
-        <div th:replace="fragments/nav :: nav"> This header content is going to be replaced.</div>
-
-        <div class="container">
-                <div class="row">
-                        <div class="col-lg-10 col-xl-12 mx-auto" layout:fragment="content">
-                                <h1>This is the layout's sidebar</h1>
-                                <p>This is the sidebar placeholder. This content will be replaced if the page
-                                        using the layout also defines a layout:fragment="sidebar" segment.</p>
-                        </div>
-                </div>
-        </div>
-
-        <footer th:insert="fragments/footer :: footer" class="footer">
-                This content will remain, but other content will be inserted after it.
-        </footer>
+	<!-- Navegacion -->
+	<div th:replace="fragments/nav :: nav" th:remove="tag">
+		This header content is going to be replaced.
+	</div>
+	
+	<!-- Contenido -->
+	<div layout:fragment="content" th:remove="tag">
+		This content is going to be replaced.
+	</div>
+	
+	<!-- Pie -->
+	<footer th:insert="fragments/footer :: footer" class="footer" th:remove="tag">
+		This content will remain, but other content will be inserted after it.
+	</footer>
 </body>
 
 </html>

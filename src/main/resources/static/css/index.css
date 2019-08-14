@@ -1,3 +1,7 @@
+div {
+	border: 2px solid green;
+}
+
 :root {
 	--input-padding-x: 1.5rem;
 	--input-padding-y: .75rem;
@@ -105,8 +109,12 @@ body {
 	color: #777;
 }
 
-.card-img-home {
+
+
+
+.primera-home {
 	width: 100%;
-	background: scroll center url('../img/home.png');
-	background-size: cover;
+	height: 75%;
+  	background-image: url("../img/chocolate-gourmet-negro-72-con-naranja.jpg");
+  	background-size: cover;
 }

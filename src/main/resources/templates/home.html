@@ -1,29 +1,72 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/ui}">
-
-<head>
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-</head>
-
-<body>
-	<div class="col-lg-10 col-xl-12 mx-auto" layout:fragment="content">
-		<div class="card my-5">
-			<h5 class="card-title text-center text-uppercase">Marcos Tonda</h5>
-		</div>
-
-		<div class="card flex-row my-5">
-			<div class="d-none d-md-flex card-img-home"></div>
-		</div>
-
-		<div class="card flex-row my-5">
-			<div class="d-none d-md-flex card-img-home"></div>
-			<div class="card-body">
-				<h5 class="card-title text-center text-uppercase">Marcos Tonda</h5>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/ui}">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="Aplicacion para gestion de reportes">
+		<meta name="author" content="Santiago Cabrera M.">
+	
+		<title>Gestión de Almacenes</title>
+	</head>
+	
+	<body>
+		<div layout:fragment="content" th:remove="tag">
+			<div class="container">
+				<div class="row text-center">
+					<div class="col-lg-3 col-md-6 mb-4">
+						<div class="card h-100">
+							<img class="card-img-top" src="../img/chocolate-gourmet-blanco.jpg" alt="Actividades">
+							<div class="card-body">
+								<h4 class="card-title">Actividades</h4>
+								<p class="card-text">Revisar las diferentes actividaees de los almacenes</p>
+							</div>
+							<div class="card-footer">
+								<a href="#" class="btn btn-primary">Find Out More!</a>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-lg-3 col-md-6 mb-4">
+						<div class="card h-100">
+							<img class="card-img-top" src="../img/chocolate-gourmet-negro-72-con-naranja.jpg" alt="Usuarios">
+							<div class="card-body">
+								<h4 class="card-title">Usuarios</h4>
+								<p class="card-text">Revisar las diferentes actividaees de los almacenes</p>
+							</div>
+							<div class="card-footer">
+								<a href="#" class="btn btn-primary">Find Out More!</a>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-lg-3 col-md-6 mb-4">
+						<div class="card h-100">
+							<img class="card-img-top" src="../img/chocolate-artesano-cacahuetes-miel-sal.jpg" alt="Primera">
+							<div class="card-body">
+								<h4 class="card-title">Reportes</h4>
+								<p class="card-text">Revisar las diferentes actividaes de los almacenes</p>
+							</div>
+							<div class="card-footer">
+								<a href="#" class="btn btn-primary">Find Out More!</a>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-lg-3 col-md-6 mb-4">
+						<div class="card h-100">
+							<img class="card-img-top" src="../img/chocolate-puro-artesano-72-cacao-500g.jpg" alt="Primera">
+								<div class="card-body">
+									<h4 class="card-title">Reportes2</h4>
+									<p class="card-text">Revisar las diferentes actividaes de los almacenes</p>
+								</div>
+								<div class="card-footer">
+									<a href="#" class="btn btn-primary">Find Out More!</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-
-
-</body>
-
+	</body>
 </html>
