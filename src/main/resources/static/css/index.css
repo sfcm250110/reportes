@@ -1,4 +1,4 @@
-div {
+divs {
 	border: 2px solid green;
 }
 
@@ -117,4 +117,10 @@ body {
 	height: 75%;
   	background-image: url("../img/chocolate-gourmet-negro-72-con-naranja.jpg");
   	background-size: cover;
+}
+
+
+.jumbotron {
+    padding: 1rem .5rem !important;
+    border-radius: .4rem !important;
 }
