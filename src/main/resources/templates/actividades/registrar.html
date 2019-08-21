@@ -13,90 +13,72 @@
 		<div layout:fragment="content" th:remove="tag">
 			<div class="container py-3">
 				<div class="row">
-					<div class="mx-auto col-sm-6 col-lg-11">
+					<div class="mx-auto col-sm-6 col-lg-12">
 						<div class="jumbotron">
-							<h1>Ingresar Actividades</h1>
+							<h3>Ingresar Actividades</h3>
 						</div>
 					</div>
 				</div>
 				<div class="row">
-					<div class="mx-auto col-sm-6 col-lg-6">
+					<div class="mx-auto col-sm-12 col-lg-12">
 						<div class="card">
 							<div class="card-header">
-								<h4 class="mb-0">Información</h4>
+								<h5 class="mb-0">Información</h5>
 							</div>
 							<div class="card-body">
 								<form class="form" role="form" autocomplete="off">
-									<div class="row form-group">
-										<label class="col-lg-3 col-form-label form-control-label">Población:</label>
-										<div class="col-lg-9">
-											<input class="form-control" type="text" value="Jane">
+									<div class="row mb-3">
+										<div class="col">
+											<label class="col-form-label form-control-label form-control-sm" for="poblacion-id">Población:</label>
+											<input id="poblacion-id" name="poblacion" type="text" class="form-control form-control-sm">
+										</div>
+										<div class="col">
+											<label class="col-form-label form-control-label form-control-sm" for="cliente-id">Cliente:</label>
+											<input id="cliente-id" name="cliente"type="text" class="form-control form-control-sm">
 										</div>
 									</div>
-									<div class="form-group row">
-										<label class="col-lg-3 col-form-label form-control-label">Cliente:</label>
-										<div class="col-lg-9">
-											<input class="form-control" type="text" value="Bishop">
+									
+									<div class="row mb-3">
+										<div class="col">
+											<label class="col-form-label form-control-label form-control-sm" for="visita-id">Visita:</label>
+											<input id="visita-id" name="visita" type="text" class="form-control form-control-sm">
+										</div>
+										<div class="col">
+											<label class="col-form-label form-control-label form-control-sm" for="cobro-id">Cobro:</label>
+											<input id="cobro-id" name="cobro"type="text" class="form-control form-control-sm">
 										</div>
 									</div>
-									<div class="form-group row">
-										<label class="col-lg-3 col-form-label form-control-label">Visita:</label>
-										<div class="col-lg-9">
-											<input class="form-control" type="text" value="1">
+									
+									<div class="row mb-3">
+										<div class="col">
+											<label class="col-form-label form-control-label form-control-sm" for="pedido-id">Pedido:</label>
+											<input id="pedido-id" name="pedido" type="text" class="form-control form-control-sm">
+										</div>
+										<div class="col">
+											<label class="col-form-label form-control-label form-control-sm" for="otros-id">Otros:</label>
+											<input id="otros-id" name="otros" type="text" class="form-control form-control-sm">
 										</div>
 									</div>
-									<div class="form-group row">
-										<label class="col-lg-3 col-form-label form-control-label">Cobro:</label>
-										<div class="col-lg-9">
-											<input class="form-control" type="text" value="1">
+									
+									<div class="row mb-2">
+										<div class="col">
+											<label class="col-form-label form-control-label form-control-sm" for="entrada-manana-id">Entrada mañana:</label>
+											<input id="entrada-manana-id" name="entrada-manana" type="text" class="form-control form-control-sm">
+										</div>
+										<div class="col">
+											<label class="col-form-label form-control-label form-control-sm" for="salida-manana-id">Salida mañana:</label>
+											<input id="salida-manana-id" name="salida-manana" type="text" class="form-control form-control-sm">
 										</div>
 									</div>
-									<div class="form-group row">
-										<label class="col-lg-3 col-form-label form-control-label">Pedido:</label>
-										<div class="col-lg-9">
-											<input class="form-control" type="text" value="1">
+									
+									<div class="row mb-2">
+										<div class="col">
+											<label class="col-form-label form-control-label form-control-sm" for="entrada-tarde-id">Entrada tarde:</label>
+											<input id="entrada-tarde-id" name="entrada-tarde" type="text" class="form-control form-control-sm">
 										</div>
-									</div>
-									<div class="form-group row">
-										<label class="col-lg-3 col-form-label form-control-label">Otros:</label>
-										<div class="col-lg-9">
-											<input class="form-control" type="text" value="1">
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-				<br />
-				
-				<div class="row">
-					<div class="mx-auto col-sm-6 col-lg-11">
-						<div class="card">
-							<div class="card-header">
-								<h4 class="mb-0">Horarios</h4>
-							</div>
-							<div class="card-body">
-								<form class="form" role="form" autocomplete="off">
-									<div class="form-row">
-										<div class="form-group col-md-6">
-											<label for="inputEmail4">Entrada mañana:</label>
-											<input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-										</div>
-										<div class="form-group col-md-6">
-											<label for="inputPassword4">Salida mañana:</label>
-											<input type="text" class="form-control" id="inputPassword4" placeholder="Password" value="Bishop">
-										</div>
-									</div>
-									<div class="form-row">
-										<div class="form-group col-md-6">
-											<label for="inputEmail4">Entrada tarde:</label>
-											<input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-										</div>
-										<div class="form-group col-md-6">
-											<label for="inputPassword4">Salida tarde:</label>
-											<input type="text" class="form-control" id="inputPassword4" placeholder="Password" value="Bishop">
+										<div class="col">
+											<label class="col-form-label form-control-label form-control-sm" for="salida-tarde-id">Salida tarde:</label>
+											<input id="salida-tarde-id" name="salida-tarde" type="text" class="form-control form-control-sm">
 										</div>
 									</div>
 								</form>
