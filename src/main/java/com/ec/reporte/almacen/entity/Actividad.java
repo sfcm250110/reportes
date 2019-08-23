@@ -9,7 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity(name = "ACTIVIDAD")
 public class Actividad implements Serializable {
@@ -25,7 +30,9 @@ public class Actividad implements Serializable {
 	private String elaboradoPor;
 
 	@Column
-	@NotBlank
+	@NotNull
+	@Temporal(TemporalType.TIME)
+	@DateTimeFormat(pattern ="dd-mm-yyyy HH:mm")
 	private Date fechaCreacion;
 
 	@Column
@@ -41,16 +48,16 @@ public class Actividad implements Serializable {
 	private String cliente;
 
 	@Column
-	@NotBlank
-	private String visita;
+	@NotNull
+	private Integer visita;
 
 	@Column
-	@NotBlank
-	private String cobro;
+	@NotNull
+	private Integer cobro;
 
 	@Column
-	@NotBlank
-	private String pedido;
+	@NotNull
+	private Integer pedido;
 
 	@Column
 	@NotBlank
@@ -59,21 +66,29 @@ public class Actividad implements Serializable {
 	@Column
 	@NotBlank
 	private String incidencias;
-
+	
 	@Column
-	@NotBlank
+	@NotNull
+	@Temporal(TemporalType.TIME)
+	@DateTimeFormat(pattern ="HH:mm")
 	private Date horaEntradaManana;
 
 	@Column
-	@NotBlank
+	@NotNull
+	@Temporal(TemporalType.TIME)
+	@DateTimeFormat(pattern ="HH:mm")
 	private Date horaSalidaManana;
 
 	@Column
-	@NotBlank
+	@NotNull
+	@Temporal(TemporalType.TIME)
+	@DateTimeFormat(pattern ="HH:mm")
 	private Date horaEntradaTarde;
 
 	@Column
-	@NotBlank
+	@NotNull
+	@Temporal(TemporalType.TIME)
+	@DateTimeFormat(pattern ="HH:mm")
 	private Date horaSalidaTarde;
 
 	public Actividad() {
@@ -127,27 +142,27 @@ public class Actividad implements Serializable {
 		this.cliente = cliente;
 	}
 
-	public String getVisita() {
+	public Integer getVisita() {
 		return visita;
 	}
 
-	public void setVisita(String visita) {
+	public void setVisita(Integer visita) {
 		this.visita = visita;
 	}
 
-	public String getCobro() {
+	public Integer getCobro() {
 		return cobro;
 	}
 
-	public void setCobro(String cobro) {
+	public void setCobro(Integer cobro) {
 		this.cobro = cobro;
 	}
 
-	public String getPedido() {
+	public Integer getPedido() {
 		return pedido;
 	}
 
-	public void setPedido(String pedido) {
+	public void setPedido(Integer pedido) {
 		this.pedido = pedido;
 	}
 

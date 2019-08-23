@@ -26,59 +26,59 @@
 								<h5 class="mb-0">Información</h5>
 							</div>
 							<div class="card-body">
-								<form class="form" role="form" autocomplete="off" th:action="@{/actividades/crear}" th:object="${actividad}" method="post">
+								<form class="form" role="form" autocomplete="off" th:action="@{/actividades/crear}" th:object="${crearActividad}" method="post">
 									<div class="row mb-3">
 										<div class="col">
-											<label th:text="#{form.user.nombre}" class="col-form-label form-control-label form-control-sm" for="poblacion-id">Población: </label>
-											<input id="poblacion-id" name="poblacion" type="text" class="form-control form-control-sm">
+											<label th:text="Población" class="col-form-label form-control-label form-control-sm" for="poblacion-id">Población: </label>
+											<input id="poblacion-id" name="poblacion" type="text" class="form-control form-control-sm" th:field="${crearActividad.poblacion}">
 										</div>
 										<div class="col">
 											<label class="col-form-label form-control-label form-control-sm" for="cliente-id">Cliente:</label>
-											<input id="cliente-id" name="cliente"type="text" class="form-control form-control-sm">
+											<input id="cliente-id" name="cliente"type="text" class="form-control form-control-sm" th:field="${crearActividad.cliente}">
 										</div>
 									</div>
 									
 									<div class="row mb-3">
 										<div class="col">
 											<label class="col-form-label form-control-label form-control-sm" for="visita-id">Visita:</label>
-											<input id="visita-id" name="visita" type="text" class="form-control form-control-sm">
+											<input id="visita-id" name="visita" type="number" class="form-control form-control-sm" th:field="${crearActividad.visita}">
 										</div>
 										<div class="col">
 											<label class="col-form-label form-control-label form-control-sm" for="cobro-id">Cobro:</label>
-											<input id="cobro-id" name="cobro"type="text" class="form-control form-control-sm">
+											<input id="cobro-id" name="cobro"type="number" class="form-control form-control-sm" th:field="${crearActividad.cobro}">
 										</div>
 									</div>
 									
 									<div class="row mb-3">
 										<div class="col">
 											<label class="col-form-label form-control-label form-control-sm" for="pedido-id">Pedido:</label>
-											<input id="pedido-id" name="pedido" type="text" class="form-control form-control-sm">
+											<input id="pedido-id" name="pedido" type="number" class="form-control form-control-sm" th:field="${crearActividad.pedido}" >
 										</div>
 										<div class="col">
 											<label class="col-form-label form-control-label form-control-sm" for="otros-id">Otros:</label>
-											<input id="otros-id" name="otros" type="text" class="form-control form-control-sm">
+											<input id="otros-id" name="otros" type="text" class="form-control form-control-sm" th:field="${crearActividad.otros}">
 										</div>
 									</div>
 									
 									<div class="row mb-2">
 										<div class="col">
 											<label class="col-form-label form-control-label form-control-sm" for="entrada-manana-id">Entrada mañana:</label>
-											<input id="entrada-manana-id" name="entrada-manana" type="text" class="form-control form-control-sm">
+											<input id="entrada-manana-id" name="entrada-manana" type="time" class="form-control form-control-sm" th:field="${{crearActividad.horaEntradaManana}}" >
 										</div>
 										<div class="col">
 											<label class="col-form-label form-control-label form-control-sm" for="salida-manana-id">Salida mañana:</label>
-											<input id="salida-manana-id" name="salida-manana" type="text" class="form-control form-control-sm">
+											<input id="salida-manana-id" name="salida-manana" type="time" class="form-control form-control-sm" th:field="${{crearActividad.horaSalidaManana}}">
 										</div>
 									</div>
 									
 									<div class="row mb-2">
 										<div class="col">
 											<label class="col-form-label form-control-label form-control-sm" for="entrada-tarde-id">Entrada tarde:</label>
-											<input id="entrada-tarde-id" name="entrada-tarde" type="text" class="form-control form-control-sm">
+											<input id="entrada-tarde-id" name="entrada-tarde" type="time" class="form-control form-control-sm" th:field="${{crearActividad.horaEntradaTarde}}">
 										</div>
 										<div class="col">
 											<label class="col-form-label form-control-label form-control-sm" for="salida-tarde-id">Salida tarde:</label>
-											<input id="salida-tarde-id" name="salida-tarde" type="text" class="form-control form-control-sm">
+											<input id="salida-tarde-id" name="salida-tarde" type="time" class="form-control form-control-sm" th:field="${{crearActividad.horaSalidaTarde}}">
 										</div>
 									</div>
 									

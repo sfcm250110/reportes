@@ -1,23 +1,14 @@
 package com.sc.reporte.almacen.service;
 
 import java.util.Date;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ec.reporte.almacen.entity.Actividad;
-import com.ec.reporte.almacen.entity.User;
-import com.sc.reporte.almacen.dto.ChangePasswordForm;
 import com.sc.reporte.almacen.exception.ActividadNotFound;
-import com.sc.reporte.almacen.exception.CustomeFieldValidationException;
-import com.sc.reporte.almacen.exception.UsernameOrIdNotFound;
 import com.sc.reporte.almacen.repository.ActividadRepository;
-import com.sc.reporte.almacen.repository.UserRepository;
 
 @Service
 public class ActividadServiceImpl implements ActividadService {
@@ -25,114 +16,12 @@ public class ActividadServiceImpl implements ActividadService {
 	@Autowired
 	ActividadRepository repository;
 
-
-	@Override
-	public Iterable<User> getAllActividades() {
-		return repository.findAll();
-	}
-
-	private boolean checkUsernameAvailable(User user) throws Exception {
-		Optional<User> userFound = repository.findByUsername(user.getUsername());
-		if (userFound.isPresent()) {
-			throw new CustomeFieldValidationException("Username no disponible", "username");
-		}
-		return true;
-	}
-
-	private boolean checkPasswordValid(User user) throws Exception {
-		if (user.getConfirmPassword() == null || user.getConfirmPassword().isEmpty()) {
-			throw new CustomeFieldValidationException("Confirm Password es obligatorio", "confirmPassword");
-		}
-
-		if (!user.getPassword().equals(user.getConfirmPassword())) {
-			throw new CustomeFieldValidationException("Password y Confirm Password no son iguales", "password");
-		}
-		return true;
-	}
-
-	@Override
-	public User getUserById(Long id) throws UsernameOrIdNotFound {
-		return repository.findById(id).orElseThrow(() -> new UsernameOrIdNotFound("El Id del usuario no existe."));
-	}
-
-	/**
-	 * Map everythin but the password.
-	 * 
-	 * @param from
-	 * @param to
-	 */
-	protected void mapUser(User from, User to) {
-		to.setUsername(from.getUsername());
-		to.setFirstName(from.getFirstName());
-		to.setLastName(from.getLastName());
-		to.setEmail(from.getEmail());
-		to.setRoles(from.getRoles());
-	}
-
-	@Override
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-	public void deleteUser(Long id) throws UsernameOrIdNotFound {
-		User user = getUserById(id);
-		repository.delete(user);
-	}
-
-	@Override
-	public User changePassword(ChangePasswordForm form) throws Exception {
-		User user = getUserById(form.getId());
-
-		if (!isLoggedUserADMIN() && !user.getPassword().equals(form.getCurrentPassword())) {
-			throw new Exception("Current Password invalido.");
-		}
-
-		if (user.getPassword().equals(form.getNewPassword())) {
-			throw new Exception("Nuevo debe ser diferente al password actual.");
-		}
-
-		if (!form.getNewPassword().equals(form.getConfirmPassword())) {
-			throw new Exception("Nuevo Password y Confirm Password no coinciden.");
-		}
-
-		String encodePassword = bCryptPasswordEncoder.encode(form.getNewPassword());
-		user.setPassword(encodePassword);
-		return repository.save(user);
-	}
-
-	private boolean isLoggedUserADMIN() {
-		// Obtener el usuario logeado
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-		UserDetails loggedUser = null;
-		Object roles = null;
-
-		// Verificar que ese objeto traido de sesion es el usuario
-		if (principal instanceof UserDetails) {
-			loggedUser = (UserDetails) principal;
-
-			roles = loggedUser.getAuthorities().stream().filter(x -> "ROLE_ADMIN".equals(x.getAuthority())).findFirst()
-					.orElse(null);
-		}
-		return roles != null ? true : false;
-	}
-
-	protected User getLoggedUser() throws Exception {
-		// Obtener el usuario logeado
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-		UserDetails loggedUser = null;
-
-		// Verificar que ese objeto traido de sesion es el usuario
-		if (principal instanceof UserDetails) {
-			loggedUser = (UserDetails) principal;
-		}
-
-		User myUser = repository.findByUsername(loggedUser.getUsername())
-				.orElseThrow(() -> new Exception("Error obteniendo el usuario logeado desde la sesion."));
-
-		return myUser;
-	}
-
 	@Override
 	public Actividad createActividad(Actividad actividad) throws Exception {
+		actividad.setFechaCreacion(new Date());
+		actividad.setTipo("gerencia");
+		actividad.setIncidencias("incidencia");
+		
 		actividad = repository.save(actividad);
 
 		return actividad;
@@ -140,26 +29,34 @@ public class ActividadServiceImpl implements ActividadService {
 
 	@Override
 	public Actividad updateActividad(Actividad actividad) throws ActividadNotFound {
-		User toUser = getUserById(actividad.getId());
-		mapUser(actividad, toUser);
-		return repository.save(toUser);
+		return repository.save(actividad);
 	}
 
 	@Override
-	public Actividad findByElaboradoPor(Long id) throws ActividadNotFound {
-		// TODO Auto-generated method stub
-		return null;
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+	public void deleteActividad(Long id) throws ActividadNotFound {
+		Actividad actividad = findById(id);
+		repository.delete(actividad);
+	}
+
+	@Override
+	public Iterable<Actividad> getAllActividades() {
+		return repository.findAll();
+	}
+
+	@Override
+	public Actividad findById(Long id) throws ActividadNotFound {
+		return repository.findById(id).orElseThrow(() -> new ActividadNotFound("El Id de la actividad no existe."));
+	}
+
+	@Override
+	public Actividad findByElaboradoPor(String username) throws ActividadNotFound {
+		return repository.findByElaboradoPor(username).orElseThrow(() -> new ActividadNotFound("No existe la persona quien elaboro la actividad."));
 	}
 
 	@Override
 	public Actividad findByFechaCreacion(Date fechaCreacion) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.findByFechaCreacion(fechaCreacion).orElseThrow(() -> new ActividadNotFound("No existe la fecha de creacion de la actividad."));
 	}
 
-	@Override
-	public void deleteActividad(Long id) throws ActividadNotFound {
-		// TODO Auto-generated method stub
-		
-	}
 }

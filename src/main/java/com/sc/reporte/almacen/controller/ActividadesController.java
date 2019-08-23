@@ -1,95 +1,91 @@
 package com.sc.reporte.almacen.controller;
 
-import java.util.stream.Collectors;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import com.ec.reporte.almacen.entity.User;
-import com.sc.reporte.almacen.dto.ChangePasswordForm;
+import com.ec.reporte.almacen.entity.Actividad;
 import com.sc.reporte.almacen.exception.CustomeFieldValidationException;
-import com.sc.reporte.almacen.repository.RoleRepository;
-import com.sc.reporte.almacen.service.UserService;
+import com.sc.reporte.almacen.service.ActividadService;
 
 @Controller
 public class ActividadesController {
 
 	@Autowired
-	UserService userService;
+	ActividadService actividadService;
 
-	@Autowired
-	RoleRepository roleRepository;
-	
 	@GetMapping("/registrar")
 	public String users(Model model) {
-		model.addAttribute("userForm", new User());
-		model.addAttribute("userList", userService.getAllUsers());
-		model.addAttribute("roles", roleRepository.findAll());
-		model.addAttribute("listTab", "active");
+		model.addAttribute("crearActividad", new Actividad());
+		model.addAttribute("actividades", actividadService.getAllActividades());
 		
 		return "actividades/registrar";
 	}
 	
-	@GetMapping("/form")
-    public String showUserForm(Model model){
-        model.addAttribute("usuario", new Usuario());
-        return "userForm";
-    }
+	@PostMapping("/actividades/crear")
+	public String createActividad(@Valid @ModelAttribute("crearActividad") Actividad actividad, BindingResult result, ModelMap model) {
+		try {
+			actividadService.createActividad(actividad);
+			
+			for (Actividad actividadTmp : actividadService.getAllActividades()) {
+				System.out.println(actividadTmp.getPoblacion());
+			}
+			
+			model.addAttribute("crearActividad", new Actividad());
 
-    @RequestMapping("/create")
-    public ModelAndView createUser(@Valid Usuario user, BindingResult result) {
-        ModelAndView model = new ModelAndView();
-        model.addObject("usuario", user);
-        model.setViewName(result.hasErrors() ? "userForm" : "userReady"); 
-        return model;
-    }
-	
-	@PostMapping("/userForm")
-	public String createUser(@Valid @ModelAttribute("userForm") User user, BindingResult result, ModelMap model) {
+		} catch (CustomeFieldValidationException cfve) {
+			result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
+			model.addAttribute("crearActividad", new Actividad());
+			
+		} catch (Exception e) {
+			model.addAttribute("formErrorMessage", e.getMessage());
+			model.addAttribute("crearActividad", new Actividad());
+		}
+		
+		/*
 		if (result.hasErrors()) {
-			model.addAttribute("userForm", user);
-			model.addAttribute("formTab", "active");
+			model.addAttribute("crearActividad", actividad);
+			System.out.println("aqui 2");
+			
 		} else {
 			try {
-				userService.createUser(user);
-				model.addAttribute("userForm", new User());
-				model.addAttribute("listTab", "active");
+				System.out.println("aqui 3");
+				System.out.println(actividad.getPoblacion());
+				actividadService.createActividad(actividad);
+				
+				for (Actividad actividadTmp : actividadService.getAllActividades()) {
+					System.out.println(actividadTmp);
+				}
+				
+				model.addAttribute("crearActividad", new Actividad());
 
 			} catch (CustomeFieldValidationException cfve) {
 				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
-				model.addAttribute("userForm", user);
-				model.addAttribute("formTab", "active");
-				model.addAttribute("userList", userService.getAllUsers());
-				model.addAttribute("roles", roleRepository.findAll());
+				model.addAttribute("crearActividad", new Actividad());
+				
 			} catch (Exception e) {
 				model.addAttribute("formErrorMessage", e.getMessage());
-				model.addAttribute("userForm", user);
-				model.addAttribute("formTab", "active");
-				model.addAttribute("userList", userService.getAllUsers());
-				model.addAttribute("roles", roleRepository.findAll());
+				model.addAttribute("crearActividad", new Actividad());
 			}
 		}
+		*/
 
-		model.addAttribute("userList", userService.getAllUsers());
-		model.addAttribute("roles", roleRepository.findAll());
-		return "user-form/user-view";
+		return "actividades/registrar";
 	}
 	
 	
 
 	
 
+	// TODO: revisar
+	/*
 	@GetMapping("/consultar")
 	public String consultar(Model model) {
 		model.addAttribute("userForm", new User());
@@ -120,4 +116,5 @@ public class ActividadesController {
 		}
 		return ResponseEntity.ok("Success");
 	}
+	*/
 }
