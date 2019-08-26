@@ -14,22 +14,16 @@
 							<span>Inicio</span>
 						</a>
 					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="actividadesDropdownId"
-							role="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false">
+					<li class="nav-item">
+						<a class="nav-link" href="#" th:href="@{/registrar}">
 							<span>Actividades</span>
 						</a>
-						<div class="dropdown-menu" aria-labelledby="actividadesDropdownId">
-							<a class="dropdown-item" href="#" th:href="@{/registrar}">
-								<span>Registrar</span>
-							</a>
-							<a class="dropdown-item" href="#" th:href="@{/consultar}">
-								<span>Consultar</span>
-							</a>
-						</div>
 					</li>
-
+					<li class="nav-item">
+						<a class="nav-link" href="#" th:href="@{/consultar}">
+							<span>Consultar</span>
+						</a>
+					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#" th:href="@{/usuarios}">
 							<span>Usuarios</span>

@@ -31,27 +31,21 @@
 						<h5 class="card-title text-center text-uppercase">Bienvenido</h5>
 						<form class="form-signin" th:action="@{/login}" method="post">
 							<div class="form-label-group">
-								<input type="text" id="usernameId" name="username"
-									class="form-control" placeholder="Username"
-									required autofocus> <label
-									for="username">Usuario</label>
+								<input type="text" id="usernameId" name="username" class="form-control" placeholder="Username" required autofocus>
+								<label for="username">Usuario</label>
 							</div>
 
 							<div class="form-label-group">
-								<input type="password" id="passwordId" name="password"
-									class="form-control" placeholder="Email address"
-									required> <label for="password">Password</label>
+								<input type="password" id="passwordId" name="password" class="form-control" placeholder="Email address" required>
+								<label for="password">Password</label>
 							</div>
 
-							<button type="submit"
-								class="btn btn-lg btn-primary btn-block mt-4">Ingresar</button>
+							<button type="submit" class="btn btn-lg btn-primary btn-block mt-4">Ingresar</button>
 						</form>
-						<div th:if="${param.error}" class="mt-5 alert alert-danger"
-							role="alert">
+						<div th:if="${param.error}" class="mt-5 alert alert-danger" role="alert">
 							Usuario o password incorrectas.
 						</div>
-						<div th:if="${param.logout}" class="mt-5 alert alert-success"
-							role="alert">
+						<div th:if="${param.logout}" class="mt-5 alert alert-success" role="alert">
 							Sesion finalizada exitosamente.
 						</div>
 					</div>

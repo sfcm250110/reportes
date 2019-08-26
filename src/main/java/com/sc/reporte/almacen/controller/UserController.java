@@ -36,11 +36,6 @@ public class UserController {
 	@Autowired
 	RoleRepository roleRepository;
 
-	@GetMapping({ "/", "/login" })
-	public String index() {
-		return "index";
-	}
-
 	@GetMapping("/signup")
 	public String signup(Model model) {
 		Role userRole = roleRepository.findByName("USER");
@@ -52,28 +47,6 @@ public class UserController {
 		return "user-form/user-signup";
 	}
 
-	@PostMapping("/signup")
-	public String signupAction(@Valid @ModelAttribute("userForm") User user, BindingResult result, ModelMap model) {
-		Role userRole = roleRepository.findByName("USER");
-		List<Role> roles = Arrays.asList(userRole);
-		model.addAttribute("userForm", user);
-		model.addAttribute("roles", roles);
-		model.addAttribute("signup", true);
-
-		if (result.hasErrors()) {
-			return "user-form/user-signup";
-		} else {
-			try {
-				userService.createUser(user);
-			} catch (CustomeFieldValidationException cfve) {
-				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
-			} catch (Exception e) {
-				model.addAttribute("formErrorMessage", e.getMessage());
-			}
-		}
-		return index();
-	}
-
 	@GetMapping("/userForm")
 	public String userForm(Model model) {
 		model.addAttribute("userForm", new User());
@@ -83,15 +56,6 @@ public class UserController {
 		return "user-form/user-view";
 	}
 	
-	@GetMapping("/home1")
-	public String userhome(Model model) {
-		model.addAttribute("userForm", new User());
-		model.addAttribute("userList", userService.getAllUsers());
-		model.addAttribute("roles", roleRepository.findAll());
-		model.addAttribute("listTab", "active");
-		return "home1";
-	}
-
 	@PostMapping("/userForm")
 	public String createUser(@Valid @ModelAttribute("userForm") User user, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {

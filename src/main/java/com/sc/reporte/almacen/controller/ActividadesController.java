@@ -1,5 +1,7 @@
 package com.sc.reporte.almacen.controller;
 
+import java.io.IOException;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.ec.reporte.almacen.entity.Actividad;
+import com.itextpdf.text.DocumentException;
 import com.sc.reporte.almacen.exception.CustomeFieldValidationException;
+import com.sc.reporte.almacen.reportes.ReporteHelper;
 import com.sc.reporte.almacen.service.ActividadService;
 
 @Controller
@@ -80,7 +84,23 @@ public class ActividadesController {
 		return "actividades/registrar";
 	}
 	
-	
+	@GetMapping("/consultar")
+	public String consultar(Model model) {
+		model.addAttribute("actividades", actividadService.getAllActividades());
+		
+		try {
+			ReporteHelper.generarReporte();
+			
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "actividades/consultar";
+	}
 
 	
 
@@ -96,11 +116,6 @@ public class ActividadesController {
 		return "actividades/consultar";
 	}
 
-	@GetMapping("/home")
-	public String home(Model model) {
-		return "home";
-	}
-	
 	@PostMapping("agregar")
 	public ResponseEntity agregar(@Valid @RequestBody ChangePasswordForm form, Errors errors) {
 		try {
