@@ -88,16 +88,7 @@ public class ActividadesController {
 	public String consultar(Model model) {
 		model.addAttribute("actividades", actividadService.getAllActividades());
 		
-		try {
-			ReporteHelper.generarReporte();
-			
-		} catch (DocumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		ReporteHelper.generarReporteXml();
 		
 		return "actividades/consultar";
 	}
