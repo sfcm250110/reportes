@@ -110,5 +110,3 @@ CREATE TABLE ACTIVIDAD(
 	VISITA					INT														NOT NULL
 );
 */
-
-INSERT INTO USUARIO (EMAIL, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME) VALUES ('admin@admin.com', 'admin', 'admin', '$2a$04$/ziyQDLsLLPnhjR.Xb.UO.8hlPzXEWGmsyBrFpM/9W1U5kxAJmSVW', 'admin');

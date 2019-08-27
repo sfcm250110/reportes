@@ -22,7 +22,7 @@ public class HelperXml implements Serializable {
 
                 openTag.append(ConstantesXml.TAG_INIT_OPEN);
                 openTag.append(nombreTag);
-                openTag.append(ConstantesXml.TAG_INIT_OPEN);
+                openTag.append(ConstantesXml.TAG_INIT_CLOSE);
 
                 return openTag.toString();
         }
