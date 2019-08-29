@@ -1,8 +1,10 @@
 package com.sc.reporte.almacen.controller;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.validation.Valid;
+import javax.xml.transform.TransformerException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.ec.reporte.almacen.entity.Actividad;
-import com.itextpdf.text.DocumentException;
 import com.sc.reporte.almacen.exception.CustomeFieldValidationException;
 import com.sc.reporte.almacen.reportes.ReporteHelper;
 import com.sc.reporte.almacen.service.ActividadService;
@@ -84,11 +85,22 @@ public class ActividadesController {
 		return "actividades/registrar";
 	}
 	
+	public static final String TARGET = "target/results/ch01/";
+	public static final String BASEURI = "src/main/resources/html/";
+	public static final String DEST = String.format("%stest-03.pdf", TARGET);
+	
 	@GetMapping("/consultar")
 	public String consultar(Model model) {
 		model.addAttribute("actividades", actividadService.getAllActividades());
 		
-		ReporteHelper.generarReporteXml();
+		try {
+			File file = new File(TARGET);
+			file.mkdirs();
+			ReporteHelper.createPdf(BASEURI, DEST);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return "actividades/consultar";
 	}
