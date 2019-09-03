@@ -3,50 +3,121 @@ body {
 	font-size: 11px;
 }
 
-.center {
-	max-width: 100%;
-	margin:auto;
-}
-
-
-
-
-
-
-body {
-	font-family: Calibri, Myriad;
-	font-size: 11px;
-}
-
-tr td, th { 
-	border-top-right-radius: 0;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0; 
-    border-bottom-right-radius: 0; 
-}
-
-.center {
-	max-width: 100%;
-	margin: auto;
+td {	
+	padding: 0;
 }
 
 .reporte {
-	border-collapse: collapse;
-	border: 1px solid #fff;
+	width: 100%;
+	table-layout: fixed;
+	border-collapse: collapse;	
 	border-style: hidden;
 }
 
-.reporte-cabecera {
+.titulo-cabecera {
 	padding: 10px;
-	background-color: #f79646;
 	color: #fff;
-	font-size: 12px;
+	font-size: x-large;
 	font-weight: bold;
 	letter-spacing: .4em;
+	text-align: center;
+	border-width: 1px;	
+	border-style: solid;	
+	border-color: #f79646;
+	background-color: #f79646;
 }
 
-.reporte-subtitulo {
+.titulo-reporte {
 	padding: 5px;
+	font-size: 14px;
+	font-weight: bold;
+	letter-spacing: .3em;
+	text-align: center;
+	border-width: 1px;	
+	border-style: solid;	
+	border-color: #f79646;
 	background-color: #fde9d9;
-	font-size: 11px;
+}
+
+.nombre-reporte {
+	color: red;
+}
+
+.label {
+	padding-bottom: 5px;
+	padding-top: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
+	text-align: left;
+	font-weight: bold;
+	font-size: 10px;
+	background-color: #ffffff;
+}
+
+.value {
+	padding-bottom: 5px;
+	padding-top: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
+	text-align: left;
+	font-weight: normal;
+	font-size: 10px;
+	background-color: #ffffff;
+}
+
+.border-left {
+	border-left-width: 1px;
+	border-right-width: 0;
+	border-top-width: 0;
+	border-bottom-width: 0;
+	border-style: solid;	
+	border-color: #f79646;
+}
+
+.border-right {
+	border-left-width: 0;
+	border-right-width: 1px;
+	border-top-width: 0;
+	border-bottom-width: 0;
+	border-style: solid;	
+	border-color: #f79646;
+}
+
+.subtitulo-cabecera {
+	padding: 1px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 8px;
+	background-color: #dbdada;
+	border-width: 1px;
+	border-style: solid;	
+	border-color: #f79646;
+}
+
+.data {
+	text-align: center;
+	font-weight: normal;
+	font-size: 7px;
+	border-width: 1px;
+	border-style: solid;	
+	border-color: #f79646;	
+}
+
+.data-footer {
+	text-align: center;
+	font-weight: bold;
+	font-size: 8px;
+	padding: 1px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #f79646;		
+	background-color: #dbdada;
+}
+
+.odd {
+	background-color: #ffffff;	
+}
+
+.even {
+	background-color: #fde9d9;	
 }
