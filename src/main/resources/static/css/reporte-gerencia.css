@@ -3,11 +3,31 @@ body {
 	font-size: 11px;
 }
 
+.center {
+	max-width: 100%;
+	margin:auto;
+}
+
+
+
+
+
+
+body {
+	font-family: Calibri, Myriad;
+	font-size: 11px;
+}
+
 tr td, th { 
-	border-top-right-radius: 0;               
-    border-top-left-radius: 0; 
+	border-top-right-radius: 0;
+    border-top-left-radius: 0;
     border-bottom-left-radius: 0; 
     border-bottom-right-radius: 0; 
+}
+
+.center {
+	max-width: 100%;
+	margin: auto;
 }
 
 .reporte {
