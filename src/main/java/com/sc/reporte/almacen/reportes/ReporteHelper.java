@@ -25,6 +25,11 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;*/
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
+import com.itextpdf.styledxmlparser.css.media.MediaType;
 import com.sc.reporte.almacen.reportes.xml.ReporteGerenciaXml;
 
 public class ReporteHelper implements Serializable {	
@@ -36,11 +41,27 @@ public class ReporteHelper implements Serializable {
     	String xslPath = "src/main/resources/static/xsl/ReporteGerencia.xsl";
     	String conenidoXml = generarReporteXml();
     	
-        ConverterProperties properties = new ConverterProperties();
+    	ConverterProperties properties = new ConverterProperties();
         properties.setBaseUri(baseUri);
         
+        
+    	//
+    	PdfWriter writer = new PdfWriter(dest);
+    	PdfDocument pdf = new PdfDocument(writer);
+    	pdf.setTagged();
+    	PageSize pageSize = PageSize.A4;
+    	//PageSize pageSize = PageSize.A4.rotate();
+    	pdf.setDefaultPageSize(pageSize);
+    	
+    	MediaDeviceDescription mediaDeviceDescription = new MediaDeviceDescription(MediaType.SCREEN);
+    	mediaDeviceDescription.setWidth(pageSize.getWidth());
+    	properties.setMediaDeviceDescription(mediaDeviceDescription);
+    	//
+    	
+    	
         byte[] html = createHtml(conenidoXml, xslPath);
-        HtmlConverter.convertToPdf(new ByteArrayInputStream(html), new FileOutputStream(dest), properties);
+        //HtmlConverter.convertToPdf(new ByteArrayInputStream(html), new FileOutputStream(dest), properties);
+        HtmlConverter.convertToPdf(new ByteArrayInputStream(html), pdf, properties);
     }
     
     public static byte[] createHtml(String pContenidoXml, String xslPath) throws IOException, TransformerException {

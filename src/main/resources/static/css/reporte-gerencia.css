@@ -1,7 +1,6 @@
 body {
-	background-color: #f6f6ff;
 	font-family: Calibri, Myriad;
-	width: 100%;
+	font-size: 11px;
 }
 
 tr td, th { 
@@ -11,105 +10,23 @@ tr td, th {
     border-bottom-right-radius: 0; 
 }
 
-table.reporte {
-	margin: 0 auto;
+.reporte {
 	border-collapse: collapse;
 	border: 1px solid #fff;
 	border-style: hidden;
 }
 
-table.reporte caption {
+.reporte-cabecera {
 	padding: 10px;
 	background-color: #f79646;
 	color: #fff;
-	font-size: x-large;
+	font-size: 12px;
 	font-weight: bold;
-	letter-spacing: .3em;
+	letter-spacing: .4em;
 }
 
-table.reporte thead th {
+.reporte-subtitulo {
 	padding: 5px;
 	background-color: #fde9d9;
-	font-size: large;
-}
-
-table.reporte th, table.reporte td {
-	padding: 3px;
-	border-width: 1px;
-	border-style: solid;
-	border-color: #f79646;
-}
-
-table.reporte td {
-	text-align: center;
-}
-
-table.reporte tbody th {
-	text-align: left;
-	font-weight: normal;
-}
-
-table.reporte tfoot {
-	font-weight: bold;
-	font-size: large;
-	background-color: #ddd;
-	color: #000;
-}
-
-table.reporte tr.even {
-	background-color: #fde9d9;
-}
-
-.titulo-reporte {
-	color: red;
-}
-
-.align-left {
-	text-align: left;
-}
-
-.font-weight-normal {
-	font-weight: normal;
-}
-
-.no-border-bottom {
-	border-bottom-style: hidden !important;
-}
-
-.no-border-right {
-	border-right-style: hidden !important;
-}
-
-.no-border-left {
-	border-left-style: hidden !important;
-}
-
-.height-25 {
-	height: 25px;
-}
-
-.background-datos1 {
-	background-color: #fff !important;
-}
-
-.border-top-radius { 
-    border-top-left-radius: 10px;
-	border-top-right-radius: 10px;
-}
-
-.border-bottom-left-radius { 
-    border-bottom-left-radius: 10px;
-}
-
-.border-bottom-right-radius { 
-    border-bottom-right-radius: 10px;
-}
-
-.border-bottom-radius { 
-    border-bottom-left-radius: 10px;
-	border-bottom-right-radius: 10px;
-}
-
-.padding-5 {
-	padding: 5px !important;
+	font-size: 11px;
 }
