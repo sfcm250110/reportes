@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -32,7 +33,7 @@ public class Actividad implements Serializable {
 	@Column
 	@NotNull
 	@Temporal(TemporalType.TIME)
-	@DateTimeFormat(pattern ="dd-mm-yyyy HH:mm")
+	@DateTimeFormat(pattern = "dd-mm-yyyy HH:mm")
 	private Date fechaCreacion;
 
 	@Column
@@ -66,30 +67,36 @@ public class Actividad implements Serializable {
 	@Column
 	@NotBlank
 	private String incidencias;
-	
+
 	@Column
 	@NotNull
 	@Temporal(TemporalType.TIME)
-	@DateTimeFormat(pattern ="HH:mm")
+	@DateTimeFormat(pattern = "HH:mm")
 	private Date horaEntradaManana;
 
 	@Column
 	@NotNull
 	@Temporal(TemporalType.TIME)
-	@DateTimeFormat(pattern ="HH:mm")
+	@DateTimeFormat(pattern = "HH:mm")
 	private Date horaSalidaManana;
 
 	@Column
 	@NotNull
 	@Temporal(TemporalType.TIME)
-	@DateTimeFormat(pattern ="HH:mm")
+	@DateTimeFormat(pattern = "HH:mm")
 	private Date horaEntradaTarde;
 
 	@Column
 	@NotNull
 	@Temporal(TemporalType.TIME)
-	@DateTimeFormat(pattern ="HH:mm")
+	@DateTimeFormat(pattern = "HH:mm")
 	private Date horaSalidaTarde;
+
+	@Transient
+	private String horaOrdinarias;
+
+	@Transient
+	private String horaExtras;
 
 	public Actividad() {
 	}
@@ -212,6 +219,22 @@ public class Actividad implements Serializable {
 
 	public void setHoraSalidaTarde(Date horaSalidaTarde) {
 		this.horaSalidaTarde = horaSalidaTarde;
+	}
+
+	public String getHoraOrdinarias() {
+		return horaOrdinarias;
+	}
+
+	public void setHoraOrdinarias(String horaOrdinarias) {
+		this.horaOrdinarias = horaOrdinarias;
+	}
+
+	public String getHoraExtras() {
+		return horaExtras;
+	}
+
+	public void setHoraExtras(String horaExtras) {
+		this.horaExtras = horaExtras;
 	}
 
 }

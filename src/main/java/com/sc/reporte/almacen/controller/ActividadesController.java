@@ -2,6 +2,7 @@ package com.sc.reporte.almacen.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.validation.Valid;
 import javax.xml.transform.TransformerException;
@@ -91,12 +92,14 @@ public class ActividadesController {
 	
 	@GetMapping("/consultar")
 	public String consultar(Model model) {
-		model.addAttribute("actividades", actividadService.getAllActividades());
-		
 		try {
+			List<Actividad> actividades = (List<Actividad>) actividadService.getAllActividades();
+			
 			File file = new File(TARGET);
 			file.mkdirs();
-			ReporteHelper.createPdf(BASEURI, DEST);
+			ReporteHelper.createPdf(BASEURI, DEST, actividades);
+			
+			model.addAttribute("actividades", actividades);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

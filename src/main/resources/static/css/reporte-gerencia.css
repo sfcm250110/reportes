@@ -28,7 +28,7 @@ td {
 }
 
 .titulo-reporte {
-	padding: 5px;
+	padding: 3px;
 	font-size: 14px;
 	font-weight: bold;
 	letter-spacing: .3em;
@@ -88,7 +88,7 @@ td {
 	text-align: center;
 	font-weight: bold;
 	font-size: 8px;
-	background-color: #dbdada;
+	background-color: #F2F4F4;
 	border-width: 1px;
 	border-style: solid;	
 	border-color: #f79646;
@@ -97,7 +97,7 @@ td {
 .data {
 	text-align: center;
 	font-weight: normal;
-	font-size: 7px;
+	font-size: 8px;
 	border-width: 1px;
 	border-style: solid;	
 	border-color: #f79646;	
@@ -111,7 +111,7 @@ td {
 	border-width: 1px;
 	border-style: solid;
 	border-color: #f79646;		
-	background-color: #dbdada;
+	background-color: #F2F4F4;
 }
 
 .odd {

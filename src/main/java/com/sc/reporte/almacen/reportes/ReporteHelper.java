@@ -3,13 +3,12 @@ package com.sc.reporte.almacen.reportes;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Serializable;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.xml.transform.Transformer;
@@ -31,15 +30,18 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.css.media.MediaType;
 import com.sc.reporte.almacen.reportes.xml.ReporteGerenciaXml;
+import com.sc.reporte.almacen.to.ReporteTo;
+import com.sc.reporte.almacen.util.ConstantesXml;
+import com.sc.reporte.almacen.util.HelperXml;
 
 public class ReporteHelper implements Serializable {	
 
     private static final long serialVersionUID = -6248350878202528123L;
     
-    public static void createPdf(String baseUri, String dest) throws IOException, TransformerException {
+    public static void createPdf(String baseUri, String dest, List<Actividad> pActividades) throws IOException, TransformerException {
     //public static void createPdf(byte[] html, String baseUri, String dest) throws IOException {
     	String xslPath = "src/main/resources/static/xsl/ReporteGerencia.xsl";
-    	String conenidoXml = generarReporteXml();
+    	String conenidoXml = generarReporteXml(pActividades);
     	
     	ConverterProperties properties = new ConverterProperties();
         properties.setBaseUri(baseUri);
@@ -78,12 +80,30 @@ public class ReporteHelper implements Serializable {
         return baos.toByteArray();
 	}
     
-    public static String generarReporteXml() {
-        String titulo = "Reporte de Gerencia";
-        List<Actividad> actividades = new ArrayList<Actividad>();
-
+    public static String generarReporteXml(List<Actividad> pActividades) {
+    	ReporteTo reporteTo = new ReporteTo();
+    	reporteTo.setNumero(generarNumeroReporte());
+    	reporteTo.setElaboradoPor("Santiago Cabrera M.");
+    	reporteTo.setFecha("03/09/2019 - 20:22");
+    	reporteTo.setTotalEntradaManana("3");
+    	reporteTo.setTotalSalidaManana("6");
+    	reporteTo.setTotalEntradaTarde("9");
+		reporteTo.setTotalSalidaTarde("1");
+		reporteTo.setTotalOrdinarias("2");
+		reporteTo.setTotalExtras("3");
+		reporteTo.setTotalPoblacion("4");
+		reporteTo.setTotalCliente("5");
+		reporteTo.setTotalVisita("6");
+		reporteTo.setTotalCobro("7");
+		reporteTo.setTotalPedido("8");
+		reporteTo.setTotalOtros("9");
+		reporteTo.setTotalIncidencias("0");
+        
+    	/*List<Actividad> actividades = new ArrayList<Actividad>();
         Actividad actividad = new Actividad();
         actividad.setId(1L);
+        actividad.setHoraEntradaManana(new Date());
+        actividad.setHoraSalidaManana(new Date());
         actividad.setPoblacion("Alicante");
         actividades.add(actividad);
 
@@ -101,8 +121,11 @@ public class ReporteHelper implements Serializable {
         actividad.setId(4L);
         actividad.setPoblacion("Canarias");
         actividades.add(actividad);
+        
+        reporteTo.setActividades(actividades);*/
+		reporteTo.setActividades(pActividades);
 
-        String reporteGerenciaXml = ReporteGerenciaXml.generarXml(titulo, actividades);
+        String reporteGerenciaXml = ReporteGerenciaXml.generarXml(reporteTo);
         System.out.println(reporteGerenciaXml);
         
         
@@ -149,5 +172,11 @@ public class ReporteHelper implements Serializable {
         System.out.println( "PDF Created!" );
     }
     */
+    
+    private static String generarNumeroReporte() {
+    	String numeroReporte = "00001";
+    	
+    	return numeroReporte;
+    }
 
 }

@@ -17,13 +17,13 @@
 					</tr>
 					<tr>
 						<td colspan="1" class="label border-left">Reporte:</td>
-						<td colspan="12" class="value border-right"><xsl:value-of select="reporteGerencia/titulo"/></td>
+						<td colspan="12" class="value border-right"><xsl:value-of select="reporteGerencia/numero"/></td>
 					</tr>
 					<tr>
 						<td colspan="1" class="label border-left">Elaborado:</td>
-						<td colspan="9" class="value"><xsl:value-of select="reporteGerencia/titulo"/></td>
+						<td colspan="9" class="value"><xsl:value-of select="reporteGerencia/elaboradoPor"/></td>
 						<td colspan="1" class="label">Fecha:</td>
-						<td colspan="2" class="value border-right"><xsl:value-of select="reporteGerencia/titulo"/></td>
+						<td colspan="2" class="value border-right"><xsl:value-of select="reporteGerencia/fecha"/></td>
 					</tr>
 					<tr>
 						<td colspan="6" class="subtitulo-cabecera">Horarios</td>
@@ -48,80 +48,37 @@
 						<td class="subtitulo-cabecera">Ordinarias</td>
 						<td class="subtitulo-cabecera">Extra</td>
 					</tr>
-					<tr class="odd">
-						<td class="data">1</td>
-						<td class="data">2</td>
-						<td class="data">3</td>
-						<td class="data">4</td>
-						<td class="data">5</td>
-						<td class="data">6</td>
-						<td class="data">7</td>
-						<td class="data">8</td>
-						<td class="data">9</td>
-						<td class="data">10</td>
-						<td class="data">11</td>
-						<td class="data">12</td>
-						<td class="data">13</td>
-					</tr>
-					<tr class="even">
-						<td class="data">1</td>
-						<td class="data">2</td>
-						<td class="data">3</td>
-						<td class="data">4</td>
-						<td class="data">5</td>
-						<td class="data">6</td>
-						<td class="data">7</td>
-						<td class="data">8</td>
-						<td class="data">9</td>
-						<td class="data">10</td>
-						<td class="data">11</td>
-						<td class="data">12</td>
-						<td class="data">13</td>
-					</tr>
-					<tr class="odd">
-						<td class="data">1</td>
-						<td class="data">2</td>
-						<td class="data">3</td>
-						<td class="data">4</td>
-						<td class="data">5</td>
-						<td class="data">6</td>
-						<td class="data">7</td>
-						<td class="data">8</td>
-						<td class="data">9</td>
-						<td class="data">10</td>
-						<td class="data">11</td>
-						<td class="data">12</td>
-						<td class="data">13</td>
-					</tr>
-					<tr class="even">
-						<td class="data">1</td>
-						<td class="data">2</td>
-						<td class="data">3</td>
-						<td class="data">4</td>
-						<td class="data">5</td>
-						<td class="data">6</td>
-						<td class="data">7</td>
-						<td class="data">8</td>
-						<td class="data">9</td>
-						<td class="data">10</td>
-						<td class="data">11</td>
-						<td class="data">12</td>
-						<td class="data">13</td>
-					</tr>
+					<xsl:for-each select="reporteGerencia/actividades/actividad">
+						<tr>
+							<td class="data"><xsl:value-of select="horaEntradaManana"/></td>
+							<td class="data"><xsl:value-of select="horaSalidaManana" /></td>
+							<td class="data"><xsl:value-of select="horaEntradaTarde"/></td>
+							<td class="data"><xsl:value-of select="horaSalidaTarde" /></td>
+							<td class="data"><xsl:value-of select="horaEntradaManana"/></td>
+							<td class="data"><xsl:value-of select="horaSalidaManana" /></td>
+							<td class="data"><xsl:value-of select="poblacion"/></td>
+							<td class="data"><xsl:value-of select="cliente" /></td>
+							<td class="data"><xsl:value-of select="visita"/></td>
+							<td class="data"><xsl:value-of select="cobro" /></td>
+							<td class="data"><xsl:value-of select="pedido"/></td>
+							<td class="data"><xsl:value-of select="otros" /></td>
+							<td class="data"><xsl:value-of select="incidencias"/></td>
+						</tr>
+					</xsl:for-each>
 					<tr>
-						<td class="data-footer">Total:</td>
-						<td class="data-footer">3</td>
-						<td class="data-footer">6</td>
-						<td class="data-footer">9</td>
-						<td class="data-footer">15</td>
-						<td class="data-footer">18</td>
-						<td class="data-footer">21</td>
-						<td class="data-footer">24</td>
-						<td class="data-footer">27</td>
-						<td class="data-footer">30</td>
-						<td class="data-footer">33</td>
-						<td class="data-footer">36</td>
-						<td class="data-footer">39</td>
+						<td class="data-footer"><xsl:value-of select="reporteGerencia/totalEntradaManana"/></td>
+						<td class="data-footer"><xsl:value-of select="reporteGerencia/totalSalidaManana"/></td>
+						<td class="data-footer"><xsl:value-of select="reporteGerencia/totalEntradaTarde"/></td>
+						<td class="data-footer"><xsl:value-of select="reporteGerencia/totalSalidaTarde"/></td>
+						<td class="data-footer"><xsl:value-of select="reporteGerencia/totalOrdinarias"/></td>
+						<td class="data-footer"><xsl:value-of select="reporteGerencia/totalExtras"/></td>
+						<td class="data-footer"><xsl:value-of select="reporteGerencia/totalPoblacion"/></td>
+						<td class="data-footer"><xsl:value-of select="reporteGerencia/totalCliente"/></td>
+						<td class="data-footer"><xsl:value-of select="reporteGerencia/totalVisita"/></td>
+						<td class="data-footer"><xsl:value-of select="reporteGerencia/totalCobro"/></td>
+						<td class="data-footer"><xsl:value-of select="reporteGerencia/totalPedido"/></td>
+						<td class="data-footer"><xsl:value-of select="reporteGerencia/totalOtros"/></td>
+						<td class="data-footer"><xsl:value-of select="reporteGerencia/totalIncidencias"/></td>
 					</tr>
 				</table>
 			</body>
