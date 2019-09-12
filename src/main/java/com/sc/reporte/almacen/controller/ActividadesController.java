@@ -1,20 +1,25 @@
 package com.sc.reporte.almacen.controller;
 
-import java.io.File;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.xml.transform.TransformerException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ec.reporte.almacen.entity.Actividad;
 import com.sc.reporte.almacen.exception.CustomeFieldValidationException;
@@ -23,6 +28,8 @@ import com.sc.reporte.almacen.service.ActividadService;
 
 @Controller
 public class ActividadesController {
+	
+	private static final String APPLICATION_PDF = "application/pdf";
 
 	@Autowired
 	ActividadService actividadService;
@@ -95,9 +102,9 @@ public class ActividadesController {
 		try {
 			List<Actividad> actividades = (List<Actividad>) actividadService.getAllActividades();
 			
-			File file = new File(TARGET);
+			/*File file = new File(TARGET);
 			file.mkdirs();
-			ReporteHelper.createPdf(BASEURI, DEST, actividades);
+			ReporteHelper.createPdf(BASEURI, DEST, actividades);*/
 			
 			model.addAttribute("actividades", actividades);
 			
@@ -107,9 +114,7 @@ public class ActividadesController {
 		
 		return "actividades/consultar";
 	}
-
 	
-
 	// TODO: revisar
 	/*
 	@GetMapping("/consultar")
@@ -138,4 +143,21 @@ public class ActividadesController {
 		return ResponseEntity.ok("Success");
 	}
 	*/
+	
+	@GetMapping(value = "/reporteGerencia", produces = MediaType.APPLICATION_PDF_VALUE)
+	public @ResponseBody void downloadA(HttpServletResponse pResponse) throws IOException, TransformerException {
+	    /*
+		List<Actividad> actividades = (List<Actividad>) actividadService.getAllActividades();
+		
+	    byte[] out = ReporteHelper.createPdf(BASEURI, DEST, actividades);
+	    InputStream in = new ByteArrayInputStream(out);
+	    
+	    pResponse.setContentType(APPLICATION_PDF);
+	    pResponse.setHeader("Content-Disposition", "attachment; filename=citiesreport.pdf");
+	    pResponse.setHeader("Content-Length", String.valueOf(out.length));
+	    
+	    FileCopyUtils.copy(in, pResponse.getOutputStream());
+	    */
+	}
+
 }

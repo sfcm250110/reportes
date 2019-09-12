@@ -1,6 +1,7 @@
 package com.sc.reporte.almacen.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,7 +20,6 @@ public class ActividadServiceImpl implements ActividadService {
 	@Override
 	public Actividad createActividad(Actividad actividad) throws Exception {
 		actividad.setFechaCreacion(new Date());
-		actividad.setTipo("gerencia");
 		actividad.setIncidencias("incidencia");
 		
 		actividad = repository.save(actividad);
@@ -40,8 +40,8 @@ public class ActividadServiceImpl implements ActividadService {
 	}
 
 	@Override
-	public Iterable<Actividad> getAllActividades() {
-		return repository.findAll();
+	public List<Actividad> getAllActividades() {
+		return (List<Actividad>) repository.findAll();
 	}
 
 	@Override

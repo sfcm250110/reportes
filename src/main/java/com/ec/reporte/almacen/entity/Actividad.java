@@ -38,10 +38,6 @@ public class Actividad implements Serializable {
 
 	@Column
 	@NotBlank
-	private String tipo;
-
-	@Column
-	@NotBlank
 	private String poblacion;
 
 	@Column
@@ -123,14 +119,6 @@ public class Actividad implements Serializable {
 
 	public void setFechaCreacion(Date fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
-	}
-
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
 	}
 
 	public String getPoblacion() {

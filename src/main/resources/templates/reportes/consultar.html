@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/ui}">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="Aplicacion para gestion de reportes">
+		<meta name="author" content="Santiago Cabrera M.">
+	
+		<title>Gestión de Almacenes</title>
+	</head>
+	
+	<body>
+		<div layout:fragment="content" th:remove="tag">
+			<div class="container py-3">
+				<div class="row">
+					<div class="mx-auto col-sm-6 col-lg-12">
+						<div class="jumbotron">
+							<h3>Reporte de Actividades</h3>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="mx-auto col-sm-12 col-lg-12">
+						<div class="card">
+							<div class="card-header">
+								<h5 class="mb-0">Actividades</h5>
+							</div>
+							<div class="card-body">
+								<div class="table-responsive">
+									<table id="reportes"
+										class="table table-bordered table-hover table-striped">
+										<thead class="thead-light">
+											<tr>
+												<th scope="col">Número</th>
+												<th scope="col">Tipo</th>
+												<th scope="col">Fecha Desde</th>
+												<th scope="col">Fecha Hasta</th>
+												<th scope="col">Elaborado Por</th>
+												<th scope="col">Fecha Creación</th>
+												<th scope="col">Descargar</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="reporte: ${reportes}">
+												<td th:text="${reporte.numero}"></td>
+												<td th:text="${reporte.tipo}"></td>
+												<td th:text="${reporte.fechaDesde}"></td>
+												<td th:text="${reporte.fechaHasta}"></td>
+												<td th:text="${reporte.elaboradoPor}"></td>
+												<td th:text="${reporte.fechaCreacion}"></td>
+												<td><a class="nav-link" href="#" th:href="@{/reporteGerencia}">Descargar</a></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>				
+	</body>
+</html>

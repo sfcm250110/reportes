@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Serializable;
 import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.xml.transform.Transformer;
@@ -18,6 +16,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import com.ec.reporte.almacen.entity.Actividad;
+import com.ec.reporte.almacen.entity.Reporte;
 /*import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -31,40 +30,68 @@ import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.css.media.MediaType;
 import com.sc.reporte.almacen.reportes.xml.ReporteGerenciaXml;
 import com.sc.reporte.almacen.to.ReporteTo;
-import com.sc.reporte.almacen.util.ConstantesXml;
-import com.sc.reporte.almacen.util.HelperXml;
 
 public class ReporteHelper implements Serializable {	
 
     private static final long serialVersionUID = -6248350878202528123L;
     
-    public static void createPdf(String baseUri, String dest, List<Actividad> pActividades) throws IOException, TransformerException {
+    public static byte[] createPdf(String baseUri, Reporte pReporte) throws IOException, TransformerException {
+    //public static ByteArrayInputStream createPdf(String baseUri, String dest, List<Actividad> pActividades) throws IOException, TransformerException {
     //public static void createPdf(byte[] html, String baseUri, String dest) throws IOException {
+    	List<Actividad> actividades = pReporte.getActividades();
     	String xslPath = "src/main/resources/static/xsl/ReporteGerencia.xsl";
-    	String conenidoXml = generarReporteXml(pActividades);
+    	String conenidoXml = generarReporteXml(actividades);
     	
     	ConverterProperties properties = new ConverterProperties();
         properties.setBaseUri(baseUri);
         
-        
-    	//
-    	PdfWriter writer = new PdfWriter(dest);
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+    	PdfWriter writer = new PdfWriter(out);
     	PdfDocument pdf = new PdfDocument(writer);
     	pdf.setTagged();
-    	PageSize pageSize = PageSize.A4;
-    	//PageSize pageSize = PageSize.A4.rotate();
+    	PageSize pageSize = PageSize.A4.rotate();
     	pdf.setDefaultPageSize(pageSize);
     	
     	MediaDeviceDescription mediaDeviceDescription = new MediaDeviceDescription(MediaType.SCREEN);
     	mediaDeviceDescription.setWidth(pageSize.getWidth());
     	properties.setMediaDeviceDescription(mediaDeviceDescription);
-    	//
     	
     	
         byte[] html = createHtml(conenidoXml, xslPath);
         //HtmlConverter.convertToPdf(new ByteArrayInputStream(html), new FileOutputStream(dest), properties);
         HtmlConverter.convertToPdf(new ByteArrayInputStream(html), pdf, properties);
+        
+        
+        return out.toByteArray();
     }
+    
+    public static void createPdf1(String baseUri, String dest, List<Actividad> pActividades) throws IOException, TransformerException {
+        //public static void createPdf(byte[] html, String baseUri, String dest) throws IOException {
+        	String xslPath = "src/main/resources/static/xsl/ReporteGerencia.xsl";
+        	String conenidoXml = generarReporteXml(pActividades);
+        	
+        	ConverterProperties properties = new ConverterProperties();
+            properties.setBaseUri(baseUri);
+            
+            
+        	//
+        	PdfWriter writer = new PdfWriter(dest);
+        	PdfDocument pdf = new PdfDocument(writer);
+        	pdf.setTagged();
+        	PageSize pageSize = PageSize.A4;
+        	//PageSize pageSize = PageSize.A4.rotate();
+        	pdf.setDefaultPageSize(pageSize);
+        	
+        	MediaDeviceDescription mediaDeviceDescription = new MediaDeviceDescription(MediaType.SCREEN);
+        	mediaDeviceDescription.setWidth(pageSize.getWidth());
+        	properties.setMediaDeviceDescription(mediaDeviceDescription);
+        	//
+        	
+        	
+            byte[] html = createHtml(conenidoXml, xslPath);
+            //HtmlConverter.convertToPdf(new ByteArrayInputStream(html), new FileOutputStream(dest), properties);
+            HtmlConverter.convertToPdf(new ByteArrayInputStream(html), pdf, properties);
+        }
     
     public static byte[] createHtml(String pContenidoXml, String xslPath) throws IOException, TransformerException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
