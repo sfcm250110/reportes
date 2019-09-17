@@ -144,8 +144,8 @@ public class ActividadesController {
 	}
 	*/
 	
-	@GetMapping(value = "/reporteGerencia", produces = MediaType.APPLICATION_PDF_VALUE)
-	public @ResponseBody void downloadA(HttpServletResponse pResponse) throws IOException, TransformerException {
+	//@GetMapping(value = "/reporteGerencia", produces = MediaType.APPLICATION_PDF_VALUE)
+	//public @ResponseBody void downloadA(HttpServletResponse pResponse) throws IOException, TransformerException {
 	    /*
 		List<Actividad> actividades = (List<Actividad>) actividadService.getAllActividades();
 		
@@ -158,6 +158,6 @@ public class ActividadesController {
 	    
 	    FileCopyUtils.copy(in, pResponse.getOutputStream());
 	    */
-	}
+	//}
 
 }

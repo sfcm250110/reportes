@@ -3,7 +3,9 @@ package com.sc.reporte.almacen.controller;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.xml.transform.TransformerException;
@@ -20,8 +22,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ec.reporte.almacen.entity.Actividad;
 import com.ec.reporte.almacen.entity.Reporte;
-import com.sc.reporte.almacen.exception.CustomeFieldValidationException;
 import com.sc.reporte.almacen.exception.ReporteNotFound;
 import com.sc.reporte.almacen.reportes.ReporteHelper;
 import com.sc.reporte.almacen.service.ReporteService;
@@ -46,13 +48,13 @@ public class ReporteController {
 	@PostMapping("/reportes/crear")
 	public String createReporte(@Valid @ModelAttribute("crearReporte") Reporte pReporte, BindingResult pResult, ModelMap pModel) {
 		try {
-			reporteService.createReporte(pReporte);
+			//reporteService.createReporte(pReporte, null);
 			pModel.addAttribute("crearReporte", new Reporte());
 			pModel.addAttribute("reportes", reporteService.getAllReportes());
 
-		} catch (CustomeFieldValidationException cfve) {
-			pResult.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
-			pModel.addAttribute("crearReporte", new Reporte());
+		//} catch (CustomeFieldValidationException cfve) {
+			//pResult.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
+			//pModel.addAttribute("crearReporte", new Reporte());
 			
 		} catch (Exception e) {
 			pModel.addAttribute("formErrorMessage", e.getMessage());
@@ -63,7 +65,9 @@ public class ReporteController {
 	}
 	
 	@GetMapping(value = "/reporteGerencia", produces = MediaType.APPLICATION_PDF_VALUE)
-	public @ResponseBody void downloadA(HttpServletResponse pResponse) throws IOException, TransformerException, ReporteNotFound {
+	public @ResponseBody void downloadA(HttpServletResponse pResponse, HttpServletRequest pHttpServletRequest) throws IOException, TransformerException, ReporteNotFound {
+		List<Actividad> actividades = (List) pHttpServletRequest.getAttribute("actividades");
+		
 	    Reporte reporte = reporteService.findReporteById(1L);
 		
 	    byte[] out = ReporteHelper.createPdf(BASEURI, reporte);

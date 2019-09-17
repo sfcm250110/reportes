@@ -21,15 +21,20 @@ public class ReporteServiceImpl implements ReporteService {
 	
 	@Autowired
 	ActividadRepository actividadRepository;
+	
+	@Autowired
+	ReporteActividadService reporteActividadService;
 
 	@Override
-	public Reporte createReporte(Reporte pReporte) throws Exception {
+	public Reporte createReporte(Reporte pReporte, List<Actividad> pActividades) throws Exception {
 		pReporte.setNumero("");
 		pReporte.setElaboradoPor("elaboradoPor");
 		pReporte.setFechaCreacion(new Date());
 		pReporte.setTipo("gerencia");
 		
 		pReporte = reporteRepository.save(pReporte);
+		
+		reporteActividadService.createReporteActividades(pReporte.getId(), pActividades);
 
 		return pReporte;
 	}
