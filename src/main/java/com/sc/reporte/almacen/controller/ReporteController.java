@@ -26,6 +26,7 @@ import com.ec.reporte.almacen.entity.Actividad;
 import com.ec.reporte.almacen.entity.Reporte;
 import com.sc.reporte.almacen.exception.ReporteNotFound;
 import com.sc.reporte.almacen.reportes.ReporteHelper;
+import com.sc.reporte.almacen.service.ActividadService;
 import com.sc.reporte.almacen.service.ReporteService;
 import com.sc.reporte.almacen.util.ConstantesUtil;
 
@@ -35,7 +36,28 @@ public class ReporteController {
 	public static final String BASEURI = "src/main/resources/html/";
 	
 	@Autowired
-	ReporteService reporteService;
+	private ReporteService reporteService;
+	
+	@Autowired
+	private ActividadService actividadService;
+	
+	@GetMapping(value = "/reporteGerencia", produces = MediaType.APPLICATION_PDF_VALUE)
+	public @ResponseBody void downloadReporteGerencia(HttpServletResponse pResponse, HttpServletRequest pHttpServletRequest) throws IOException, TransformerException, ReporteNotFound {
+		List<Actividad> actividades = (List<Actividad>) actividadService.getAllActividades();
+		
+	    //Reporte reporte = reporteService.findReporteById(1L);
+		Reporte reporte = new Reporte();
+		reporte.setActividades(actividades);
+		
+	    byte[] out = ReporteHelper.createPdf(BASEURI, reporte);
+	    InputStream in = new ByteArrayInputStream(out);
+	    
+	    pResponse.setContentType(ConstantesUtil.APPLICATION_PDF);
+	    pResponse.setHeader("Content-Disposition", "attachment; filename=reporteGerencia.pdf");
+	    pResponse.setHeader("Content-Length", String.valueOf(out.length));
+	    
+	    FileCopyUtils.copy(in, pResponse.getOutputStream());
+	}
 
 	@GetMapping("/consultarReporte")
 	public String reportes(Model pModel) {
@@ -64,20 +86,6 @@ public class ReporteController {
 		return "reportes/consultar";
 	}
 	
-	@GetMapping(value = "/reporteGerencia", produces = MediaType.APPLICATION_PDF_VALUE)
-	public @ResponseBody void downloadA(HttpServletResponse pResponse, HttpServletRequest pHttpServletRequest) throws IOException, TransformerException, ReporteNotFound {
-		List<Actividad> actividades = (List) pHttpServletRequest.getAttribute("actividades");
-		
-	    Reporte reporte = reporteService.findReporteById(1L);
-		
-	    byte[] out = ReporteHelper.createPdf(BASEURI, reporte);
-	    InputStream in = new ByteArrayInputStream(out);
-	    
-	    pResponse.setContentType(ConstantesUtil.APPLICATION_PDF);
-	    pResponse.setHeader("Content-Disposition", "attachment; filename=citiesreport.pdf");
-	    pResponse.setHeader("Content-Length", String.valueOf(out.length));
-	    
-	    FileCopyUtils.copy(in, pResponse.getOutputStream());
-	}
+	
 
 }

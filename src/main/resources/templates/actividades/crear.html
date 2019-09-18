@@ -26,7 +26,7 @@
 								<h5 class="mb-0">Información</h5>
 							</div>
 							<div class="card-body">
-								<form class="form" role="form" autocomplete="off" th:action="@{/actividades/crear}" th:object="${crearActividad}" method="post">
+								<form class="form" role="form" autocomplete="off" th:action="@{guardarActividad}" th:object="${actividad}" method="post">
 									<div class="row mb-3">
 										<div class="col">
 											<label th:text="Población" class="col-form-label form-control-label form-control-sm" for="poblacion-id">Población: </label>

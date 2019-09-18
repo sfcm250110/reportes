@@ -65,21 +65,6 @@
 							<td class="data"><xsl:value-of select="incidencias"/></td>
 						</tr>
 					</xsl:for-each>
-					<tr>
-						<td class="data-footer"><xsl:value-of select="reporteGerencia/totalEntradaManana"/></td>
-						<td class="data-footer"><xsl:value-of select="reporteGerencia/totalSalidaManana"/></td>
-						<td class="data-footer"><xsl:value-of select="reporteGerencia/totalEntradaTarde"/></td>
-						<td class="data-footer"><xsl:value-of select="reporteGerencia/totalSalidaTarde"/></td>
-						<td class="data-footer"><xsl:value-of select="reporteGerencia/totalOrdinarias"/></td>
-						<td class="data-footer"><xsl:value-of select="reporteGerencia/totalExtras"/></td>
-						<td class="data-footer"><xsl:value-of select="reporteGerencia/totalPoblacion"/></td>
-						<td class="data-footer"><xsl:value-of select="reporteGerencia/totalCliente"/></td>
-						<td class="data-footer"><xsl:value-of select="reporteGerencia/totalVisita"/></td>
-						<td class="data-footer"><xsl:value-of select="reporteGerencia/totalCobro"/></td>
-						<td class="data-footer"><xsl:value-of select="reporteGerencia/totalPedido"/></td>
-						<td class="data-footer"><xsl:value-of select="reporteGerencia/totalOtros"/></td>
-						<td class="data-footer"><xsl:value-of select="reporteGerencia/totalIncidencias"/></td>
-					</tr>
 				</table>
 			</body>
 		</html>

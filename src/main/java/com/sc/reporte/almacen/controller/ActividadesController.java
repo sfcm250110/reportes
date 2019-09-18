@@ -23,58 +23,42 @@ public class ActividadesController {
 	@Autowired
 	ActividadService actividadService;
 
-	@GetMapping("/consultar")
-	public String consultar(Model model) {
+	@GetMapping("/consultarActividades")
+	public String consultarActividades(Model pModel) {
 		List<Actividad> actividades = (List<Actividad>) actividadService.getAllActividades();
-
-		model.addAttribute("actividades", actividades);
+		pModel.addAttribute("actividades", actividades);
 
 		return "actividades/consultar";
 	}
 
-	@GetMapping("/registrar")
-	public String users(Model model) {
-		model.addAttribute("crearActividad", new Actividad());
-		model.addAttribute("actividades", actividadService.getAllActividades());
+	@GetMapping("/crearActividad")
+	public String crearActividad(Model pModel) {
+		Actividad actividad = new Actividad();
+		pModel.addAttribute("crearActividad", actividad);
 
-		return "actividades/registrar";
+		return "actividades/crear";
 	}
 
-	@PostMapping("/actividades/crear")
-	public String createActividad(@Valid @ModelAttribute("crearActividad") Actividad actividad, BindingResult result, ModelMap model) {
-		try {
-			actividadService.createActividad(actividad);
+	@PostMapping("guardarActividad")
+	public String guardarActividad(@Valid @ModelAttribute("actividad") Actividad actividad, BindingResult result, ModelMap model) {
+		if (result.hasErrors()) {
+			// TODO: revisar
 
-			for (Actividad actividadTmp : actividadService.getAllActividades()) {
-				System.out.println(actividadTmp.getPoblacion());
+		} else {
+			try {
+				actividadService.createActividad(actividad);
+
+			} catch (CustomeFieldValidationException cfve) {
+				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
+				// TODO: revisar
+
+			} catch (Exception e) {
+				// TODO: revisar
+				model.addAttribute("formErrorMessage", e.getMessage());
 			}
-
-			model.addAttribute("crearActividad", new Actividad());
-
-		} catch (CustomeFieldValidationException cfve) {
-			result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
-			model.addAttribute("crearActividad", new Actividad());
-
-		} catch (Exception e) {
-			model.addAttribute("formErrorMessage", e.getMessage());
-			model.addAttribute("crearActividad", new Actividad());
 		}
 
-		/*
-		 * if (result.hasErrors()) { model.addAttribute("crearActividad", actividad); System.out.println("aqui 2");
-		 * 
-		 * } else { try { System.out.println("aqui 3"); System.out.println(actividad.getPoblacion()); actividadService.createActividad(actividad);
-		 * 
-		 * for (Actividad actividadTmp : actividadService.getAllActividades()) { System.out.println(actividadTmp); }
-		 * 
-		 * model.addAttribute("crearActividad", new Actividad());
-		 * 
-		 * } catch (CustomeFieldValidationException cfve) { result.rejectVal	ue(cfve.getFieldName(), null, cfve.getMessage()); model.addAttribute("crearActividad", new Actividad());
-		 * 
-		 * } catch (Exception e) { model.addAttribute("formErrorMessage", e.getMessage()); model.addAttribute("crearActividad", new Actividad()); } }
-		 */
-
-		return "actividades/registrar";
+		return "redirect:" + "consultarActividades";
 	}
 
 }

@@ -31,7 +31,6 @@ public class Actividad implements Serializable {
 	private String elaboradoPor;
 
 	@Column
-	@NotNull
 	@Temporal(TemporalType.TIME)
 	@DateTimeFormat(pattern = "dd-mm-yyyy HH:mm")
 	private Date fechaCreacion;
@@ -61,7 +60,6 @@ public class Actividad implements Serializable {
 	private String otros;
 
 	@Column
-	@NotBlank
 	private String incidencias;
 
 	@Column
