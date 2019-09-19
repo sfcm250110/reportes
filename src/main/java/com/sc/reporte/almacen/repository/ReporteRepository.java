@@ -16,5 +16,7 @@ public interface ReporteRepository extends CrudRepository<Reporte, Long> {
 	public Optional<Reporte> findByFechaCreacion(Date pFechaCreacion);
 
 	public Optional<Reporte> findByNumero(String pNumero);
+	
+	public Reporte findTopByTipoOrderByIdDesc(String pTipo);
 
 }

@@ -1,6 +1,7 @@
 package com.sc.reporte.almacen.service;
 
 import java.util.Date;
+import java.util.Formatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,23 +19,24 @@ public class ReporteServiceImpl implements ReporteService {
 
 	@Autowired
 	ReporteRepository reporteRepository;
-	
+
 	@Autowired
 	ActividadRepository actividadRepository;
-	
+
 	@Autowired
 	ReporteActividadService reporteActividadService;
 
 	@Override
-	public Reporte createReporte(Reporte pReporte, List<Actividad> pActividades) throws Exception {
-		pReporte.setNumero("");
-		pReporte.setElaboradoPor("elaboradoPor");
+	public Reporte crearReporte(Reporte pReporte) throws Exception {
+		Reporte reporte = reporteRepository.findTopByTipoOrderByIdDesc("gerencia");
+
+		pReporte.setNumero(generarNumeroReporte(reporte));
 		pReporte.setFechaCreacion(new Date());
-		pReporte.setTipo("gerencia");
-		
+		pReporte.setFechaDesde(new Date());
+		pReporte.setFechaHasta(new Date());
 		pReporte = reporteRepository.save(pReporte);
-		
-		reporteActividadService.createReporteActividades(pReporte.getId(), pActividades);
+
+		reporteActividadService.createReporteActividades(pReporte.getId(), pReporte.getActividades());
 
 		return pReporte;
 	}
@@ -70,14 +72,31 @@ public class ReporteServiceImpl implements ReporteService {
 	public Reporte findByFechaCreacion(Date fechaCreacion) throws Exception {
 		return reporteRepository.findByFechaCreacion(fechaCreacion).orElseThrow(() -> new ReporteNotFound("No existe la fecha de creacion del reporte."));
 	}
-	
+
 	@Override
 	public Reporte findReporteById(Long id) throws ReporteNotFound {
 		Reporte reporte = findById(id);
 		List<Actividad> actividades = actividadRepository.findAllById(reporte.getIdActividad());
 		reporte.setActividades(actividades);
-		
+
 		return reporte;
+	}
+
+	private String generarNumeroReporte(Reporte pReporte) {
+		Long id = null;
+
+		if (pReporte == null) {
+			id = 1L;
+
+		} else {
+			id = pReporte.getId();
+		}
+
+		Formatter formater = new Formatter();
+		String numeroReporte = formater.format("%08d", id).toString();
+		formater.close();
+
+		return numeroReporte;
 	}
 
 }
