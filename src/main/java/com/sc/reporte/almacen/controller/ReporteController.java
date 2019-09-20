@@ -22,10 +22,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ec.reporte.almacen.entity.Actividad;
 import com.ec.reporte.almacen.entity.Reporte;
+import com.ec.reporte.almacen.entity.User;
+import com.sc.reporte.almacen.exception.UsernameOrIdNotFound;
 import com.sc.reporte.almacen.reportes.ReporteHelper;
 import com.sc.reporte.almacen.service.ActividadService;
 import com.sc.reporte.almacen.service.ReporteService;
+import com.sc.reporte.almacen.service.UserService;
 import com.sc.reporte.almacen.util.ConstantesUtil;
+import com.sc.reporte.almacen.util.SpringWebUtil;
 
 @Controller
 public class ReporteController {
@@ -37,14 +41,17 @@ public class ReporteController {
 
 	@Autowired
 	private ActividadService actividadService;
+	
+	@Autowired
+	private UserService userService;
 
 	@GetMapping(value = "/reporteGerencia", produces = MediaType.APPLICATION_PDF_VALUE)
 	public @ResponseBody void downloadReporteGerencia(HttpServletResponse pResponse, HttpServletRequest pHttpServletRequest) {
 		try {
 			List<Actividad> actividades = (List<Actividad>) actividadService.getAllActividades();
-
+			
 			Reporte reporte = new Reporte();
-			reporte.setElaboradoPor("Santiago Cabrera M.");
+			reporte.setElaboradoPor(obtenerElaboradoPor());
 			reporte.setTipo("gerencia");
 			reporte.setActividades(actividades);
 			reporte = reporteService.crearReporte(reporte);
@@ -88,6 +95,14 @@ public class ReporteController {
 		}
 
 		return "reportes/consultar";
+	}
+	
+	private String obtenerElaboradoPor() throws UsernameOrIdNotFound {
+		String userName = SpringWebUtil.obtenerUsuarioAutenticado();
+		User usuario = userService.getUserByUsername(userName);
+		String elaboradoPor = usuario.getFirstName() + " " + usuario.getLastName();
+		
+		return elaboradoPor;
 	}
 
 }

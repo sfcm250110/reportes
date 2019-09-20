@@ -1,0 +1,46 @@
+server:
+  port: 8082
+  
+spring:
+  profiles:
+    active: pro
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    platform: postgres
+  jpa:
+    database: POSTGRESQL
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true  application:    name: Reportes Marcos Tonda
+  thymeleaf:
+    cache: false
+    enabled: true
+    prefix: classpath:/templates/
+    suffix: .html
+      
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+        
+---
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5433/reporte-almacen
+    username: postgres
+    password: root
+---
+spring:
+  profiles: pro
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/reportespg
+    username: reportespg
+    password: reportespg

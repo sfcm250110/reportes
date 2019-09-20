@@ -36,8 +36,6 @@ public class ReporteServiceImpl implements ReporteService {
 		pReporte.setFechaHasta(new Date());
 		pReporte = reporteRepository.save(pReporte);
 
-		reporteActividadService.createReporteActividades(pReporte.getId(), pReporte.getActividades());
-
 		return pReporte;
 	}
 

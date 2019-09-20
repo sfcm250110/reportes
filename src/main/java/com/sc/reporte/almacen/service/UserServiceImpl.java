@@ -31,9 +31,11 @@ public class UserServiceImpl implements UserService {
 
 	private boolean checkUsernameAvailable(User user) throws Exception {
 		Optional<User> userFound = repository.findByUsername(user.getUsername());
+		
 		if (userFound.isPresent()) {
 			throw new CustomeFieldValidationException("Username no disponible", "username");
 		}
+		
 		return true;
 	}
 
@@ -145,4 +147,17 @@ public class UserServiceImpl implements UserService {
 
 		return myUser;
 	}
+
+	@Override
+	public User getUserByUsername(String pUserName) throws UsernameOrIdNotFound {
+		Optional<User> usuario = repository.findByUsername(pUserName);
+		
+		if (!usuario.isPresent()) {
+			throw new UsernameOrIdNotFound("Username no disponible");
+		}
+		
+		return usuario.get();
+	}
+
+	
 }

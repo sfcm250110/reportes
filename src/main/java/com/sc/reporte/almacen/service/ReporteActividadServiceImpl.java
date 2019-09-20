@@ -16,7 +16,7 @@ public class ReporteActividadServiceImpl implements ReporteActividadService {
 	ReporteActividadRepository repository;
 
 	@Override
-	public List<Actividad> findActividadesByReporte(Long pIdReporte) {
+	public List<ReporteActividad> findActividadesByReporte(Long pIdReporte) {
 		return repository.findActividadesByIdReporte(pIdReporte);
 	}
 
