@@ -29,9 +29,6 @@ public class Reporte implements Serializable {
 	private Long id;
 
 	@Column
-	private Long idActividad;
-
-	@Column
 	private String numero;
 
 	@Column
@@ -116,14 +113,6 @@ public class Reporte implements Serializable {
 
 	public void setFechaHasta(Date fechaHasta) {
 		this.fechaHasta = fechaHasta;
-	}
-
-	public Long getIdActividad() {
-		return idActividad;
-	}
-
-	public void setIdActividad(Long idActividad) {
-		this.idActividad = idActividad;
 	}
 
 	public List<Actividad> getActividades() {

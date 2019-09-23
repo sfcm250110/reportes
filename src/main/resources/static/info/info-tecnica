@@ -36,3 +36,52 @@ https://www.webucator.com/how-to/how-style-table-with-css.cfm
 
 SPRING BOOT REPORTS
 https://memorynotfound.com/spring-mvc-download-file-examples/
+
+
+
+-----------------------------------------------------------------------------------------------------------------
+SPRIN-MVC
+-----------------------------------------------------------------------------------------------------------------
+http://www.jtech.ua.es/j2ee/publico/spring-2012-13/sesion03-apuntes.html
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------
+SPRIN-BOOT
+-----------------------------------------------------------------------------------------------------------------
+https://programandoointentandolo.com/2019/07/spring-boot-profiles.html
+
+
+
+-----------------------------------------------------------------------------------------------------------------
+OBTENER ARCHIVO RESOURCES
+-----------------------------------------------------------------------------------------------------------------
+https://codeday.me/es/qa/20190129/129968.html
+https://www.baeldung.com/spring-classpath-file-access
+https://github.com/eugenp/tutorials/blob/master/spring-core/src/test/java/com/baeldung/classpathfileaccess/SpringResourceIntegrationTest.java
+
+
+
+-----------------------------------------------------------------------------------------------------------------
+EJECUTAR APLICACION
+-----------------------------------------------------------------------------------------------------------------
+java -jar target/reporte-almacen-0.0.1-SNAPSHOT.jar
+mvn spring-boot:run
+
+
+
+-----------------------------------------------------------------------------------------------------------------
+H2
+-----------------------------------------------------------------------------------------------------------------
+https://stackoverflow.com/questions/53395200/h2-console-is-not-showing-in-browser
+jdbc:h2:file:E:/desarrollo/auto-estudio/reportes
+url: jdbc:h2:mem:testdb
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------
+SPRIN-BOOT: INSERT DATA.SQL
+-----------------------------------------------------------------------------------------------------------------
+https://docs.spring.io/spring-boot/docs/current/reference/html/howto-database-initialization.html

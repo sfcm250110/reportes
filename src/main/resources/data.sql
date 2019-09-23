@@ -1,5 +1,5 @@
-INSERT INTO USUARIO(USERNAME, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD) VALUES('gapolo', 'George', 'Apolo', 'grapoloutpl@gmail.com', '$2a$04$/ziyQDLsLLPnhjR.Xb.UO.8hlPzXEWGmsyBrFpM/9W1U5kxAJmSVW');
-INSERT INTO USUARIO(USERNAME, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD) VALUES('scabrera', 'Santiago', 'Cabrera', 'santiago.cabrera.murillo@gmail.com', '$2a$04$/ziyQDLsLLPnhjR.Xb.UO.8hlPzXEWGmsyBrFpM/9W1U5kxAJmSVW');
+INSERT INTO USUARIO(USERNAME, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD) VALUES('gapolo', 'George', 'Apolo', 'grapoloutpl@gmail.com', '$2a$04$n6WIRDQlIByVFi.5rtQwEOTAzpzLPzIIG/O6quaxRKY2LlIHG8uty');
+INSERT INTO USUARIO(USERNAME, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD) VALUES('scabrera', 'Santiago', 'Cabrera', 'santiago.cabrera.murillo@gmail.com', '$2a$04$n6WIRDQlIByVFi.5rtQwEOTAzpzLPzIIG/O6quaxRKY2LlIHG8uty');
 
 INSERT INTO ROL(DESCRIPTION, NAME) VALUES ('ROLE_ADMIN', 'ADMIN');
 INSERT INTO ROL(DESCRIPTION, NAME) VALUES ('ROLE_USER', 'USER');

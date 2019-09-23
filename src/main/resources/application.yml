@@ -3,13 +3,8 @@ server:
   
 spring:
   profiles:
-    active: pro
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    platform: postgres
+    active: dev
   jpa:
-    database: POSTGRESQL
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
     hibernate:
       ddl-auto: none
@@ -17,7 +12,9 @@ spring:
       hibernate:
         jdbc:
           lob:
-            non_contextual_creation: true  application:    name: Reportes Marcos Tonda
+            non_contextual_creation: true
+  application:
+    name: Reportes Marcos Tonda
   thymeleaf:
     cache: false
     enabled: true
@@ -29,18 +26,46 @@ logging:
     org:
       hibernate:
         SQL: debug
-        
+ 
 ---
 spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
   profiles: dev
+  jpa:
+    database: H2
+    database-platform: org.hibernate.dialect.H2Dialect
   datasource:
+    driver-class-name: org.h2.Driver
+    platform: h2
+    url: jdbc:h2:file:E:/desarrollo/auto-estudio/reportes
+    username: sa
+    password:
+
+---
+spring:
+  profiles: devh
+  jpa:
+    database: POSTGRESQL
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    platform: postgres
     url: jdbc:postgresql://127.0.0.1:5433/reporte-almacen
     username: postgres
     password: root
+
 ---
 spring:
   profiles: pro
+  jpa:
+    database: POSTGRESQL
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
   datasource:
+    driver-class-name: org.postgresql.Driver
+    platform: postgres
     url: jdbc:postgresql://127.0.0.1:5432/reportespg
     username: reportespg
     password: reportespg

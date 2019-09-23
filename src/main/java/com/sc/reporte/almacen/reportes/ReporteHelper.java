@@ -32,6 +32,7 @@ import com.sc.reporte.almacen.reportes.xml.ReporteGerenciaXml;
 import com.sc.reporte.almacen.to.ReporteTo;
 import com.sc.reporte.almacen.util.ConstantesUtil;
 import com.sc.reporte.almacen.util.FechasUtil;
+import com.sc.reporte.almacen.util.ArchivosUtil;
 
 public class ReporteHelper implements Serializable {	
 
@@ -40,7 +41,10 @@ public class ReporteHelper implements Serializable {
     public static byte[] createPdf(String baseUri, Reporte pReporte) throws IOException, TransformerException {
     //public static ByteArrayInputStream createPdf(String baseUri, String dest, List<Actividad> pActividades) throws IOException, TransformerException {
     //public static void createPdf(byte[] html, String baseUri, String dest) throws IOException {
-    	String xslPath = "src/main/resources/static/xsl/ReporteGerencia.xsl";
+		//String xslPath = "/BOOT-INF/classes/reporte-gerencia.xsl";
+		String xslPath = "static/xsl/reporte-gerencia.xsl";
+		String contenidoXsl = ArchivosUtil.obtenerContenidoArchivo(xslPath);
+		System.out.println("contenidoXsl: " + contenidoXsl);
     	String conenidoXml = generarReporteXml(pReporte);
     	
     	ConverterProperties properties = new ConverterProperties();
@@ -58,7 +62,7 @@ public class ReporteHelper implements Serializable {
     	properties.setMediaDeviceDescription(mediaDeviceDescription);
     	
     	
-        byte[] html = createHtml(conenidoXml, xslPath);
+        byte[] html = createHtml(conenidoXml, contenidoXsl);
         //HtmlConverter.convertToPdf(new ByteArrayInputStream(html), new FileOutputStream(dest), properties);
         HtmlConverter.convertToPdf(new ByteArrayInputStream(html), pdf, properties);
         
@@ -95,11 +99,12 @@ public class ReporteHelper implements Serializable {
             HtmlConverter.convertToPdf(new ByteArrayInputStream(html), pdf, properties);
         }
     
-    public static byte[] createHtml(String pContenidoXml, String xslPath) throws IOException, TransformerException {
+    public static byte[] createHtml(String pContenidoXml, String pContenidoXsl) throws IOException, TransformerException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Writer writer = new OutputStreamWriter(baos);
-        StreamSource xml = new StreamSource(new ByteArrayInputStream(pContenidoXml.getBytes()));
-        StreamSource xsl = new StreamSource(new File(xslPath));
+		StreamSource xml = new StreamSource(new ByteArrayInputStream(pContenidoXml.getBytes()));
+		StreamSource xsl = new StreamSource(new ByteArrayInputStream(pContenidoXsl.getBytes()));
+		//StreamSource xsl = new StreamSource(new File(xslPath));
         TransformerFactory factory = TransformerFactory.newInstance();
         Transformer transformer = factory.newTransformer(xsl);
         transformer.transform(xml, new StreamResult(writer));
@@ -132,7 +137,8 @@ public class ReporteHelper implements Serializable {
 
         String reporteGerenciaXml = ReporteGerenciaXml.generarXml(reporteTo);
         System.out.println(reporteGerenciaXml);
-        
+		
+		/*
         try {
 	        String xslPath = "src/main/resources/static/xsl/ReporteGerencia.xsl";
 	        ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -148,11 +154,12 @@ public class ReporteHelper implements Serializable {
 	        //baos.toByteArray();
 	        
 	        String d = new String(baos.toByteArray());
-	        System.out.println(d);
+			System.out.println(d);
         
         } catch (Exception e) {
 			e.printStackTrace();
 		}
+		*/
         
         return reporteGerenciaXml;
     }

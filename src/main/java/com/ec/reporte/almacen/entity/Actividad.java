@@ -60,7 +60,7 @@ public class Actividad implements Serializable {
 	private String otros;
 
 	@Column
-	private String incidencias;
+	private String incidencia;
 
 	@Column
 	@NotNull
@@ -167,12 +167,12 @@ public class Actividad implements Serializable {
 		this.otros = otros;
 	}
 
-	public String getIncidencias() {
-		return incidencias;
+	public String getIncidencia() {
+		return incidencia;
 	}
 
-	public void setIncidencias(String incidencias) {
-		this.incidencias = incidencias;
+	public void setIncidencia(String incidencia) {
+		this.incidencia = incidencia;
 	}
 
 	public Date getHoraEntradaManana() {

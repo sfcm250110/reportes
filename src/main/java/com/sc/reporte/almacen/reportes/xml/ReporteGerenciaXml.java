@@ -48,7 +48,7 @@ public class ReporteGerenciaXml implements Serializable {
 			reporteGerenciaXml.append(HelperXml.generarTag(ConstantesXml.TAG_COBRO, actividad.getCobro()));
 			reporteGerenciaXml.append(HelperXml.generarTag(ConstantesXml.TAG_PEDIDO, actividad.getPedido()));
 			reporteGerenciaXml.append(HelperXml.generarTag(ConstantesXml.TAG_OTROS, actividad.getOtros()));
-			reporteGerenciaXml.append(HelperXml.generarTag(ConstantesXml.TAG_INCIDENCIAS, actividad.getIncidencias()));
+			reporteGerenciaXml.append(HelperXml.generarTag(ConstantesXml.TAG_INCIDENCIAS, actividad.getIncidencia()));
 			reporteGerenciaXml.append(HelperXml.closeTag(ConstantesXml.TAG_ACTIVIDAD));
 		}
 		reporteGerenciaXml.append(HelperXml.closeTag(ConstantesXml.TAG_ACTIVIDADES));

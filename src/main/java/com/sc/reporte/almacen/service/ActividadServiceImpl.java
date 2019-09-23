@@ -20,7 +20,7 @@ public class ActividadServiceImpl implements ActividadService {
 	@Override
 	public Actividad createActividad(Actividad actividad) throws Exception {
 		actividad.setFechaCreacion(new Date());
-		actividad.setIncidencias("incidencia");
+		actividad.setIncidencia("incidencia");
 		
 		actividad = repository.save(actividad);
 

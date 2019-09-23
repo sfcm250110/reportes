@@ -73,11 +73,15 @@ public class ReporteServiceImpl implements ReporteService {
 
 	@Override
 	public Reporte findReporteById(Long id) throws ReporteNotFound {
+		// TODO: revisar
+		/*
 		Reporte reporte = findById(id);
 		List<Actividad> actividades = actividadRepository.findAllById(reporte.getIdActividad());
 		reporte.setActividades(actividades);
 
 		return reporte;
+		*/
+		return null;
 	}
 
 	private String generarNumeroReporte(Reporte pReporte) {

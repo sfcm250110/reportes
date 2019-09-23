@@ -26,6 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		// TODO:
 		http.authorizeRequests().antMatchers(resources).permitAll().antMatchers("/", "/index", "/signup").permitAll()
 				.anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll()
 				.defaultSuccessUrl("/home").failureUrl("/login?error=true").usernameParameter("username")
@@ -33,7 +34,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.logoutSuccessUrl("/login?logout");
 
 		// TODO:
-		//http.csrf().disable();
+		/*
+		http.csrf().disable();
+		http.headers().frameOptions().disable();
+		http.authorizeRequests().antMatchers(resources).permitAll().antMatchers("/", "/index", "/signup", "/home", "/h2-console/test.do").permitAll();
+		*/
 	}
 
 	@Bean
