@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ec.reporte.almacen.entity.Role;
+import com.sc.reporte.almacen.entity.Role;
 import com.sc.reporte.almacen.repository.UserRepository;
 
 @Service
@@ -26,7 +26,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		com.ec.reporte.almacen.entity.User appUser = userRepository.findByUsername(username)
+		com.sc.reporte.almacen.entity.User appUser = userRepository.findByUsername(username)
 				.orElseThrow(() -> new UsernameNotFoundException("Login Username Invalido."));
 
 		Set<GrantedAuthority> grantList = new HashSet<GrantedAuthority>();

@@ -5,8 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @SpringBootApplication
-//@ComponentScan("com.ec.reporte.almacen.entity")
-@EntityScan("com.ec.reporte.almacen.entity")
+@EntityScan("com.sc.reporte.almacen.entity")
 public class ReporteAlmacenApplication {
 
 	public static void main(String[] args) {

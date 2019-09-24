@@ -3,14 +3,14 @@ package com.sc.reporte.almacen.service;
 import java.util.Date;
 import java.util.List;
 
-import com.ec.reporte.almacen.entity.Actividad;
+import com.sc.reporte.almacen.entity.Actividad;
 import com.sc.reporte.almacen.exception.ActividadNotFound;
 
 public interface ActividadService {
 
 	public List<Actividad> getAllActividades();
 
-	public Actividad createActividad(Actividad actividad) throws Exception;
+	public Actividad crearActividad(Actividad actividad) throws Exception;
 
 	public Actividad updateActividad(Actividad actividad) throws ActividadNotFound;
 	

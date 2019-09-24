@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import com.ec.reporte.almacen.entity.Actividad;
+import com.sc.reporte.almacen.entity.Actividad;
 import com.sc.reporte.almacen.exception.ActividadNotFound;
 import com.sc.reporte.almacen.repository.ActividadRepository;
 
@@ -18,10 +18,8 @@ public class ActividadServiceImpl implements ActividadService {
 	ActividadRepository repository;
 
 	@Override
-	public Actividad createActividad(Actividad actividad) throws Exception {
+	public Actividad crearActividad(Actividad actividad) throws Exception {
 		actividad.setFechaCreacion(new Date());
-		actividad.setIncidencia("incidencia");
-		
 		actividad = repository.save(actividad);
 
 		return actividad;

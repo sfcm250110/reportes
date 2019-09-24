@@ -3,7 +3,7 @@ package com.sc.reporte.almacen.service;
 import java.util.Date;
 import java.util.List;
 
-import com.ec.reporte.almacen.entity.Reporte;
+import com.sc.reporte.almacen.entity.Reporte;
 import com.sc.reporte.almacen.exception.ReporteNotFound;
 
 public interface ReporteService {

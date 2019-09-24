@@ -29,11 +29,11 @@ logging:
  
 ---
 spring:
+  profiles: devw
   h2:
     console:
       enabled: true
       path: /h2-console
-  profiles: dev
   jpa:
     database: H2
     database-platform: org.hibernate.dialect.H2Dialect
@@ -46,7 +46,7 @@ spring:
 
 ---
 spring:
-  profiles: devh
+  profiles: dev
   jpa:
     database: POSTGRESQL
     database-platform: org.hibernate.dialect.PostgreSQLDialect

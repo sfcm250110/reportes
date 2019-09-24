@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.ec.reporte.almacen.entity.Reporte;
+import com.sc.reporte.almacen.entity.Reporte;
 
 @Repository
 public interface ReporteRepository extends CrudRepository<Reporte, Long> {

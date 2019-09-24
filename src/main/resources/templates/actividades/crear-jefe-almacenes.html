@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/ui}">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="Aplicacion para gestion de reportes">
+		<meta name="author" content="Santiago Cabrera M.">
+	
+		<title>Gestión de Almacenes</title>
+	</head>
+	
+	<body>
+		<div layout:fragment="content" th:remove="tag">
+			<div class="container py-3">
+				<div class="row">
+					<div class="mx-auto col-sm-6 col-lg-12">
+						<div class="jumbotron">
+							<h3>Actividades del Jefe de Almacen</h3>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="mx-auto col-sm-12 col-lg-12">
+						<div class="card">
+							<div class="card-header">
+								<h5 class="mb-0">Ingresar información</h5>
+							</div>
+							<div class="card-body">
+								<form class="form" role="form" autocomplete="off" th:action="@{guardarJefeAlmacen}" th:object="${actividad}" method="post">
+									<div class="row mb-2">
+										<div class="col">
+											<label class="col-form-label form-control-label form-control-sm" for="entrada-manana-id">Hora entrada:</label>
+											<input id="hora-entrada-id" name="hora-entrada" type="time" class="form-control form-control-sm" th:field="${{crearActividad.horaEntrada}}" >
+										</div>
+										<div class="col">
+											<label class="col-form-label form-control-label form-control-sm" for="salida-manana-id">Hora salida:</label>
+											<input id="salida-manana-id" name="salida-manana" type="time" class="form-control form-control-sm" th:field="${{crearActividad.horaSalida}}">
+										</div>
+									</div>
+									
+									<div class="row mb-3">
+										<div class="col">
+											<label th:text="Población" class="col-form-label form-control-label form-control-sm" for="poblacion-id">Visita: </label>
+											<input id="poblacion-id" name="poblacion" type="text" class="form-control form-control-sm" th:field="${crearActividad.visita}">
+										</div>
+										<div class="col">
+											<label class="col-form-label form-control-label form-control-sm" for="cliente-id">Cobro:</label>
+											<input id="cliente-id" name="cliente"type="text" class="form-control form-control-sm" th:field="${crearActividad.cobro}">
+										</div>
+									</div>
+									
+									<div class="row mb-3">
+										<div class="col">
+											<label class="col-form-label form-control-label form-control-sm" for="visita-id">Pedido:</label>
+											<input id="visita-id" name="visita" type="number" class="form-control form-control-sm" th:field="${crearActividad.pedido}">
+										</div>
+										<div class="col">
+											<label class="col-form-label form-control-label form-control-sm" for="pedido-id">Proveedores descargados:</label>
+											<input id="pedido-id" name="pedido" type="number" class="form-control form-control-sm" th:field="${crearActividad.proveedores}" >
+										</div>
+									</div>
+									
+									<div class="row mb-3">
+										<div class="col">
+											<label class="col-form-label form-control-label form-control-sm" for="otros-id">Repartos George:</label>
+											<input id="otros-id" name="otros" type="text" class="form-control form-control-sm" th:field="${crearActividad.repartos}">
+										</div>
+										<div class="col">
+											<label class="col-form-label form-control-label form-control-sm" for="pedido-id">Observaciones:</label>
+											<input id="indidencias-id" name="indidencias" type="text" class="form-control form-control-sm" th:field="${crearActividad.observaciones}">
+										</div>
+									</div>
+									
+									<div class="row mb-2">
+										<div class="col">
+											<label class="col-form-label form-control-label form-control-sm" for="pedido-id">Incidencias:</label>
+											<input id="indidencias-id" name="indidencias" type="text" class="form-control form-control-sm" th:field="${crearActividad.incidencias}">
+										</div>
+									</div>
+									
+									<div class="form-group row">
+										<div class="col-lg-12 text-center">
+											<input type="submit" class="btn btn-primary" value="Guardar" th:value="Guardar">
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>				
+	</body>
+</html>

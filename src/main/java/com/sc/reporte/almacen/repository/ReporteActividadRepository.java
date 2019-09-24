@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.ec.reporte.almacen.entity.ReporteActividad;
+import com.sc.reporte.almacen.entity.ReporteActividad;
 
 @Repository
 public interface ReporteActividadRepository extends CrudRepository<ReporteActividad, Long> {

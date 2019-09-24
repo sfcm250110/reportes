@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ec.reporte.almacen.entity.Actividad;
-import com.ec.reporte.almacen.entity.Reporte;
-import com.ec.reporte.almacen.entity.User;
+import com.sc.reporte.almacen.entity.Actividad;
+import com.sc.reporte.almacen.entity.Reporte;
+import com.sc.reporte.almacen.entity.User;
 import com.sc.reporte.almacen.exception.UsernameOrIdNotFound;
 import com.sc.reporte.almacen.reportes.ReporteHelper;
 import com.sc.reporte.almacen.service.ActividadService;
@@ -52,7 +52,32 @@ public class ReporteController {
 			
 			Reporte reporte = new Reporte();
 			reporte.setElaboradoPor(obtenerElaboradoPor());
-			reporte.setTipo("gerencia");
+			reporte.setTipo(ConstantesUtil.TIPO_REPORTE_COMERCIAL);
+			reporte.setActividades(actividades);
+			reporte = reporteService.crearReporte(reporte);
+
+			byte[] out = ReporteHelper.createPdf(BASEURI, reporte);
+			InputStream in = new ByteArrayInputStream(out);
+
+			pResponse.setContentType(ConstantesUtil.APPLICATION_PDF);
+			pResponse.setHeader("Content-Disposition", "attachment; filename=reporteGerencia.pdf");
+			pResponse.setHeader("Content-Length", String.valueOf(out.length));
+
+			FileCopyUtils.copy(in, pResponse.getOutputStream());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@GetMapping(value = "/reporteJefeAlmacenes", produces = MediaType.APPLICATION_PDF_VALUE)
+	public @ResponseBody void downloadReporteJefeAlmacenes(HttpServletResponse pResponse, HttpServletRequest pHttpServletRequest) {
+		try {
+			List<Actividad> actividades = (List<Actividad>) actividadService.getAllActividades();
+			
+			Reporte reporte = new Reporte();
+			reporte.setElaboradoPor(obtenerElaboradoPor());
+			reporte.setTipo(ConstantesUtil.TIPO_REPORTE_JEFE_ALMACEN);
 			reporte.setActividades(actividades);
 			reporte = reporteService.crearReporte(reporte);
 

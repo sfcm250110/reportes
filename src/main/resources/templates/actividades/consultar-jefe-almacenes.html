@@ -15,7 +15,7 @@
 				<div class="row">
 					<div class="mx-auto col-sm-6 col-lg-12">
 						<div class="jumbotron">
-							<h3>Reporte de actividades comerciales</h3>
+							<h3>Reporte de actividades del jefe de almacenes</h3>
 						</div>
 					</div>
 				</div>
@@ -31,33 +31,33 @@
 										class="table table-bordered table-hover table-striped">
 										<thead class="thead-light">
 											<tr>
-												<th scope="col">Población</th>
-												<th scope="col">Cliente</th>
+												<th scope="col">Hora Entrada</th>
+												<th scope="col">Hora Salida</th>
 												<th scope="col">Visita</th>
 												<th scope="col">Cobro</th>
 												<th scope="col">Pedido</th>
-												<th scope="col">Hora entrada mañana</th>
-												<th scope="col">Hora salida mañana</th>
-												<th scope="col">Hora entrada tarde</th>
-												<th scope="col">Hora salida tarde</th>
+												<th scope="col">Proveedores</th>
+												<th scope="col">Repartos</th>
+												<th scope="col">Observaciones</th>
+												<th scope="col">Incidencias</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr th:each="actividad: ${actividades}">
-												<td th:text="${actividad.poblacion}"></td>
-												<td th:text="${actividad.cliente}"></td>
+												<td th:text="${actividad.horaEntrada}"></td>
+												<td th:text="${actividad.horaSalida}"></td>
 												<td th:text="${actividad.visita}"></td>
 												<td th:text="${actividad.cobro}"></td>
 												<td th:text="${actividad.pedido}"></td>
-												<td th:text="${actividad.horaEntradaManana}"></td>
-												<td th:text="${actividad.horaSalidaManana}"></td>
-												<td th:text="${actividad.horaEntradaTarde}"></td>
-												<td th:text="${actividad.horaSalidaTarde}"></td>
+												<td th:text="${actividad.proveedores}"></td>
+												<td th:text="${actividad.repartos}"></td>
+												<td th:text="${actividad.observaciones}"></td>
+												<td th:text="${actividad.incidencias}"></td>
 											</tr>
 										</tbody>
 									</table>
 								</div>
-								<a class="nav-link" href="#" th:href="@{reporteGerencia}">
+								<a class="nav-link" href="#" th:href="@{reporteJefeAlmacenes}">
 									<span>Descargar</span>
 								</a>
 							</div>

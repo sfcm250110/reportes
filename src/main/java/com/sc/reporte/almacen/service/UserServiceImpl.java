@@ -9,8 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.ec.reporte.almacen.entity.User;
 import com.sc.reporte.almacen.dto.ChangePasswordForm;
+import com.sc.reporte.almacen.entity.User;
 import com.sc.reporte.almacen.exception.CustomeFieldValidationException;
 import com.sc.reporte.almacen.exception.UsernameOrIdNotFound;
 import com.sc.reporte.almacen.repository.UserRepository;

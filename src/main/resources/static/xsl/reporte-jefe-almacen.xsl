@@ -13,7 +13,7 @@
 						<td colspan="13" class="titulo-cabecera">Chocolates Marcos Tonda</td>
 					</tr>
 					<tr>
-						<td colspan="13" class="titulo-reporte">REPORTE DIARIO DE <span class="nombre-reporte">COMERCIALES</span></td>
+						<td colspan="13" class="titulo-reporte">REPORTE DIARIO DE <span class="nombre-reporte">ALMACENES</span></td>
 					</tr>
 					<tr>
 						<td colspan="1" class="label border-left">Reporte:</td>

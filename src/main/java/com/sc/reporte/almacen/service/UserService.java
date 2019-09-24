@@ -1,7 +1,7 @@
 package com.sc.reporte.almacen.service;
 
-import com.ec.reporte.almacen.entity.User;
 import com.sc.reporte.almacen.dto.ChangePasswordForm;
+import com.sc.reporte.almacen.entity.User;
 import com.sc.reporte.almacen.exception.UsernameOrIdNotFound;
 
 public interface UserService {

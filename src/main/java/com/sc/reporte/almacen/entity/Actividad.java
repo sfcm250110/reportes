@@ -1,4 +1,4 @@
-package com.ec.reporte.almacen.entity;
+package com.sc.reporte.almacen.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,8 +12,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -36,52 +34,64 @@ public class Actividad implements Serializable {
 	private Date fechaCreacion;
 
 	@Column
-	@NotBlank
 	private String poblacion;
 
 	@Column
-	@NotBlank
 	private String cliente;
 
 	@Column
-	@NotNull
 	private Integer visita;
 
 	@Column
-	@NotNull
 	private Integer cobro;
 
 	@Column
-	@NotNull
 	private Integer pedido;
 
 	@Column
-	@NotBlank
+	private Integer proveedores;
+
+	@Column
+	private Integer repartos;
+
+	@Column
 	private String otros;
 
 	@Column
-	private String incidencia;
+	private String incidencias;
 
 	@Column
-	@NotNull
+	private String observaciones;
+
+	@Column
+	private String tipo;
+
+	@Column
+	@Temporal(TemporalType.TIME)
+	@DateTimeFormat(pattern = "HH:mm")
+	private Date horaEntrada;
+
+	@Column
+	@Temporal(TemporalType.TIME)
+	@DateTimeFormat(pattern = "HH:mm")
+	private Date horaSalida;
+
+	@Column
 	@Temporal(TemporalType.TIME)
 	@DateTimeFormat(pattern = "HH:mm")
 	private Date horaEntradaManana;
 
 	@Column
-	@NotNull
 	@Temporal(TemporalType.TIME)
 	@DateTimeFormat(pattern = "HH:mm")
 	private Date horaSalidaManana;
 
 	@Column
-	@NotNull
 	@Temporal(TemporalType.TIME)
 	@DateTimeFormat(pattern = "HH:mm")
 	private Date horaEntradaTarde;
 
 	@Column
-	@NotNull
 	@Temporal(TemporalType.TIME)
 	@DateTimeFormat(pattern = "HH:mm")
 	private Date horaSalidaTarde;
@@ -159,6 +169,22 @@ public class Actividad implements Serializable {
 		this.pedido = pedido;
 	}
 
+	public Integer getProveedores() {
+		return proveedores;
+	}
+
+	public void setProveedores(Integer proveedores) {
+		this.proveedores = proveedores;
+	}
+
+	public Integer getRepartos() {
+		return repartos;
+	}
+
+	public void setRepartos(Integer repartos) {
+		this.repartos = repartos;
+	}
+
 	public String getOtros() {
 		return otros;
 	}
@@ -167,12 +193,36 @@ public class Actividad implements Serializable {
 		this.otros = otros;
 	}
 
-	public String getIncidencia() {
-		return incidencia;
+	public String getIncidencias() {
+		return incidencias;
 	}
 
-	public void setIncidencia(String incidencia) {
-		this.incidencia = incidencia;
+	public void setIncidencias(String incidencias) {
+		this.incidencias = incidencias;
+	}
+
+	public String getObservaciones() {
+		return observaciones;
+	}
+
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
+	}
+
+	public Date getHoraEntrada() {
+		return horaEntrada;
+	}
+
+	public void setHoraEntrada(Date horaEntrada) {
+		this.horaEntrada = horaEntrada;
+	}
+
+	public Date getHoraSalida() {
+		return horaSalida;
+	}
+
+	public void setHoraSalida(Date horaSalida) {
+		this.horaSalida = horaSalida;
 	}
 
 	public Date getHoraEntradaManana() {
@@ -221,6 +271,14 @@ public class Actividad implements Serializable {
 
 	public void setHoraExtras(String horaExtras) {
 		this.horaExtras = horaExtras;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 }

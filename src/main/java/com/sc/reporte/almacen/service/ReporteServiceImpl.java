@@ -8,8 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import com.ec.reporte.almacen.entity.Actividad;
-import com.ec.reporte.almacen.entity.Reporte;
+import com.sc.reporte.almacen.entity.Reporte;
 import com.sc.reporte.almacen.exception.ReporteNotFound;
 import com.sc.reporte.almacen.repository.ActividadRepository;
 import com.sc.reporte.almacen.repository.ReporteRepository;

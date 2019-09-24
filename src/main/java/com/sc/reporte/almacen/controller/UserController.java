@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.ec.reporte.almacen.entity.Role;
-import com.ec.reporte.almacen.entity.User;
 import com.sc.reporte.almacen.dto.ChangePasswordForm;
+import com.sc.reporte.almacen.entity.Role;
+import com.sc.reporte.almacen.entity.User;
 import com.sc.reporte.almacen.exception.CustomeFieldValidationException;
 import com.sc.reporte.almacen.exception.UsernameOrIdNotFound;
 import com.sc.reporte.almacen.repository.RoleRepository;

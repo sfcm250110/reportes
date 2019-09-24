@@ -2,8 +2,8 @@ package com.sc.reporte.almacen.service;
 
 import java.util.List;
 
-import com.ec.reporte.almacen.entity.Actividad;
-import com.ec.reporte.almacen.entity.ReporteActividad;
+import com.sc.reporte.almacen.entity.Actividad;
+import com.sc.reporte.almacen.entity.ReporteActividad;
 
 public interface ReporteActividadService {
 

@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ec.reporte.almacen.entity.Actividad;
-import com.ec.reporte.almacen.entity.ReporteActividad;
+import com.sc.reporte.almacen.entity.Actividad;
+import com.sc.reporte.almacen.entity.ReporteActividad;
 import com.sc.reporte.almacen.repository.ReporteActividadRepository;
 
 @Service

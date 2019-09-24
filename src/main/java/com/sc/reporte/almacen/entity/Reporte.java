@@ -1,4 +1,4 @@
-package com.ec.reporte.almacen.entity;
+package com.sc.reporte.almacen.entity;
 
 import java.io.Serializable;
 import java.util.Date;

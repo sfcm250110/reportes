@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.ec.reporte.almacen.entity.Actividad;
+import com.sc.reporte.almacen.entity.Actividad;
 
 @Repository
 public interface ActividadRepository extends CrudRepository<Actividad, Long> {
@@ -17,5 +17,7 @@ public interface ActividadRepository extends CrudRepository<Actividad, Long> {
 	public Optional<Actividad> findByFechaCreacion(Date fechaCreacion);
 	
 	public List<Actividad> findAllById(Long pId);
+	
+	public List<Actividad> findAllByTipo(String pTipo);
 	
 }
