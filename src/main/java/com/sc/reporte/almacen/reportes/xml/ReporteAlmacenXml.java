@@ -23,18 +23,14 @@ public class ReporteAlmacenXml implements Serializable {
 		reporteAlmacenXml.append(HelperXml.openTag(ConstantesXml.TAG_ACTIVIDADES));
 		for (Actividad actividad : pReporteTo.getActividades()) {
 			reporteAlmacenXml.append(HelperXml.openTag(ConstantesXml.TAG_ACTIVIDAD));
-			reporteAlmacenXml.append(HelperXml.generarTag(ConstantesXml.TAG_ENTRADA_MANANA, actividad.getHoraEntradaManana()));
-			reporteAlmacenXml.append(HelperXml.generarTag(ConstantesXml.TAG_SALIDA_MANANA, actividad.getHoraSalidaManana()));
-			reporteAlmacenXml.append(HelperXml.generarTag(ConstantesXml.TAG_ENTRADA_TARDE, actividad.getHoraEntradaTarde()));
-			reporteAlmacenXml.append(HelperXml.generarTag(ConstantesXml.TAG_SALIDA_TARDE, actividad.getHoraSalidaTarde()));
-			reporteAlmacenXml.append(HelperXml.generarTag(ConstantesXml.TAG_ORDINARIAS, actividad.getHoraOrdinarias()));
-			reporteAlmacenXml.append(HelperXml.generarTag(ConstantesXml.TAG_EXTRAS, actividad.getHoraExtras()));
-			reporteAlmacenXml.append(HelperXml.generarTag(ConstantesXml.TAG_POBLACION, actividad.getPoblacion()));
-			reporteAlmacenXml.append(HelperXml.generarTag(ConstantesXml.TAG_CLIENTE, actividad.getCliente()));
+			reporteAlmacenXml.append(HelperXml.generarTag(ConstantesXml.TAG_HORA_ENTRADA, actividad.getHoraEntrada()));
+			reporteAlmacenXml.append(HelperXml.generarTag(ConstantesXml.TAG_HORA_SALIDA, actividad.getHoraSalida()));
 			reporteAlmacenXml.append(HelperXml.generarTag(ConstantesXml.TAG_VISITA, actividad.getVisita()));
 			reporteAlmacenXml.append(HelperXml.generarTag(ConstantesXml.TAG_COBRO, actividad.getCobro()));
 			reporteAlmacenXml.append(HelperXml.generarTag(ConstantesXml.TAG_PEDIDO, actividad.getPedido()));
-			reporteAlmacenXml.append(HelperXml.generarTag(ConstantesXml.TAG_OTROS, actividad.getOtros()));
+			reporteAlmacenXml.append(HelperXml.generarTag(ConstantesXml.TAG_PROVEEDORES, actividad.getProveedores()));
+			reporteAlmacenXml.append(HelperXml.generarTag(ConstantesXml.TAG_REPARTOS, actividad.getRepartos()));
+			reporteAlmacenXml.append(HelperXml.generarTag(ConstantesXml.TAG_OBSERVACIONES, actividad.getObservaciones()));
 			reporteAlmacenXml.append(HelperXml.generarTag(ConstantesXml.TAG_INCIDENCIAS, actividad.getIncidencias()));
 			reporteAlmacenXml.append(HelperXml.closeTag(ConstantesXml.TAG_ACTIVIDAD));
 		}

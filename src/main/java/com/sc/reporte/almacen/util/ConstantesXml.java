@@ -6,7 +6,7 @@ import java.io.Serializable;
 public class ConstantesXml implements Serializable {
 
 	private static final long serialVersionUID = 644182729463720571L;
-	
+
 	public static final String TAG_DECLARACION_XML = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?>";
 	public static final String TAG_INIT_OPEN = "<";
 	public static final String TAG_INIT_CLOSE = ">";
@@ -49,4 +49,8 @@ public class ConstantesXml implements Serializable {
 	public static final String TAG_INCIDENCIAS = "incidencias";
 	public static final String TAG_HORA_ENTRADA = "horaEntrada";
 	public static final String TAG_HORA_SALIDA = "horaSalida";
+	public static final String TAG_PROVEEDORES = "proveedores";
+	public static final String TAG_REPARTOS = "repartos";
+	public static final String TAG_OBSERVACIONES = "observaciones";
+
 }

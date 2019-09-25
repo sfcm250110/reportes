@@ -28,6 +28,7 @@ import com.sc.reporte.almacen.reportes.ReporteHelper;
 import com.sc.reporte.almacen.repository.ActividadRepository;
 import com.sc.reporte.almacen.service.ReporteService;
 import com.sc.reporte.almacen.service.UserService;
+import com.sc.reporte.almacen.util.ArchivosUtil;
 import com.sc.reporte.almacen.util.ConstantesUtil;
 import com.sc.reporte.almacen.util.SpringWebUtil;
 
@@ -38,10 +39,10 @@ public class ReporteController {
 
 	@Autowired
 	private ReporteService reporteService;
-	
+
 	@Autowired
 	private ActividadRepository actividadRepository;
-	
+
 	@Autowired
 	private UserService userService;
 
@@ -49,14 +50,17 @@ public class ReporteController {
 	public @ResponseBody void downloadReporteGerencia(HttpServletResponse pResponse, HttpServletRequest pHttpServletRequest) {
 		try {
 			List<Actividad> actividades = (List<Actividad>) actividadRepository.findAllByTipo(ConstantesUtil.TIPO_REPORTE_COMERCIAL);
-			
+
 			Reporte reporte = new Reporte();
 			reporte.setElaboradoPor(obtenerElaboradoPor());
 			reporte.setTipo(ConstantesUtil.TIPO_REPORTE_COMERCIAL);
 			reporte.setActividades(actividades);
 			reporte = reporteService.crearReporte(reporte);
 
-			byte[] out = ReporteHelper.createPdf(BASEURI, reporte);
+			String contenidoXsl = ArchivosUtil.obtenerContenidoArchivo(ConstantesUtil.PATH_REPORTE_COMERCIAL);
+			String contenidoXml = ReporteHelper.generarReporteComercialXml(reporte);
+
+			byte[] out = ReporteHelper.createPdf(BASEURI, contenidoXsl, contenidoXml);
 			InputStream in = new ByteArrayInputStream(out);
 
 			pResponse.setContentType(ConstantesUtil.APPLICATION_PDF);
@@ -69,19 +73,22 @@ public class ReporteController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@GetMapping(value = "descargarReporteAlmacen", produces = MediaType.APPLICATION_PDF_VALUE)
 	public @ResponseBody void descargarReporteAlmacen(HttpServletResponse pResponse, HttpServletRequest pHttpServletRequest) {
 		try {
 			List<Actividad> actividades = (List<Actividad>) actividadRepository.findAllByTipo(ConstantesUtil.TIPO_REPORTE_ALMACEN);
-			
+
 			Reporte reporte = new Reporte();
 			reporte.setElaboradoPor(obtenerElaboradoPor());
 			reporte.setTipo(ConstantesUtil.TIPO_REPORTE_ALMACEN);
 			reporte.setActividades(actividades);
 			reporte = reporteService.crearReporte(reporte);
 
-			byte[] out = ReporteHelper.createPdf(BASEURI, reporte);
+			String contenidoXsl = ArchivosUtil.obtenerContenidoArchivo(ConstantesUtil.PATH_REPORTE_ALMACEN);
+			String contenidoXml = ReporteHelper.generarReporteAlmacenXml(reporte);
+
+			byte[] out = ReporteHelper.createPdf(BASEURI, contenidoXsl, contenidoXml);
 			InputStream in = new ByteArrayInputStream(out);
 
 			pResponse.setContentType(ConstantesUtil.APPLICATION_PDF);
@@ -121,12 +128,12 @@ public class ReporteController {
 
 		return "reportes/consultar";
 	}
-	
+
 	private String obtenerElaboradoPor() throws UsernameOrIdNotFound {
 		String userName = SpringWebUtil.obtenerUsuarioAutenticado();
 		User usuario = userService.getUserByUsername(userName);
 		String elaboradoPor = usuario.getFirstName() + " " + usuario.getLastName();
-		
+
 		return elaboradoPor;
 	}
 

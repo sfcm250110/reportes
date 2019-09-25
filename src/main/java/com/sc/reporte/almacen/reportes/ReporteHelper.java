@@ -21,9 +21,9 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.css.media.MediaType;
 import com.sc.reporte.almacen.entity.Reporte;
+import com.sc.reporte.almacen.reportes.xml.ReporteAlmacenXml;
 import com.sc.reporte.almacen.reportes.xml.ReporteComercialXml;
 import com.sc.reporte.almacen.to.ReporteTo;
-import com.sc.reporte.almacen.util.ArchivosUtil;
 import com.sc.reporte.almacen.util.ConstantesUtil;
 import com.sc.reporte.almacen.util.FechasUtil;
 
@@ -31,7 +31,7 @@ public class ReporteHelper implements Serializable {
 
 	private static final long serialVersionUID = -6248350878202528123L;
 
-	public static byte[] createPdf(String baseUri, Reporte pReporte) throws IOException, TransformerException {
+	public static byte[] createPdf(String baseUri, String pContenidoXsl, String pContenidoXml) throws IOException, TransformerException {
 		ConverterProperties properties = new ConverterProperties();
 		properties.setBaseUri(baseUri);
 
@@ -46,24 +46,10 @@ public class ReporteHelper implements Serializable {
 		mediaDeviceDescription.setWidth(pageSize.getWidth());
 		properties.setMediaDeviceDescription(mediaDeviceDescription);
 
-		String contenidoXsl = ArchivosUtil.obtenerContenidoArchivo(ConstantesUtil.PATH_REPORTE_COMERCIAL);
-		String conenidoXml = generarReporteComercialXml(pReporte);
-
-		byte[] html = createHtml(conenidoXml, contenidoXsl);
+		byte[] html = createHtml(pContenidoXml, pContenidoXsl);
 		HtmlConverter.convertToPdf(new ByteArrayInputStream(html), pdfDocument, properties);
 
 		return pdf.toByteArray();
-	}
-
-	public static String generarReporteComercialXml(Reporte pReporte) {
-		ReporteTo reporteTo = new ReporteTo();
-		reporteTo.setNumero(pReporte.getNumero());
-		reporteTo.setElaboradoPor(pReporte.getElaboradoPor());
-		reporteTo.setFecha(FechasUtil.formatearFecha(pReporte.getFechaCreacion(), ConstantesUtil.FORMATO_FECHA_DDMMYYHHMM));
-		reporteTo.setActividades(pReporte.getActividades());
-		String reporteComercialXml = ReporteComercialXml.generarXml(reporteTo);
-
-		return reporteComercialXml;
 	}
 
 	public static byte[] createHtml(String pContenidoXml, String pContenidoXsl) throws IOException, TransformerException {
@@ -78,5 +64,27 @@ public class ReporteHelper implements Serializable {
 		writer.close();
 
 		return baos.toByteArray();
+	}
+
+	public static String generarReporteComercialXml(Reporte pReporte) {
+		ReporteTo reporteTo = new ReporteTo();
+		reporteTo.setNumero(pReporte.getNumero());
+		reporteTo.setElaboradoPor(pReporte.getElaboradoPor());
+		reporteTo.setFecha(FechasUtil.formatearFecha(pReporte.getFechaCreacion(), ConstantesUtil.FORMATO_FECHA_DDMMYYHHMM));
+		reporteTo.setActividades(pReporte.getActividades());
+		String reporteComercialXml = ReporteComercialXml.generarXml(reporteTo);
+
+		return reporteComercialXml;
+	}
+
+	public static String generarReporteAlmacenXml(Reporte pReporte) {
+		ReporteTo reporteTo = new ReporteTo();
+		reporteTo.setNumero(pReporte.getNumero());
+		reporteTo.setElaboradoPor(pReporte.getElaboradoPor());
+		reporteTo.setFecha(FechasUtil.formatearFecha(pReporte.getFechaCreacion(), ConstantesUtil.FORMATO_FECHA_DDMMYYHHMM));
+		reporteTo.setActividades(pReporte.getActividades());
+		String reporteAlmacenXml = ReporteAlmacenXml.generarXml(reporteTo);
+
+		return reporteAlmacenXml;
 	}
 }
