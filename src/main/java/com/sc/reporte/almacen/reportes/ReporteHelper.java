@@ -21,7 +21,7 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.css.media.MediaType;
 import com.sc.reporte.almacen.entity.Reporte;
-import com.sc.reporte.almacen.reportes.xml.ReporteGerenciaXml;
+import com.sc.reporte.almacen.reportes.xml.ReporteComercialXml;
 import com.sc.reporte.almacen.to.ReporteTo;
 import com.sc.reporte.almacen.util.ArchivosUtil;
 import com.sc.reporte.almacen.util.ConstantesUtil;
@@ -46,8 +46,8 @@ public class ReporteHelper implements Serializable {
 		mediaDeviceDescription.setWidth(pageSize.getWidth());
 		properties.setMediaDeviceDescription(mediaDeviceDescription);
 
-		String contenidoXsl = ArchivosUtil.obtenerContenidoArchivo(ConstantesUtil.PATH_REPORTE_GERENCIA);
-		String conenidoXml = generarReporteGerenciaXml(pReporte);
+		String contenidoXsl = ArchivosUtil.obtenerContenidoArchivo(ConstantesUtil.PATH_REPORTE_COMERCIAL);
+		String conenidoXml = generarReporteComercialXml(pReporte);
 
 		byte[] html = createHtml(conenidoXml, contenidoXsl);
 		HtmlConverter.convertToPdf(new ByteArrayInputStream(html), pdfDocument, properties);
@@ -55,15 +55,15 @@ public class ReporteHelper implements Serializable {
 		return pdf.toByteArray();
 	}
 
-	public static String generarReporteGerenciaXml(Reporte pReporte) {
+	public static String generarReporteComercialXml(Reporte pReporte) {
 		ReporteTo reporteTo = new ReporteTo();
 		reporteTo.setNumero(pReporte.getNumero());
 		reporteTo.setElaboradoPor(pReporte.getElaboradoPor());
 		reporteTo.setFecha(FechasUtil.formatearFecha(pReporte.getFechaCreacion(), ConstantesUtil.FORMATO_FECHA_DDMMYYHHMM));
 		reporteTo.setActividades(pReporte.getActividades());
-		String reporteGerenciaXml = ReporteGerenciaXml.generarXml(reporteTo);
+		String reporteComercialXml = ReporteComercialXml.generarXml(reporteTo);
 
-		return reporteGerenciaXml;
+		return reporteComercialXml;
 	}
 
 	public static byte[] createHtml(String pContenidoXml, String pContenidoXsl) throws IOException, TransformerException {

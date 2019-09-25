@@ -13,17 +13,17 @@
 						<td colspan="13" class="titulo-cabecera">Chocolates Marcos Tonda</td>
 					</tr>
 					<tr>
-						<td colspan="13" class="titulo-reporte">REPORTE DIARIO DE <span class="nombre-reporte">COMERCIALES</span></td>
+						<td colspan="13" class="titulo-reporte">REPORTE DIARIO DE <span class="nombre-reporte">COMERCIAL</span></td>
 					</tr>
 					<tr>
 						<td colspan="1" class="label border-left">Reporte:</td>
-						<td colspan="12" class="value border-right"><xsl:value-of select="reporteGerencia/numero"/></td>
+						<td colspan="12" class="value border-right"><xsl:value-of select="reporteComercial/numero"/></td>
 					</tr>
 					<tr>
 						<td colspan="1" class="label border-left">Elaborado:</td>
-						<td colspan="9" class="value"><xsl:value-of select="reporteGerencia/elaboradoPor"/></td>
+						<td colspan="9" class="value"><xsl:value-of select="reporteComercial/elaboradoPor"/></td>
 						<td colspan="1" class="label">Fecha:</td>
-						<td colspan="2" class="value border-right"><xsl:value-of select="reporteGerencia/fecha"/></td>
+						<td colspan="2" class="value border-right"><xsl:value-of select="reporteComercial/fecha"/></td>
 					</tr>
 					<tr>
 						<td colspan="6" class="subtitulo-cabecera">Horarios</td>
@@ -48,7 +48,7 @@
 						<td class="subtitulo-cabecera">Ordinarias</td>
 						<td class="subtitulo-cabecera">Extra</td>
 					</tr>
-					<xsl:for-each select="reporteGerencia/actividades/actividad">
+					<xsl:for-each select="reporteComercial/actividades/actividad">
 						<tr>
 							<td class="data"><xsl:value-of select="horaEntradaManana"/></td>
 							<td class="data"><xsl:value-of select="horaSalidaManana" /></td>

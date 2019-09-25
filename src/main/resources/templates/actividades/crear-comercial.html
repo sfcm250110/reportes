@@ -15,7 +15,7 @@
 				<div class="row">
 					<div class="mx-auto col-sm-6 col-lg-12">
 						<div class="jumbotron">
-							<h3>Ingresar Actividades</h3>
+							<h3>Ingresar actividades del comercial</h3>
 						</div>
 					</div>
 				</div>
@@ -26,7 +26,7 @@
 								<h5 class="mb-0">Información</h5>
 							</div>
 							<div class="card-body">
-								<form class="form" role="form" autocomplete="off" th:action="@{guardarActividad}" th:object="${actividad}" method="post">
+								<form class="form" role="form" autocomplete="off" th:action="@{guardarComercial}" th:object="${actividad}" method="post">
 									<div class="row mb-3">
 										<div class="col">
 											<label th:text="Población" class="col-form-label form-control-label form-control-sm" for="poblacion-id">Población: </label>
@@ -82,10 +82,10 @@
 										</div>
 									</div>
 									
-									<div class="row mb-2">
+									<div class="row mb-3">
 										<div class="col">
 											<label class="col-form-label form-control-label form-control-sm" for="pedido-id">Incidencias:</label>
-											<input id="indidencias-id" name="indidencias" type="text" class="form-control form-control-sm" th:field="${crearActividad.incidencia}">
+											<input id="indidencias-id" name="indidencias" type="text" class="form-control form-control-sm" th:field="${crearActividad.incidencias}">
 										</div>
 									</div>
 									

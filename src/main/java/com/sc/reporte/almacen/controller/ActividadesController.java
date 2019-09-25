@@ -35,40 +35,40 @@ public class ActividadesController {
 	@Autowired
 	private UserService userService;
 
-	@GetMapping("/consultarActividades")
-	public String consultarActividades(Model pModel) {
+	@GetMapping("consultarReporteComercial")
+	public String consultarReporteComercial(Model pModel) {
 		List<Actividad> actividades = (List<Actividad>) actividadRepository.findAllByTipo(ConstantesUtil.TIPO_REPORTE_COMERCIAL);
 		pModel.addAttribute("actividades", actividades);
 
-		return "actividades/consultar";
+		return "actividades/consultar-reporte-comercial";
 	}
 	
-	@GetMapping("/consultarActividadesJefeAlmacenes")
-	public String consultarActividadesJefeAlmacenes(Model pModel) {
-		List<Actividad> actividades = (List<Actividad>) actividadRepository.findAllByTipo(ConstantesUtil.TIPO_REPORTE_JEFE_ALMACEN);
+	@GetMapping("consultarReporteAlmacen")
+	public String consultarReporteAlmacen(Model pModel) {
+		List<Actividad> actividades = (List<Actividad>) actividadRepository.findAllByTipo(ConstantesUtil.TIPO_REPORTE_ALMACEN);
 		pModel.addAttribute("actividades", actividades);
 
-		return "actividades/consultar-jefe-almacenes";
+		return "actividades/consultar-reporte-almacen";
 	}
 
-	@GetMapping("/crearActividad")
-	public String crearActividad(Model pModel) {
+	@GetMapping("crearComercial")
+	public String crearComercial(Model pModel) {
 		Actividad actividad = new Actividad();
 		pModel.addAttribute("crearActividad", actividad);
 
-		return "actividades/crear";
+		return "actividades/crear-comercial";
 	}
 	
-	@GetMapping("/crearActividadJefeAlmacenes")
-	public String crearActividadJefeAlmacenes(Model pModel) {
+	@GetMapping("crearAlmacen")
+	public String crearAlmacen(Model pModel) {
 		Actividad actividad = new Actividad();
 		pModel.addAttribute("crearActividad", actividad);
 
-		return "actividades/crear-jefe-almacenes";
+		return "actividades/crear-almacen";
 	}
 
-	@PostMapping("guardarActividad")
-	public String guardarActividad(@Valid @ModelAttribute("actividad") Actividad actividad, BindingResult result, ModelMap model) {
+	@PostMapping("guardarComercial")
+	public String guardarComercial(@Valid @ModelAttribute("actividad") Actividad actividad, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			// TODO: revisar
 
@@ -88,18 +88,18 @@ public class ActividadesController {
 			}
 		}
 
-		return "redirect:" + "consultarActividades";
+		return "redirect:" + "consultarReporteComercial";
 	}
 	
-	@PostMapping("guardarJefeAlmacen")
-	public String guardarJefeAlmacen(@Valid @ModelAttribute("actividad") Actividad actividad, BindingResult result, ModelMap model) {
+	@PostMapping("guardarAlmacen")
+	public String guardarAlmacen(@Valid @ModelAttribute("actividad") Actividad actividad, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			// TODO: revisar
 
 		} else {
 			try {
 				actividad.setElaboradoPor(obtenerElaboradoPor());
-				actividad.setTipo(ConstantesUtil.TIPO_REPORTE_JEFE_ALMACEN);
+				actividad.setTipo(ConstantesUtil.TIPO_REPORTE_ALMACEN);
 				actividadService.crearActividad(actividad);
 
 			} catch (CustomeFieldValidationException cfve) {
@@ -112,7 +112,7 @@ public class ActividadesController {
 			}
 		}
 
-		return "redirect:" + "consultarActividades";
+		return "redirect:" + "consultarReporteAlmacen";
 	}
 	
 	private String obtenerElaboradoPor() throws UsernameOrIdNotFound {

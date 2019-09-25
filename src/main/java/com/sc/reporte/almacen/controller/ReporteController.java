@@ -25,7 +25,7 @@ import com.sc.reporte.almacen.entity.Reporte;
 import com.sc.reporte.almacen.entity.User;
 import com.sc.reporte.almacen.exception.UsernameOrIdNotFound;
 import com.sc.reporte.almacen.reportes.ReporteHelper;
-import com.sc.reporte.almacen.service.ActividadService;
+import com.sc.reporte.almacen.repository.ActividadRepository;
 import com.sc.reporte.almacen.service.ReporteService;
 import com.sc.reporte.almacen.service.UserService;
 import com.sc.reporte.almacen.util.ConstantesUtil;
@@ -38,17 +38,17 @@ public class ReporteController {
 
 	@Autowired
 	private ReporteService reporteService;
-
+	
 	@Autowired
-	private ActividadService actividadService;
+	private ActividadRepository actividadRepository;
 	
 	@Autowired
 	private UserService userService;
 
-	@GetMapping(value = "/reporteGerencia", produces = MediaType.APPLICATION_PDF_VALUE)
+	@GetMapping(value = "descargarReporteComercial", produces = MediaType.APPLICATION_PDF_VALUE)
 	public @ResponseBody void downloadReporteGerencia(HttpServletResponse pResponse, HttpServletRequest pHttpServletRequest) {
 		try {
-			List<Actividad> actividades = (List<Actividad>) actividadService.getAllActividades();
+			List<Actividad> actividades = (List<Actividad>) actividadRepository.findAllByTipo(ConstantesUtil.TIPO_REPORTE_COMERCIAL);
 			
 			Reporte reporte = new Reporte();
 			reporte.setElaboradoPor(obtenerElaboradoPor());
@@ -60,7 +60,7 @@ public class ReporteController {
 			InputStream in = new ByteArrayInputStream(out);
 
 			pResponse.setContentType(ConstantesUtil.APPLICATION_PDF);
-			pResponse.setHeader("Content-Disposition", "attachment; filename=reporteGerencia.pdf");
+			pResponse.setHeader("Content-Disposition", "attachment; filename=reporte-comercial.pdf");
 			pResponse.setHeader("Content-Length", String.valueOf(out.length));
 
 			FileCopyUtils.copy(in, pResponse.getOutputStream());
@@ -70,14 +70,14 @@ public class ReporteController {
 		}
 	}
 	
-	@GetMapping(value = "/reporteJefeAlmacenes", produces = MediaType.APPLICATION_PDF_VALUE)
-	public @ResponseBody void downloadReporteJefeAlmacenes(HttpServletResponse pResponse, HttpServletRequest pHttpServletRequest) {
+	@GetMapping(value = "descargarReporteAlmacen", produces = MediaType.APPLICATION_PDF_VALUE)
+	public @ResponseBody void descargarReporteAlmacen(HttpServletResponse pResponse, HttpServletRequest pHttpServletRequest) {
 		try {
-			List<Actividad> actividades = (List<Actividad>) actividadService.getAllActividades();
+			List<Actividad> actividades = (List<Actividad>) actividadRepository.findAllByTipo(ConstantesUtil.TIPO_REPORTE_ALMACEN);
 			
 			Reporte reporte = new Reporte();
 			reporte.setElaboradoPor(obtenerElaboradoPor());
-			reporte.setTipo(ConstantesUtil.TIPO_REPORTE_JEFE_ALMACEN);
+			reporte.setTipo(ConstantesUtil.TIPO_REPORTE_ALMACEN);
 			reporte.setActividades(actividades);
 			reporte = reporteService.crearReporte(reporte);
 
@@ -85,7 +85,7 @@ public class ReporteController {
 			InputStream in = new ByteArrayInputStream(out);
 
 			pResponse.setContentType(ConstantesUtil.APPLICATION_PDF);
-			pResponse.setHeader("Content-Disposition", "attachment; filename=reporteGerencia.pdf");
+			pResponse.setHeader("Content-Disposition", "attachment; filename=reporte-almacen.pdf");
 			pResponse.setHeader("Content-Length", String.valueOf(out.length));
 
 			FileCopyUtils.copy(in, pResponse.getOutputStream());

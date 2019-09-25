@@ -15,7 +15,7 @@
 				<div class="row">
 					<div class="mx-auto col-sm-6 col-lg-12">
 						<div class="jumbotron">
-							<h3>Actividades del Jefe de Almacen</h3>
+							<h3>Ingresar actividades del almacen</h3>
 						</div>
 					</div>
 				</div>
@@ -23,10 +23,10 @@
 					<div class="mx-auto col-sm-12 col-lg-12">
 						<div class="card">
 							<div class="card-header">
-								<h5 class="mb-0">Ingresar información</h5>
+								<h5 class="mb-0">Información</h5>
 							</div>
 							<div class="card-body">
-								<form class="form" role="form" autocomplete="off" th:action="@{guardarJefeAlmacen}" th:object="${actividad}" method="post">
+								<form class="form" role="form" autocomplete="off" th:action="@{guardarAlmacen}" th:object="${actividad}" method="post">
 									<div class="row mb-2">
 										<div class="col">
 											<label class="col-form-label form-control-label form-control-sm" for="entrada-manana-id">Hora entrada:</label>
