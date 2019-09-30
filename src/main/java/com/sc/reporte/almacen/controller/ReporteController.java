@@ -3,6 +3,7 @@ package com.sc.reporte.almacen.controller;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,15 +18,18 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sc.reporte.almacen.entity.Actividad;
 import com.sc.reporte.almacen.entity.Reporte;
+import com.sc.reporte.almacen.entity.ReporteAlmacen;
 import com.sc.reporte.almacen.entity.User;
 import com.sc.reporte.almacen.exception.UsernameOrIdNotFound;
 import com.sc.reporte.almacen.reportes.ReporteHelper;
 import com.sc.reporte.almacen.repository.ActividadRepository;
+import com.sc.reporte.almacen.repository.ReporteAlmacenRepository;
 import com.sc.reporte.almacen.service.ReporteService;
 import com.sc.reporte.almacen.service.UserService;
 import com.sc.reporte.almacen.util.ArchivosUtil;
@@ -42,6 +46,9 @@ public class ReporteController {
 
 	@Autowired
 	private ActividadRepository actividadRepository;
+	
+	@Autowired
+	private ReporteAlmacenRepository reporteAlmacenRepository;
 
 	@Autowired
 	private UserService userService;
@@ -74,7 +81,7 @@ public class ReporteController {
 		}
 	}
 
-	@GetMapping(value = "descargarReporteAlmacen", produces = MediaType.APPLICATION_PDF_VALUE)
+	@GetMapping(value = "descargarReporteAlmacen1", produces = MediaType.APPLICATION_PDF_VALUE)
 	public @ResponseBody void descargarReporteAlmacen(HttpServletResponse pResponse, HttpServletRequest pHttpServletRequest) {
 		try {
 			List<Actividad> actividades = (List<Actividad>) actividadRepository.findAllByTipo(ConstantesUtil.TIPO_REPORTE_ALMACEN);
@@ -85,7 +92,7 @@ public class ReporteController {
 			reporte.setActividades(actividades);
 			reporte = reporteService.crearReporte(reporte);
 
-			String contenidoXsl = ArchivosUtil.obtenerContenidoArchivo(ConstantesUtil.PATH_REPORTE_ALMACEN);
+			String contenidoXsl = ReporteHelper.obtenerPlantillaXsl(ConstantesUtil.PATH_REPORTE_ALMACEN);
 			String contenidoXml = ReporteHelper.generarReporteAlmacenXml(reporte);
 
 			byte[] out = ReporteHelper.createPdf(BASEURI, contenidoXsl, contenidoXml);
@@ -101,6 +108,34 @@ public class ReporteController {
 			e.printStackTrace();
 		}
 	}
+	
+	@GetMapping(value = "descargarReporteAlmacen/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
+    public String descargarReporteAlmacen(@PathVariable(value="id") Long idReporteAlmacen, HttpServletResponse pResponse, HttpServletRequest pHttpServletRequest) {
+		try {
+			Optional<ReporteAlmacen> reporteAlmacenOptional = reporteAlmacenRepository.findById(idReporteAlmacen);
+			
+			if (reporteAlmacenOptional.isPresent()) {
+				ReporteAlmacen reporteAlmacen = reporteAlmacenOptional.get();
+				
+				String contenidoXsl = ReporteHelper.obtenerPlantillaXsl(ConstantesUtil.PATH_REPORTE_ALMACEN);
+				String contenidoXml = ReporteHelper.generarReporteAlmacenXml(reporteAlmacen);
+
+				byte[] out = ReporteHelper.createPdf(BASEURI, contenidoXsl, contenidoXml);
+				InputStream in = new ByteArrayInputStream(out);
+
+				pResponse.setContentType(ConstantesUtil.APPLICATION_PDF);
+				pResponse.setHeader("Content-Disposition", "attachment; filename=reporte-almacen.pdf");
+				pResponse.setHeader("Content-Length", String.valueOf(out.length));
+
+				FileCopyUtils.copy(in, pResponse.getOutputStream());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:" + "consultarReporteAlmacen";
+    }
 
 	@GetMapping("/consultarReporte")
 	public String reportes(Model pModel) {

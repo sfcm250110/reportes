@@ -17,6 +17,7 @@ public class ConstantesXml implements Serializable {
 	public static final String TAG_REPORTE_ALMACEN = "reporteAlmacen";
 	public static final String TAG_NUMERO = "numero";
 	public static final String TAG_ELABORADO_POR = "elaboradoPor";
+	public static final String TAG_REVISADO_POR = "revisadoPor";
 	public static final String TAG_FECHA = "fecha";
 	public static final String TAG_TOTAL_ENTRADA_MANANA = "totalEntradaManana";
 	public static final String TAG_TOTAL_SALIDA_MANANA = "totalSalidaManana";
@@ -52,5 +53,12 @@ public class ConstantesXml implements Serializable {
 	public static final String TAG_PROVEEDORES = "proveedores";
 	public static final String TAG_REPARTOS = "repartos";
 	public static final String TAG_OBSERVACIONES = "observaciones";
+	public static final String TAG_FRANK = "frank";
+	public static final String TAG_VICENTE = "vicente";
+	public static final String TAG_INTEGRA = "integra";
+	public static final String TAG_GEORGE = "george";
+	public static final String TAG_BLUE = "blue";
+	public static final String TAG_PROVEEDORES_DESCARGADOS = "proveedoresDescargados";
+	public static final String TAG_REPARTOS_GEORGE = "repartosGeorge";
 
 }

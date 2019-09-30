@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/ui}">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="Aplicacion para gestion de reportes">
+		<meta name="author" content="Santiago Cabrera M.">
+	
+		<title>Gestión de Almacenes</title>
+	</head>
+	
+	<body>
+		<div layout:fragment="content" th:remove="tag">
+			<div class="container py-3">
+				<div class="row">
+					<div class="mx-auto col-sm-6 col-lg-12">
+						<div class="jumbotron">
+							<h3>Reporte Almacenes</h3>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="mx-auto col-sm-12 col-lg-12">
+						<div class="card">
+							<div class="card-header">
+								<h5 class="mb-0">Información</h5>
+							</div>
+							<div class="card-body">
+								<div class="table-responsive">
+									<table id="reportesAlmacen"
+										class="table table-bordered table-hover table-striped">
+										<thead class="thead-light">
+											<tr>
+												<th scope="col">Hora Entrada</th>
+												<th scope="col">Hora Salida</th>
+												<th scope="col">Frank</th>
+												<th scope="col">Vicente</th>
+												<th scope="col">Integra</th>
+												<th scope="col">George</th>
+												<th scope="col">Blue</th>
+												<th scope="col">Otros</th>
+												<th scope="col">Proveedores</th>
+												<th scope="col">Repartos</th>
+												<th scope="col">Acciones</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="reporteAlmacen : ${reportesAlmacen}">
+												<td th:text="${reporteAlmacen.horaEntrada}"></td>
+												<td th:text="${reporteAlmacen.horaSalida}"></td>
+												<td th:text="${reporteAlmacen.frank}"></td>
+												<td th:text="${reporteAlmacen.vicente}"></td>
+												<td th:text="${reporteAlmacen.integra}"></td>
+												<td th:text="${reporteAlmacen.george}"></td>
+												<td th:text="${reporteAlmacen.blue}"></td>
+												<td th:text="${reporteAlmacen.otros}"></td>
+												<td th:text="${reporteAlmacen.proveedoresDescargados}"></td>
+												<td th:text="${reporteAlmacen.repartosGeorge}"></td>
+												<td><a th:href="@{descargarReporteAlmacen/} + ${reporteAlmacen.id}" th:text="'Descargar'" class="btn btn-outline-danger"></a></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>				
+	</body>
+</html>

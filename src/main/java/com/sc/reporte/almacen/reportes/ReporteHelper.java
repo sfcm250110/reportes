@@ -21,16 +21,18 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.css.media.MediaType;
 import com.sc.reporte.almacen.entity.Reporte;
+import com.sc.reporte.almacen.entity.ReporteAlmacen;
 import com.sc.reporte.almacen.reportes.xml.ReporteAlmacenXml;
 import com.sc.reporte.almacen.reportes.xml.ReporteComercialXml;
 import com.sc.reporte.almacen.to.ReporteTo;
+import com.sc.reporte.almacen.util.ArchivosUtil;
 import com.sc.reporte.almacen.util.ConstantesUtil;
 import com.sc.reporte.almacen.util.FechasUtil;
 
 public class ReporteHelper implements Serializable {
 
 	private static final long serialVersionUID = -6248350878202528123L;
-
+	
 	public static byte[] createPdf(String baseUri, String pContenidoXsl, String pContenidoXml) throws IOException, TransformerException {
 		ConverterProperties properties = new ConverterProperties();
 		properties.setBaseUri(baseUri);
@@ -39,7 +41,7 @@ public class ReporteHelper implements Serializable {
 		PdfWriter writer = new PdfWriter(pdf);
 		PdfDocument pdfDocument = new PdfDocument(writer);
 		pdfDocument.setTagged();
-		PageSize pageSize = PageSize.A4.rotate();
+		PageSize pageSize = PageSize.A4;
 		pdfDocument.setDefaultPageSize(pageSize);
 
 		MediaDeviceDescription mediaDeviceDescription = new MediaDeviceDescription(MediaType.SCREEN);
@@ -87,4 +89,21 @@ public class ReporteHelper implements Serializable {
 
 		return reporteAlmacenXml;
 	}
+	
+	public static String generarReporteAlmacenXml(ReporteAlmacen pReporteAlmacen) {
+		ReporteTo reporteTo = new ReporteTo();
+		reporteTo.setNumero(pReporteAlmacen.getNumero());
+		reporteTo.setElaboradoPor(pReporteAlmacen.getElaboradoPor());
+		reporteTo.setRevisadoPor(pReporteAlmacen.getElaboradoPor());
+		reporteTo.setFecha(FechasUtil.formatearFecha(pReporteAlmacen.getFechaCreacion(), ConstantesUtil.FORMATO_FECHA_DDMMYYHHMM));
+		reporteTo.setReporteAlmacen(pReporteAlmacen);
+		String reporteAlmacenXml = ReporteAlmacenXml.generarXml(reporteTo);
+
+		return reporteAlmacenXml;
+	}
+	
+	public static String obtenerPlantillaXsl(String pPathReporte) throws IOException {
+		return ArchivosUtil.obtenerContenidoArchivo(pPathReporte).replace("estiloReportesCss", ConstantesUtil.PATH_REPORTE_CSS);
+	}
+	
 }

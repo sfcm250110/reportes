@@ -5,7 +5,7 @@
 		<xsl:text disable-output-escaping='yes'>&lt;!DOCTYPE html&gt;</xsl:text>
 		<html>
 			<head>
-				<link rel="stylesheet" type="text/css" href="../static/css/reportes.css" />
+				<link rel="stylesheet" type="text/css" href="estiloReportesCss" />
 			</head>
 			<body>
 				<table class="reporte">

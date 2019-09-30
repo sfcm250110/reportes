@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.sc.reporte.almacen.entity.Actividad;
+import com.sc.reporte.almacen.entity.ReporteAlmacen;
 
 public class ReporteTo implements Serializable {
 
@@ -11,7 +12,9 @@ public class ReporteTo implements Serializable {
 
 	private String numero;
 	private String elaboradoPor;
+	private String revisadoPor;
 	private String fecha;
+	private ReporteAlmacen reporteAlmacen;
 	private List<Actividad> actividades;
 
 	public String getNumero() {
@@ -44,6 +47,22 @@ public class ReporteTo implements Serializable {
 
 	public void setActividades(List<Actividad> actividades) {
 		this.actividades = actividades;
+	}
+
+	public String getRevisadoPor() {
+		return revisadoPor;
+	}
+
+	public void setRevisadoPor(String revisadoPor) {
+		this.revisadoPor = revisadoPor;
+	}
+
+	public ReporteAlmacen getReporteAlmacen() {
+		return reporteAlmacen;
+	}
+
+	public void setReporteAlmacen(ReporteAlmacen reporteAlmacen) {
+		this.reporteAlmacen = reporteAlmacen;
 	}
 
 }
