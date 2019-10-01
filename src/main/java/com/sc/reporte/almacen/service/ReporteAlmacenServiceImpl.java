@@ -1,5 +1,7 @@
 package com.sc.reporte.almacen.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.List;
@@ -24,7 +26,7 @@ public class ReporteAlmacenServiceImpl implements ReporteAlmacenService {
 		ReporteAlmacen reporte = findFirstId();
 
 		pReporte.setNumero(generarNumeroReporte(reporte));
-		pReporte.setFechaCreacion(new Date());
+		pReporte.setFechaCreacion(obtenerFechaCreacion(pReporte.getFechaCrear()));
 		pReporte = reporteAlmacenRepository.save(pReporte);
 
 		return pReporte;
@@ -61,16 +63,16 @@ public class ReporteAlmacenServiceImpl implements ReporteAlmacenService {
 	public ReporteAlmacen findByFechaCreacion(Date fechaCreacion) throws Exception {
 		return reporteAlmacenRepository.findByFechaCreacion(fechaCreacion).orElseThrow(() -> new ReporteNotFound("No existe la fecha de creacion del reporte."));
 	}
-	
+
 	@Override
 	public ReporteAlmacen findFirstId() throws ReporteNotFound {
 		List<ReporteAlmacen> reportesAlmacen = reporteAlmacenRepository.findFirstIdDesc();
 		ReporteAlmacen reporteAlmacen = null;
-		
+
 		if (!reportesAlmacen.isEmpty()) {
 			reporteAlmacen = reportesAlmacen.get(ConstantesUtil.PRIMER_REGISTRO);
 		}
-		
+
 		return reporteAlmacen;
 	}
 
@@ -89,6 +91,20 @@ public class ReporteAlmacenServiceImpl implements ReporteAlmacenService {
 		formater.close();
 
 		return numeroReporte;
+	}
+
+	private Date obtenerFechaCreacion(String fechaCrear) {
+		SimpleDateFormat formatter = new SimpleDateFormat(ConstantesUtil.FORMATO_FECHA_YYYYMMDDHHMM);
+		Date fechaCreacion;
+
+		try {
+			fechaCreacion = formatter.parse(fechaCrear);
+
+		} catch (ParseException e) {
+			fechaCreacion = new Date();
+		}
+
+		return fechaCreacion;
 	}
 
 }

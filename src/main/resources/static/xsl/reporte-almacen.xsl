@@ -61,16 +61,16 @@
 						<td colspan="3" class="data"><xsl:value-of select="reporteAlmacen/repartosGeorge"/></td>
 					</tr>
 					<tr>
-						<td colspan="6" class="subtitulo-cabecera">Observaciones</td>
+						<td colspan="6" class="subtitulo-cabecera-left">Observaciones</td>
 					</tr>
 					<tr>
-						<td colspan="6" class="data"><xsl:value-of select="reporteAlmacen/observaciones"/></td>
+						<td colspan="6" class="data-left"><xsl:value-of select="reporteAlmacen/observaciones"/></td>
 					</tr>
 					<tr>
-						<td colspan="6" class="subtitulo-cabecera">Incidencias</td>
+						<td colspan="6" class="subtitulo-cabecera-left">Incidencias</td>
 					</tr>
 					<tr>
-						<td colspan="6" class="data"><xsl:value-of select="reporteAlmacen/incidencias"/></td>
+						<td colspan="6" class="data-left"><xsl:value-of select="reporteAlmacen/incidencias"/></td>
 					</tr>
 				</table>
 			</body>

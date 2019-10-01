@@ -12,6 +12,7 @@ public class ConstantesUtil implements Serializable {
 	public static final String APPLICATION_PDF = "application/pdf";
 	
 	public static final String FORMATO_FECHA_DDMMYYHHMM = "dd/MM/yyyy - HH:mm";
+	public static final String FORMATO_FECHA_YYYYMMDDHHMM = "yyyy-MM-dd'T'HH:mm";
 	
 	public static final String PATH_REPORTE_COMERCIAL = "static/xsl/reporte-comercial.xsl";
 	public static final String PATH_REPORTES_ALMACEN = "static/xsl/reportes-almacen.xsl";
@@ -22,6 +23,6 @@ public class ConstantesUtil implements Serializable {
 	
 	public static final String PATH_REPORTE_CSS_DEV = "../static/css/reportes.css";
 	public static final String PATH_REPORTE_CSS_PRO = "/home/reportes/app/css/reportes.css";
-	public static final String PATH_REPORTE_CSS = PATH_REPORTE_CSS_DEV;
+	public static final String PATH_REPORTE_CSS = PATH_REPORTE_CSS_PRO;
 
 }

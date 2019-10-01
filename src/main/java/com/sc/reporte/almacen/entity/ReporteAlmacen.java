@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -34,10 +35,12 @@ public class ReporteAlmacen implements Serializable {
 	private String elaboradoPor;
 
 	@Column
-	@Temporal(TemporalType.TIME)
-	@DateTimeFormat(pattern = "dd-mm-yyyy HH:mm")
+	//@DateTimeFormat(pattern = "dd/MM/yyyy'T'HH:mm")
+	//@DateTimeFormat(pattern = "dd-MM-yyyy")
+	//@Temporal(TemporalType.TIMESTAMP)
+	//@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
 	private Date fechaCreacion;
-
+	
 	@Column
 	@Temporal(TemporalType.TIME)
 	@DateTimeFormat(pattern = "HH:mm")
@@ -77,6 +80,9 @@ public class ReporteAlmacen implements Serializable {
 
 	@Column
 	private String incidencias;
+	
+	@Transient
+	private String fechaCrear;
 
 	public Long getId() {
 		return id;
@@ -213,5 +219,15 @@ public class ReporteAlmacen implements Serializable {
 	public void setIncidencias(String incidencias) {
 		this.incidencias = incidencias;
 	}
+
+	public String getFechaCrear() {
+		return fechaCrear;
+	}
+
+	public void setFechaCrear(String fechaCrear) {
+		this.fechaCrear = fechaCrear;
+	}
+	
+	
 
 }
