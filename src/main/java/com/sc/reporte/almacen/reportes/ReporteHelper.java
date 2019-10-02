@@ -94,7 +94,7 @@ public class ReporteHelper implements Serializable {
 		ReporteTo reporteTo = new ReporteTo();
 		reporteTo.setNumero(pReporteAlmacen.getNumero());
 		reporteTo.setElaboradoPor(pReporteAlmacen.getElaboradoPor());
-		reporteTo.setRevisadoPor(pReporteAlmacen.getElaboradoPor());
+		reporteTo.setRevisadoPor(pReporteAlmacen.getRevisadoPor());
 		reporteTo.setFecha(FechasUtil.formatearFecha(pReporteAlmacen.getFechaCreacion(), ConstantesUtil.FORMATO_FECHA_DDMMYYHHMM));
 		reporteTo.setReporteAlmacen(pReporteAlmacen);
 		String reporteAlmacenXml = ReporteAlmacenXml.generarXml(reporteTo);

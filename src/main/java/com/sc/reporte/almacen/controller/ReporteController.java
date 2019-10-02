@@ -25,19 +25,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.sc.reporte.almacen.entity.Actividad;
 import com.sc.reporte.almacen.entity.Reporte;
 import com.sc.reporte.almacen.entity.ReporteAlmacen;
-import com.sc.reporte.almacen.entity.User;
-import com.sc.reporte.almacen.exception.UsernameOrIdNotFound;
 import com.sc.reporte.almacen.reportes.ReporteHelper;
 import com.sc.reporte.almacen.repository.ActividadRepository;
 import com.sc.reporte.almacen.repository.ReporteAlmacenRepository;
 import com.sc.reporte.almacen.service.ReporteService;
-import com.sc.reporte.almacen.service.UserService;
 import com.sc.reporte.almacen.util.ArchivosUtil;
 import com.sc.reporte.almacen.util.ConstantesUtil;
-import com.sc.reporte.almacen.util.SpringWebUtil;
 
 @Controller
-public class ReporteController {
+public class ReporteController extends BaseController {
 
 	public static final String BASEURI = "src/main/resources/html/";
 
@@ -46,12 +42,9 @@ public class ReporteController {
 
 	@Autowired
 	private ActividadRepository actividadRepository;
-	
-	@Autowired
-	private ReporteAlmacenRepository reporteAlmacenRepository;
 
 	@Autowired
-	private UserService userService;
+	private ReporteAlmacenRepository reporteAlmacenRepository;
 
 	@GetMapping(value = "descargarReporteComercial", produces = MediaType.APPLICATION_PDF_VALUE)
 	public @ResponseBody void downloadReporteGerencia(HttpServletResponse pResponse, HttpServletRequest pHttpServletRequest) {
@@ -59,7 +52,7 @@ public class ReporteController {
 			List<Actividad> actividades = (List<Actividad>) actividadRepository.findAllByTipo(ConstantesUtil.TIPO_REPORTE_COMERCIAL);
 
 			Reporte reporte = new Reporte();
-			reporte.setElaboradoPor(obtenerElaboradoPor());
+			reporte.setElaboradoPor(obtenerUsuarioAutenticado());
 			reporte.setTipo(ConstantesUtil.TIPO_REPORTE_COMERCIAL);
 			reporte.setActividades(actividades);
 			reporte = reporteService.crearReporte(reporte);
@@ -87,7 +80,7 @@ public class ReporteController {
 			List<Actividad> actividades = (List<Actividad>) actividadRepository.findAllByTipo(ConstantesUtil.TIPO_REPORTE_ALMACEN);
 
 			Reporte reporte = new Reporte();
-			reporte.setElaboradoPor(obtenerElaboradoPor());
+			reporte.setElaboradoPor(obtenerUsuarioAutenticado());
 			reporte.setTipo(ConstantesUtil.TIPO_REPORTE_ALMACEN);
 			reporte.setActividades(actividades);
 			reporte = reporteService.crearReporte(reporte);
@@ -108,15 +101,16 @@ public class ReporteController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@GetMapping(value = "descargarReporteAlmacen/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
-    public String descargarReporteAlmacen(@PathVariable(value="id") Long idReporteAlmacen, HttpServletResponse pResponse, HttpServletRequest pHttpServletRequest) {
+	public String descargarReporteAlmacen(@PathVariable(value = "id") Long idReporteAlmacen, HttpServletResponse pResponse, HttpServletRequest pHttpServletRequest) {
 		try {
 			Optional<ReporteAlmacen> reporteAlmacenOptional = reporteAlmacenRepository.findById(idReporteAlmacen);
-			
+
 			if (reporteAlmacenOptional.isPresent()) {
 				ReporteAlmacen reporteAlmacen = reporteAlmacenOptional.get();
-				
+				reporteAlmacen.setRevisadoPor(obtenerUsuarioAutenticado());
+
 				String contenidoXsl = ReporteHelper.obtenerPlantillaXsl(ConstantesUtil.PATH_REPORTE_ALMACEN);
 				String contenidoXml = ReporteHelper.generarReporteAlmacenXml(reporteAlmacen);
 
@@ -133,9 +127,9 @@ public class ReporteController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return "redirect:" + "consultarReporteAlmacen";
-    }
+	}
 
 	@GetMapping("/consultarReporte")
 	public String reportes(Model pModel) {
@@ -162,14 +156,6 @@ public class ReporteController {
 		}
 
 		return "reportes/consultar";
-	}
-
-	private String obtenerElaboradoPor() throws UsernameOrIdNotFound {
-		String userName = SpringWebUtil.obtenerUsuarioAutenticado();
-		User usuario = userService.getUserByUsername(userName);
-		String elaboradoPor = usuario.getFirstName() + " " + usuario.getLastName();
-
-		return elaboradoPor;
 	}
 
 }

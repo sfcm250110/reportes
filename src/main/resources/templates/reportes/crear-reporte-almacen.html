@@ -33,6 +33,13 @@
 											<input id="fecha-creacion-id" name="fecha-creacion" type="datetime-local" class="form-control form-control-sm" th:field="${{reporteAlmacen.fechaCrear}}" >
 										</div>
 										<div class="col">
+											<label class="col-form-label form-control-label form-control-sm" for="elaborado-por-id">Elaborado por:</label>
+											<input id="elaborado-por-id" name="elaborado-por" type="text" class="form-control form-control-sm" th:field="${reporteAlmacen.elaboradoPor}" >
+										</div>
+									</div>
+									
+									<div class="row mb-2">
+										<div class="col">
 											<label class="col-form-label form-control-label form-control-sm" for="entrada-manana-id">Hora entrada:</label>
 											<input id="hora-entrada-id" name="hora-entrada" type="time" class="form-control form-control-sm" th:field="${{reporteAlmacen.horaEntrada}}" >
 										</div>

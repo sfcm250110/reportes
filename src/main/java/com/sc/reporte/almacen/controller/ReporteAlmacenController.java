@@ -50,7 +50,6 @@ public class ReporteAlmacenController extends BaseController {
 
 		} else {
 			try {
-				reporteAlmacen.setElaboradoPor(obtenerElaboradoPor());
 				reporteAlmacenService.crearReporte(reporteAlmacen);
 
 			} catch (CustomeFieldValidationException cfve) {

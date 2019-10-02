@@ -12,12 +12,12 @@ public class BaseController {
 	@Autowired
 	private UserService userService;
 
-	public String obtenerElaboradoPor() throws UsernameOrIdNotFound {
+	public String obtenerUsuarioAutenticado() throws UsernameOrIdNotFound {
 		String userName = SpringWebUtil.obtenerUsuarioAutenticado();
 		User usuario = userService.getUserByUsername(userName);
-		String elaboradoPor = usuario.getFirstName() + " " + usuario.getLastName();
+		String usuarioAutenticado = usuario.getFirstName() + " " + usuario.getLastName();
 
-		return elaboradoPor;
+		return usuarioAutenticado;
 	}
 
 }

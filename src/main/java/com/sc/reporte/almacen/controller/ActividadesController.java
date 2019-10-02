@@ -51,7 +51,7 @@ public class ActividadesController extends BaseController {
 
 		} else {
 			try {
-				actividad.setElaboradoPor(obtenerElaboradoPor());
+				actividad.setElaboradoPor(obtenerUsuarioAutenticado());
 				actividad.setTipo(ConstantesUtil.TIPO_REPORTE_COMERCIAL);
 				actividadService.crearActividad(actividad);
 
