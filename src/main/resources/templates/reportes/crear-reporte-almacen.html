@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/ui}">
+<html lang="en"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.w3.org/1999/xhtml"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorate="~{layouts/ui}">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,7 +19,7 @@
 				<div class="row">
 					<div class="mx-auto col-sm-6 col-lg-12">
 						<div class="jumbotron">
-							<h3>Reporte Almacen</h3>
+							<h3>Reporte Almacén</h3>
 						</div>
 					</div>
 				</div>
@@ -26,90 +30,92 @@
 								<h5 class="mb-0">Información</h5>
 							</div>
 							<div class="card-body">
-								<form class="form" role="form" autocomplete="off" th:action="@{guardarReporteAlmacen}" th:object="${reporteAlmacen}" method="post">
-									<div class="row mb-2">
-										<div class="col">
-											<label class="col-form-label form-control-label form-control-sm" for="fecha-creacion-id">Fecha creación:</label>
-											<input id="fecha-creacion-id" name="fecha-creacion" type="datetime-local" class="form-control form-control-sm" th:field="${{reporteAlmacen.fechaCrear}}" >
+								<div th:with="disableFields=${#authorization.expression('hasRole(''ADMIN'')')} or ${#authorization.expression('hasRole(''ALMACEN'')')}">
+									<form class="form" role="form" autocomplete="off" th:action="@{guardarReporteAlmacen}" th:object="${reporteAlmacen}" method="post">
+										<div class="row mb-2">
+											<div class="col">
+												<label class="col-form-label form-control-label form-control-sm" for="fecha-creacion-id">Fecha creación:</label>
+												<input id="fecha-creacion-id" name="fecha-creacion" type="datetime-local" class="form-control form-control-sm" th:disabled="!${disableFields}" th:field="${{reporteAlmacen.fechaCrear}}" >
+											</div>
+											<div class="col">
+												<label class="col-form-label form-control-label form-control-sm" for="elaborado-por-id">Elaborado por:</label>
+												<input id="elaborado-por-id" name="elaborado-por" type="text" class="form-control form-control-sm" th:disabled="!${disableFields}" th:field="${reporteAlmacen.elaboradoPor}" >
+											</div>
 										</div>
-										<div class="col">
-											<label class="col-form-label form-control-label form-control-sm" for="elaborado-por-id">Elaborado por:</label>
-											<input id="elaborado-por-id" name="elaborado-por" type="text" class="form-control form-control-sm" th:field="${reporteAlmacen.elaboradoPor}" >
+										
+										<div class="row mb-2">
+											<div class="col">
+												<label class="col-form-label form-control-label form-control-sm" for="hora-entrada-id">Hora entrada:</label>
+												<input id="hora-entrada-id" name="hora-entrada" type="time" class="form-control form-control-sm" th:disabled="!${disableFields}" th:field="${{reporteAlmacen.horaEntrada}}" >
+											</div>
+											<div class="col">
+												<label class="col-form-label form-control-label form-control-sm" for="hora-salida-id">Hora salida:</label>
+												<input id="hora-salida-id" name="hora-salida" type="time" class="form-control form-control-sm" th:disabled="!${disableFields}" th:field="${{reporteAlmacen.horaSalida}}">
+											</div>
 										</div>
-									</div>
-									
-									<div class="row mb-2">
-										<div class="col">
-											<label class="col-form-label form-control-label form-control-sm" for="entrada-manana-id">Hora entrada:</label>
-											<input id="hora-entrada-id" name="hora-entrada" type="time" class="form-control form-control-sm" th:field="${{reporteAlmacen.horaEntrada}}" >
+										
+										<div class="row mb-2">
+											<div class="col">
+												<label class="col-form-label form-control-label form-control-sm" for="frank-id">Frank: </label>
+												<input id="frank-id" name="frank" type="number" class="form-control form-control-sm" th:disabled="!${disableFields}" th:field="${reporteAlmacen.frank}">
+											</div>
+											<div class="col">
+												<label class="col-form-label form-control-label form-control-sm" for="vicente-id">Vicente:</label>
+												<input id="vicente-id" name="vicente"type="number" class="form-control form-control-sm" th:disabled="!${disableFields}" th:field="${reporteAlmacen.vicente}">
+											</div>
+											<div class="col">
+												<label class="col-form-label form-control-label form-control-sm" for="integra-id">Integra:</label>
+												<input id="integra-id" name="integra" type="number" class="form-control form-control-sm" th:disabled="!${disableFields}" th:field="${reporteAlmacen.integra}">
+											</div>
 										</div>
-										<div class="col">
-											<label class="col-form-label form-control-label form-control-sm" for="salida-manana-id">Hora salida:</label>
-											<input id="salida-manana-id" name="salida-manana" type="time" class="form-control form-control-sm" th:field="${{reporteAlmacen.horaSalida}}">
+										
+										<div class="row mb-2">
+											<div class="col">
+												<label class="col-form-label form-control-label form-control-sm" for="george-id">Goerge:</label>
+												<input id="george-id" name="george" type="number" class="form-control form-control-sm" th:disabled="!${disableFields}" th:field="${reporteAlmacen.george}" >
+											</div>
+											<div class="col">
+												<label class="col-form-label form-control-label form-control-sm" for="blue-id">Blue:</label>
+												<input id="blue-id" name="blue" type="number" class="form-control form-control-sm" th:disabled="!${disableFields}" th:field="${reporteAlmacen.blue}">
+											</div>
+											<div class="col">
+												<label class="col-form-label form-control-label form-control-sm" for="otros-id">Otros:</label>
+												<input id="otros-id" name="otros" type="number" class="form-control form-control-sm" th:disabled="!${disableFields}" th:field="${reporteAlmacen.otros}" >
+											</div>
 										</div>
-									</div>
-									
-									<div class="row mb-2">
-										<div class="col">
-											<label class="col-form-label form-control-label form-control-sm" for="poblacion-id">Frank: </label>
-											<input id="poblacion-id" name="poblacion" type="number" class="form-control form-control-sm" th:field="${reporteAlmacen.frank}">
+										
+										<div class="row mb-2">
+											<div class="col">
+												<label class="col-form-label form-control-label form-control-sm" for="proveedores-descargados-id">Proveedores Descargados:</label>
+												<input id="proveedores-descargados-id" name="proveedores-descargados" type="number" class="form-control form-control-sm" th:disabled="!${disableFields}" th:field="${reporteAlmacen.proveedoresDescargados}" >
+											</div>
+											<div class="col">
+												<label class="col-form-label form-control-label form-control-sm" for="repartos-george-id">Repartos George:</label>
+												<input id="repartos-george-id" name="otros" type="number" class="form-control form-control-sm" th:disabled="!${disableFields}" th:field="${reporteAlmacen.repartosGeorge}">
+											</div>
 										</div>
-										<div class="col">
-											<label class="col-form-label form-control-label form-control-sm" for="cliente-id">Vicente:</label>
-											<input id="cliente-id" name="cliente"type="number" class="form-control form-control-sm" th:field="${reporteAlmacen.vicente}">
+										
+										<div class="row mb-2">
+											<div class="col">
+												<label class="col-form-label form-control-label form-control-sm" for="observaciones-id">Observaciones:</label>
+												<input id="observaciones-id" name="observaciones" type="text" class="form-control form-control-sm" th:disabled="!${disableFields}" th:field="${reporteAlmacen.observaciones}">
+											</div>
 										</div>
-										<div class="col">
-											<label class="col-form-label form-control-label form-control-sm" for="visita-id">Integra:</label>
-											<input id="visita-id" name="visita" type="number" class="form-control form-control-sm" th:field="${reporteAlmacen.integra}">
+										
+										<div class="row mb-3">
+											<div class="col">
+												<label class="col-form-label form-control-label form-control-sm" for="pedido-id">Incidencias:</label>
+												<input id="indidencias-id" name="indidencias" type="text" class="form-control form-control-sm" th:disabled="!${disableFields}" th:field="${reporteAlmacen.incidencias}">
+											</div>
 										</div>
-									</div>
-									
-									<div class="row mb-2">
-										<div class="col">
-											<label class="col-form-label form-control-label form-control-sm" for="pedido-id">Goerge:</label>
-											<input id="pedido-id" name="pedido" type="number" class="form-control form-control-sm" th:field="${reporteAlmacen.george}" >
+										
+										<div class="form-group row">
+											<div class="col-lg-12 text-center">
+												<input type="submit" class="btn btn-primary" value="Guardar" th:disabled="!${disableFields}" th:value="Guardar">
+											</div>
 										</div>
-										<div class="col">
-											<label class="col-form-label form-control-label form-control-sm" for="visita-id">Blue:</label>
-											<input id="visita-id" name="visita" type="number" class="form-control form-control-sm" th:field="${reporteAlmacen.blue}">
-										</div>
-										<div class="col">
-											<label class="col-form-label form-control-label form-control-sm" for="pedido-id">Otros:</label>
-											<input id="pedido-id" name="pedido" type="number" class="form-control form-control-sm" th:field="${reporteAlmacen.otros}" >
-										</div>
-									</div>
-									
-									<div class="row mb-2">
-										<div class="col">
-											<label class="col-form-label form-control-label form-control-sm" for="pedido-id">Proveedores Descargados:</label>
-											<input id="pedido-id" name="pedido" type="number" class="form-control form-control-sm" th:field="${reporteAlmacen.proveedoresDescargados}" >
-										</div>
-										<div class="col">
-											<label class="col-form-label form-control-label form-control-sm" for="otros-id">Repartos George:</label>
-											<input id="otros-id" name="otros" type="number" class="form-control form-control-sm" th:field="${reporteAlmacen.repartosGeorge}">
-										</div>
-									</div>
-									
-									<div class="row mb-2">
-										<div class="col">
-											<label class="col-form-label form-control-label form-control-sm" for="pedido-id">Observaciones:</label>
-											<input id="indidencias-id" name="indidencias" type="text" class="form-control form-control-sm" th:field="${reporteAlmacen.observaciones}">
-										</div>
-									</div>
-									
-									<div class="row mb-3">
-										<div class="col">
-											<label class="col-form-label form-control-label form-control-sm" for="pedido-id">Incidencias:</label>
-											<input id="indidencias-id" name="indidencias" type="text" class="form-control form-control-sm" th:field="${reporteAlmacen.incidencias}">
-										</div>
-									</div>
-									
-									<div class="form-group row">
-										<div class="col-lg-12 text-center">
-											<input type="submit" class="btn btn-primary" value="Guardar" th:value="Guardar">
-										</div>
-									</div>
-								</form>
+									</form>
+								</div>
 							</div>
 						</div>
 					</div>
