@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.w3.org/1999/xhtml"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorate="~{layouts/ui}">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="Aplicacion para gestion de reportes">
+		<meta name="author" content="Santiago Cabrera M.">
+	
+		<title>Gestión de Almacenes</title>
+	</head>
+	
+	<body>
+		<div layout:fragment="content" th:remove="tag">
+			<div class="container py-3">
+				<div class="row">
+					<div class="mx-auto col-sm-6 col-lg-12">
+						<div class="jumbotron">
+							<h3>Reporte Comercial</h3>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="mx-auto col-sm-12 col-lg-12">
+						<div class="card">
+							<div class="card-header">
+								<h5 class="mb-0">Información</h5>
+							</div>
+							<div class="card-body">
+								<div th:with="disableFields=${#authorization.expression('hasRole(''ADMIN'')')} or ${#authorization.expression('hasRole(''ALMACEN'')')}">
+									<form class="form" role="form" autocomplete="off" th:action="@{guardarActividadComercial}" th:object="${actividadComercial}" method="post">
+										<div class="row mb-3">
+											<div class="col">
+												<label class="col-form-label form-control-label form-control-sm" for="fecha-creacion-id">Fecha creación:</label>
+												<input id="fecha-creacion-id" name="fecha-creacion" type="datetime-local" class="form-control form-control-sm" th:field="${{actividadComercial.fechaCrear}}" th:disabled="!${disableFields}">
+											</div>
+											<div class="col">
+												<label class="col-form-label form-control-label form-control-sm" for="elaborado-por-id">Elaborado por:</label>
+												<input id="elaborado-por-id" name="elaborado-por" type="text" class="form-control form-control-sm" th:field="${actividadComercial.elaboradoPor}" th:disabled="!${disableFields}">
+											</div>
+										</div>
+											
+										<div class="row mb-3">
+											<div class="col">
+												<label class="col-form-label form-control-label form-control-sm" for="hora-entrada-id">Hora entrada:</label>
+												<input id="hora-entrada-id" name="hora-entrada" type="time" class="form-control form-control-sm" th:field="${{actividadComercial.horaEntrada}}" th:disabled="!${disableFields}">
+											</div>
+											<div class="col">
+												<label class="col-form-label form-control-label form-control-sm" for="hora-salida-id">Hora salida:</label>
+												<input id="hora-salida-id" name="hora-salida" type="time" class="form-control form-control-sm" th:field="${{actividadComercial.horaSalida}}" th:disabled="!${disableFields}">
+											</div>
+										</div>
+	
+										<div class="row mb-3">
+											<div class="col">
+												<label th:text="Población" class="col-form-label form-control-label form-control-sm" for="nombre-id">Nombre: </label>
+												<input id="nombre-id" name="nombre" type="text" class="form-control form-control-sm" th:field="${actividadComercial.nombre}" th:disabled="!${disableFields}">
+											</div>
+											<div class="col">
+												<label class="col-form-label form-control-label form-control-sm" for="poblacion-id">Población:</label>
+												<input id="poblacion-id" name="poblacion"type="text" class="form-control form-control-sm" th:field="${actividadComercial.poblacion}" th:disabled="!${disableFields}">
+											</div>
+										</div>
+										
+										<div class="row mb-3">
+											<div class="col">
+												<label class="col-form-label form-control-label form-control-sm" for="reparto-id">Reparto:</label>
+												<input id="reparto-id" name="reparto" type="text" class="form-control form-control-sm" th:field="${crearActividad.visita}" th:disabled="!${disableFields}">
+											</div>
+											<div class="col">
+												<label class="col-form-label form-control-label form-control-sm" for="cobro-id">Cobro:</label>
+												<input id="cobro-id" name="cobro"type="text" class="form-control form-control-sm" th:field="${actividadComercial.cobro}" th:disabled="!${disableFields}">
+											</div>
+											<div class="col">
+												<label class="col-form-label form-control-label form-control-sm" for="pedido-id">Pedido:</label>
+												<input id="pedido-id" name="pedido"type="text" class="form-control form-control-sm" th:field="${actividadComercial.pedido}" th:disabled="!${disableFields}">
+											</div>
+										</div>
+										
+										<div class="row mb-3">
+											<div class="col">
+												<label class="col-form-label form-control-label form-control-sm" for="observaciones-id">Observacione:</label>
+												<input id="observaciones-id" name="observaciones" type="text" class="form-control form-control-sm" th:field="${actividadComercial.observaciones}" th:disabled="!${disableFields}">
+											</div>
+										</div>
+										
+										<div class="row mb-3">
+											<div class="col">
+												<label class="col-form-label form-control-label form-control-sm" for="incidencias-id">Incidencias:</label>
+												<input id="incidencias-id" name="indidencias" type="text" class="form-control form-control-sm" th:field="${crearActividad.incidencias}" th:disabled="!${disableFields}">
+											</div>
+										</div>
+										
+										<div class="form-group row">
+											<div class="col-lg-12 text-center">
+												<input type="submit" class="btn btn-primary" value="Guardar" th:value="Guardar">
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>				
+	</body>
+</html>

@@ -15,18 +15,15 @@ import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-@Entity(name = "REPORTE_ALMACEN")
-public class ReporteAlmacen implements Serializable {
+@Entity(name = "REPORTE_ACTIVIDAD")
+public class ActividadComercial implements Serializable {
 
 	private static final long serialVersionUID = -6833167247955613395L;
 
 	@Id
-	@SequenceGenerator(name = "REPORTE_ALMACEN_ID_SEQ", sequenceName = "REPORTE_ALMACEN_ID_SEQ", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "REPORTE_ALMACEN_ID_SEQ")
+	@SequenceGenerator(name = "ACTIVIDAD_COMERCIAL_ID_SEQ", sequenceName = "ACTIVIDAD_COMERCIAL_ID_SEQ", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ACTIVIDAD_COMERCIAL_ID_SEQ")
 	private Long id;
-
-	@Column
-	private String numero;
 
 	@Column
 	private String revisadoPor;
@@ -36,12 +33,12 @@ public class ReporteAlmacen implements Serializable {
 
 	@Column
 	// TODO: Revisar:
-	//@DateTimeFormat(pattern = "dd/MM/yyyy'T'HH:mm")
-	//@DateTimeFormat(pattern = "dd-MM-yyyy")
-	//@Temporal(TemporalType.TIMESTAMP)
-	//@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
+	// @DateTimeFormat(pattern = "dd/MM/yyyy'T'HH:mm")
+	// @DateTimeFormat(pattern = "dd-MM-yyyy")
+	// @Temporal(TemporalType.TIMESTAMP)
+	// @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
 	private Date fechaCreacion;
-	
+
 	@Column
 	@Temporal(TemporalType.TIME)
 	@DateTimeFormat(pattern = "HH:mm")
@@ -53,35 +50,26 @@ public class ReporteAlmacen implements Serializable {
 	private Date horaSalida;
 
 	@Column
-	private Integer frank;
+	private String nombre;
 
 	@Column
-	private Integer vicente;
+	private String poblacion;
 
 	@Column
-	private Integer integra;
+	private String reparto;
 
 	@Column
-	private Integer george;
+	private String cobro;
 
 	@Column
-	private Integer blue;
-
-	@Column
-	private Integer otros;
-
-	@Column
-	private Integer proveedoresDescargados;
-
-	@Column
-	private Integer repartosGeorge;
+	private String pedido;
 
 	@Column
 	private String observaciones;
 
 	@Column
 	private String incidencias;
-	
+
 	@Transient
 	private String fechaCrear;
 
@@ -91,14 +79,6 @@ public class ReporteAlmacen implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getNumero() {
-		return numero;
-	}
-
-	public void setNumero(String numero) {
-		this.numero = numero;
 	}
 
 	public String getRevisadoPor() {
@@ -141,68 +121,44 @@ public class ReporteAlmacen implements Serializable {
 		this.horaSalida = horaSalida;
 	}
 
-	public Integer getFrank() {
-		return frank;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setFrank(Integer frank) {
-		this.frank = frank;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
-	public Integer getVicente() {
-		return vicente;
+	public String getPoblacion() {
+		return poblacion;
 	}
 
-	public void setVicente(Integer vicente) {
-		this.vicente = vicente;
+	public void setPoblacion(String poblacion) {
+		this.poblacion = poblacion;
 	}
 
-	public Integer getIntegra() {
-		return integra;
+	public String getReparto() {
+		return reparto;
 	}
 
-	public void setIntegra(Integer integra) {
-		this.integra = integra;
+	public void setReparto(String reparto) {
+		this.reparto = reparto;
 	}
 
-	public Integer getGeorge() {
-		return george;
+	public String getCobro() {
+		return cobro;
 	}
 
-	public void setGeorge(Integer george) {
-		this.george = george;
+	public void setCobro(String cobro) {
+		this.cobro = cobro;
 	}
 
-	public Integer getBlue() {
-		return blue;
+	public String getPedido() {
+		return pedido;
 	}
 
-	public void setBlue(Integer blue) {
-		this.blue = blue;
-	}
-
-	public Integer getOtros() {
-		return otros;
-	}
-
-	public void setOtros(Integer otros) {
-		this.otros = otros;
-	}
-
-	public Integer getProveedoresDescargados() {
-		return proveedoresDescargados;
-	}
-
-	public void setProveedoresDescargados(Integer proveedoresDescargados) {
-		this.proveedoresDescargados = proveedoresDescargados;
-	}
-
-	public Integer getRepartosGeorge() {
-		return repartosGeorge;
-	}
-
-	public void setRepartosGeorge(Integer repartosGeorge) {
-		this.repartosGeorge = repartosGeorge;
+	public void setPedido(String pedido) {
+		this.pedido = pedido;
 	}
 
 	public String getObservaciones() {
@@ -228,7 +184,5 @@ public class ReporteAlmacen implements Serializable {
 	public void setFechaCrear(String fechaCrear) {
 		this.fechaCrear = fechaCrear;
 	}
-	
-	
 
 }

@@ -23,6 +23,6 @@ public class ConstantesUtil implements Serializable {
 	
 	public static final String PATH_REPORTE_CSS_DEV = "../static/css/reportes.css";
 	public static final String PATH_REPORTE_CSS_PRO = "/home/reportes/app/css/reportes.css";
-	public static final String PATH_REPORTE_CSS = PATH_REPORTE_CSS_PRO;
+	public static final String PATH_REPORTE_CSS = PATH_REPORTE_CSS_DEV;
 
 }
