@@ -35,7 +35,7 @@ import com.sc.reporte.almacen.util.ConstantesUtil;
 @Controller
 public class ReporteController extends BaseController {
 
-	public static final String BASEURI = "src/main/resources/html/";
+	private static final long serialVersionUID = 3878933243405801411L;
 
 	@Autowired
 	private ReporteService reporteService;
@@ -74,7 +74,7 @@ public class ReporteController extends BaseController {
 		}
 	}
 
-	@GetMapping(value = "descargarReporteAlmacen1", produces = MediaType.APPLICATION_PDF_VALUE)
+	@GetMapping(value = "descargarReportesAlmacen", produces = MediaType.APPLICATION_PDF_VALUE)
 	public @ResponseBody void descargarReporteAlmacen(HttpServletResponse pResponse, HttpServletRequest pHttpServletRequest) {
 		try {
 			List<Actividad> actividades = (List<Actividad>) actividadRepository.findAllByTipo(ConstantesUtil.TIPO_REPORTE_ALMACEN);

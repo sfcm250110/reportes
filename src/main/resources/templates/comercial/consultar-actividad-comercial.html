@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.w3.org/1999/xhtml"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorate="~{layouts/ui}">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="Aplicacion para gestion de reportes">
+		<meta name="author" content="Santiago Cabrera M.">
+	
+		<title>Gestión de Almacenes</title>
+	</head>
+	
+	<body>
+		<div layout:fragment="content" th:remove="tag">
+			<div class="container py-3">
+				<div class="row">
+					<div class="mx-auto col-sm-6 col-lg-12">
+						<div class="jumbotron">
+							<h3>Reporte Comercial</h3>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="mx-auto col-sm-12 col-lg-12">
+						<div class="card">
+							<div class="card-header">
+								<h5 class="mb-0">Información</h5>
+							</div>
+							<div class="card-body">
+								<div th:if="${#authorization.expression('hasRole(''ADMIN'')')} or ${#authorization.expression('hasRole(''COMERCIAL'')')}">
+									<div class="table-responsive">
+										<table id="reportesComercial"
+											class="table table-bordered table-hover table-striped">
+											<thead class="thead-light">
+												<tr>
+													<th scope="col">Fecha</th>
+													<th scope="col">Hora Entrada</th>
+													<th scope="col">Hora Salida</th>
+													<th scope="col">Nombre</th>
+													<th scope="col">Poblacion</th>
+													<th scope="col">Reparto</th>
+													<th scope="col">Cobro</th>
+													<th scope="col">Pedido</th>
+													<th scope="col">Acciones</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="actividadComercial : ${actividadesComercial}">
+													<td th:text="${actividadComercial.fechaCreacion}"></td>
+													<td th:text="${actividadComercial.horaEntrada}"></td>
+													<td th:text="${actividadComercial.horaSalida}"></td>
+													<td th:text="${actividadComercial.nombre}"></td>
+													<td th:text="${actividadComercial.poblacion}"></td>
+													<td th:text="${actividadComercial.reparto}"></td>
+													<td th:text="${actividadComercial.cobro}"></td>
+													<td th:text="${actividadComercial.pedido}"></td>
+													<td><a th:href="@{descargarReporteComercial/} + ${actividadComercial.id}" th:text="Descargar" class="btn btn-outline-info"></a></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<a th:href="@{descargarReporteComerciales}" th:text="Descargar" class="btn btn-outline-info"></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>				
+	</body>
+</html>

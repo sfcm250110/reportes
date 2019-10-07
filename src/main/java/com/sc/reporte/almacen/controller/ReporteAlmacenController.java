@@ -21,6 +21,8 @@ import com.sc.reporte.almacen.service.ReporteAlmacenService;
 @Controller
 public class ReporteAlmacenController extends BaseController {
 
+	private static final long serialVersionUID = 6178425413469344884L;
+
 	@Autowired
 	private ReporteAlmacenService reporteAlmacenService;
 

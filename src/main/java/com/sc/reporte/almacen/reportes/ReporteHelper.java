@@ -20,6 +20,7 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.styledxmlparser.css.media.MediaDeviceDescription;
 import com.itextpdf.styledxmlparser.css.media.MediaType;
+import com.sc.reporte.almacen.entity.ActividadComercial;
 import com.sc.reporte.almacen.entity.Reporte;
 import com.sc.reporte.almacen.entity.ReporteAlmacen;
 import com.sc.reporte.almacen.reportes.xml.ReporteAlmacenXml;
@@ -67,6 +68,10 @@ public class ReporteHelper implements Serializable {
 
 		return baos.toByteArray();
 	}
+	
+	public static String obtenerPlantillaXsl(String pPathReporte) throws IOException {
+		return ArchivosUtil.obtenerContenidoArchivo(pPathReporte).replace("estiloReportesCss", ConstantesUtil.PATH_REPORTE_CSS);
+	}
 
 	public static String generarReporteComercialXml(Reporte pReporte) {
 		ReporteTo reporteTo = new ReporteTo();
@@ -74,9 +79,9 @@ public class ReporteHelper implements Serializable {
 		reporteTo.setElaboradoPor(pReporte.getElaboradoPor());
 		reporteTo.setFecha(FechasUtil.formatearFecha(pReporte.getFechaCreacion(), ConstantesUtil.FORMATO_FECHA_DDMMYYHHMM));
 		reporteTo.setActividades(pReporte.getActividades());
-		String reporteComercialXml = ReporteComercialXml.generarXml(reporteTo);
+		String reporteXml = ReporteComercialXml.generarXml(reporteTo);
 
-		return reporteComercialXml;
+		return reporteXml;
 	}
 
 	public static String generarReporteAlmacenXml(Reporte pReporte) {
@@ -85,9 +90,9 @@ public class ReporteHelper implements Serializable {
 		reporteTo.setElaboradoPor(pReporte.getElaboradoPor());
 		reporteTo.setFecha(FechasUtil.formatearFecha(pReporte.getFechaCreacion(), ConstantesUtil.FORMATO_FECHA_DDMMYYHHMM));
 		reporteTo.setActividades(pReporte.getActividades());
-		String reporteAlmacenXml = ReporteAlmacenXml.generarXml(reporteTo);
+		String reporteXml = ReporteAlmacenXml.generarXmlAlmacen(reporteTo);
 
-		return reporteAlmacenXml;
+		return reporteXml;
 	}
 	
 	public static String generarReporteAlmacenXml(ReporteAlmacen pReporteAlmacen) {
@@ -97,13 +102,32 @@ public class ReporteHelper implements Serializable {
 		reporteTo.setRevisadoPor(pReporteAlmacen.getRevisadoPor());
 		reporteTo.setFecha(FechasUtil.formatearFecha(pReporteAlmacen.getFechaCreacion(), ConstantesUtil.FORMATO_FECHA_DDMMYYHHMM));
 		reporteTo.setReporteAlmacen(pReporteAlmacen);
-		String reporteAlmacenXml = ReporteAlmacenXml.generarXml(reporteTo);
+		String reporteXml = ReporteAlmacenXml.generarXmlAlmacen(reporteTo);
 
-		return reporteAlmacenXml;
+		return reporteXml;
 	}
 	
-	public static String obtenerPlantillaXsl(String pPathReporte) throws IOException {
-		return ArchivosUtil.obtenerContenidoArchivo(pPathReporte).replace("estiloReportesCss", ConstantesUtil.PATH_REPORTE_CSS);
+	public static String generarReporteActividadComercialXml(ActividadComercial pActividadComercial) {
+		ReporteTo reporteTo = new ReporteTo();
+		reporteTo.setNumero(pActividadComercial.getId().toString());
+		reporteTo.setElaboradoPor(pActividadComercial.getElaboradoPor());
+		reporteTo.setRevisadoPor(pActividadComercial.getRevisadoPor());
+		reporteTo.setFecha(FechasUtil.formatearFecha(pActividadComercial.getFechaCreacion(), ConstantesUtil.FORMATO_FECHA_DDMMYYHHMM));
+		reporteTo.setActividadComercial(pActividadComercial);
+		String reporteXml = ReporteComercialXml.generarXmlActividadComercial(reporteTo);
+
+		return reporteXml;
+	}
+	
+	public static String generarReporteActividadComercialesXml(Reporte pReporte) {
+		ReporteTo reporteTo = new ReporteTo();
+		reporteTo.setNumero(pReporte.getNumero());
+		reporteTo.setElaboradoPor(pReporte.getElaboradoPor());
+		reporteTo.setFecha(FechasUtil.formatearFecha(pReporte.getFechaCreacion(), ConstantesUtil.FORMATO_FECHA_DDMMYYHHMM));
+		reporteTo.setActividadesComercial(pReporte.getActividadesComercial());
+		String reporteXml = ReporteComercialXml.generarXmlActividadComerciales(reporteTo);
+
+		return reporteXml;
 	}
 	
 }

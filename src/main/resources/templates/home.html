@@ -15,13 +15,39 @@
 				<div class="row text-center">
 					<div class="col-lg-3 col-md-6 mb-4">
 						<div class="card h-100">
+							<img class="card-img-top" src="../img/chocolate-gourmet-blanco.jpg" alt="Crear Comercial">
+							<div class="card-body">
+								<h4 class="card-title">Comercial</h4>
+								<p class="card-text">Permite registrar las diferentes actividades de comerciales</p>
+							</div>
+							<div class="card-footer">
+								<a href="#" th:href="@{crearActividadComercial}" class="btn btn-primary">Registrar</a>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-lg-3 col-md-6 mb-4">
+						<div class="card h-100">
 							<img class="card-img-top" src="../img/chocolate-puro-artesano-72-cacao-500g.jpg" alt="Reporte Comercial">
 							<div class="card-body">
 								<h4 class="card-title">Reporte Comercial</h4>
-								<p class="card-text">Permite consultar las diferentes actividades de los almacenes</p>
+								<p class="card-text">Permite consultar las diferentes actividades de los comerciales</p>
 							</div>
 							<div class="card-footer">
-								<a href="#" th:href="@{consultarReporteComercial}" class="btn btn-primary">Consultar</a>
+								<a href="#" th:href="@{consultarActividadComercial}" class="btn btn-primary">Generar</a>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-lg-3 col-md-6 mb-4">
+						<div class="card h-100">
+							<img class="card-img-top" src="../img/chocolate-gourmet-blanco.jpg" alt="Crear Almacén">
+							<div class="card-body">
+								<h4 class="card-title">Almacén</h4>
+								<p class="card-text">Permite registrar las diferentes actividades de almacenes</p>
+							</div>
+							<div class="card-footer">
+								<a href="#" th:href="@{crearReporteAlmacen}" class="btn btn-primary">Registrar</a>
 							</div>
 						</div>
 					</div>
@@ -31,36 +57,10 @@
 							<img class="card-img-top" src="../img/chocolate-puro-artesano-72-cacao-500g.jpg" alt="Reporte Almacén">
 							<div class="card-body">
 								<h4 class="card-title">Reporte Almacén</h4>
-								<p class="card-text">Permite consultar las diferentes actividades de los almacenes</p>
+								<p class="card-text">Permite consultar las diferentes actividades de almacenes</p>
 							</div>
 							<div class="card-footer">
-								<a href="#" th:href="@{consultarReporteAlmacen}" class="btn btn-primary">Consultar</a>
-							</div>
-						</div>
-					</div>
-					
-					<div class="col-lg-3 col-md-6 mb-4">
-						<div class="card h-100">
-							<img class="card-img-top" src="../img/chocolate-gourmet-blanco.jpg" alt="Consulta Comercial">
-							<div class="card-body">
-								<h4 class="card-title">Comercial</h4>
-								<p class="card-text">Permite registrar las diferentes actividades de los almacenes</p>
-							</div>
-							<div class="card-footer">
-								<a href="#" th:href="@{crearComercial}" class="btn btn-primary">Crear</a>
-							</div>
-						</div>
-					</div>
-					
-					<div class="col-lg-3 col-md-6 mb-4">
-						<div class="card h-100">
-							<img class="card-img-top" src="../img/chocolate-gourmet-blanco.jpg" alt="Conulta Almacén">
-							<div class="card-body">
-								<h4 class="card-title">Almacén</h4>
-								<p class="card-text">Permite registrar las diferentes actividades de los almacenes</p>
-							</div>
-							<div class="card-footer">
-								<a href="#" th:href="@{crearReporteAlmacen}" class="btn btn-primary">Crear</a>
+								<a href="#" th:href="@{consultarReporteAlmacen}" class="btn btn-primary">Generar</a>
 							</div>
 						</div>
 					</div>

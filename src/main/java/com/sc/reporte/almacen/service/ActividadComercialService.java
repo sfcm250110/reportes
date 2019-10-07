@@ -8,13 +8,13 @@ import com.sc.reporte.almacen.exception.ReporteNotFound;
 
 public interface ActividadComercialService {
 
-	public List<ActividadComercial> getAllReportes();
+	public List<ActividadComercial> getAllActividades();
 
-	public ActividadComercial crearReporte(ActividadComercial pReporte) throws Exception;
+	public ActividadComercial crearActividad(ActividadComercial pReporte) throws Exception;
 
-	public ActividadComercial updateReporte(ActividadComercial pReporte) throws ReporteNotFound;
+	public ActividadComercial updateActividad(ActividadComercial pReporte) throws ReporteNotFound;
 
-	public void deleteReporte(Long id) throws ReporteNotFound;
+	public void deleteActividad(Long id) throws ReporteNotFound;
 
 	public ActividadComercial findById(Long id) throws ReporteNotFound;
 

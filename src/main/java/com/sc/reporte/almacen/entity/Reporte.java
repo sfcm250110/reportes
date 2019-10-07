@@ -59,6 +59,9 @@ public class Reporte implements Serializable {
 	@Transient
 	private List<Actividad> actividades;
 
+	@Transient
+	private List<ActividadComercial> actividadesComercial;
+
 	public Long getId() {
 		return id;
 	}
@@ -121,6 +124,14 @@ public class Reporte implements Serializable {
 
 	public void setActividades(List<Actividad> actividades) {
 		this.actividades = actividades;
+	}
+
+	public List<ActividadComercial> getActividadesComercial() {
+		return actividadesComercial;
+	}
+
+	public void setActividadesComercial(List<ActividadComercial> actividadesComercial) {
+		this.actividadesComercial = actividadesComercial;
 	}
 
 }

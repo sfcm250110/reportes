@@ -56,19 +56,19 @@
 	
 										<div class="row mb-3">
 											<div class="col">
-												<label th:text="Población" class="col-form-label form-control-label form-control-sm" for="nombre-id">Nombre: </label>
+												<label class="col-form-label form-control-label form-control-sm" for="nombre-id">Nombre: </label>
 												<input id="nombre-id" name="nombre" type="text" class="form-control form-control-sm" th:field="${actividadComercial.nombre}" th:disabled="!${disableFields}">
 											</div>
 											<div class="col">
 												<label class="col-form-label form-control-label form-control-sm" for="poblacion-id">Población:</label>
-												<input id="poblacion-id" name="poblacion"type="text" class="form-control form-control-sm" th:field="${actividadComercial.poblacion}" th:disabled="!${disableFields}">
+												<input id="poblacion-id" name="poblacion" type="text" class="form-control form-control-sm" th:field="${actividadComercial.poblacion}" th:disabled="!${disableFields}">
 											</div>
 										</div>
 										
 										<div class="row mb-3">
 											<div class="col">
 												<label class="col-form-label form-control-label form-control-sm" for="reparto-id">Reparto:</label>
-												<input id="reparto-id" name="reparto" type="text" class="form-control form-control-sm" th:field="${crearActividad.visita}" th:disabled="!${disableFields}">
+												<input id="reparto-id" name="reparto" type="text" class="form-control form-control-sm" th:field="${actividadComercial.reparto}" th:disabled="!${disableFields}">
 											</div>
 											<div class="col">
 												<label class="col-form-label form-control-label form-control-sm" for="cobro-id">Cobro:</label>
@@ -90,7 +90,7 @@
 										<div class="row mb-3">
 											<div class="col">
 												<label class="col-form-label form-control-label form-control-sm" for="incidencias-id">Incidencias:</label>
-												<input id="incidencias-id" name="indidencias" type="text" class="form-control form-control-sm" th:field="${crearActividad.incidencias}" th:disabled="!${disableFields}">
+												<input id="incidencias-id" name="indidencias" type="text" class="form-control form-control-sm" th:field="${actividadComercial.incidencias}" th:disabled="!${disableFields}">
 											</div>
 										</div>
 										

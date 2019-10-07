@@ -15,8 +15,9 @@ public class ConstantesUtil implements Serializable {
 	public static final String FORMATO_FECHA_YYYYMMDDHHMM = "yyyy-MM-dd'T'HH:mm";
 	
 	public static final String PATH_REPORTE_COMERCIAL = "static/xsl/reporte-comercial.xsl";
-	public static final String PATH_REPORTES_ALMACEN = "static/xsl/reportes-almacen.xsl";
+	public static final String PATH_REPORTE_COMERCIALES = "static/xsl/reporte-comerciales.xsl";
 	public static final String PATH_REPORTE_ALMACEN = "static/xsl/reporte-almacen.xsl";
+	public static final String PATH_REPORTE_ALMACENES = "static/xsl/reportes-almacen.xsl";
 	
 	public static final String TIPO_REPORTE_COMERCIAL = "COMERCIAL";
 	public static final String TIPO_REPORTE_ALMACEN = "ALMACEN";

@@ -21,7 +21,7 @@ public class ActividadComercialServiceImpl implements ActividadComercialService 
 	ActividadComercialRepository actividadComercialRepository;
 
 	@Override
-	public ActividadComercial crearReporte(ActividadComercial pReporte) throws Exception {
+	public ActividadComercial crearActividad(ActividadComercial pReporte) throws Exception {
 		pReporte.setFechaCreacion(obtenerFechaCreacion(pReporte.getFechaCrear()));
 		pReporte = actividadComercialRepository.save(pReporte);
 
@@ -29,19 +29,19 @@ public class ActividadComercialServiceImpl implements ActividadComercialService 
 	}
 
 	@Override
-	public ActividadComercial updateReporte(ActividadComercial pReporte) throws ReporteNotFound {
+	public ActividadComercial updateActividad(ActividadComercial pReporte) throws ReporteNotFound {
 		return actividadComercialRepository.save(pReporte);
 	}
 
 	@Override
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-	public void deleteReporte(Long id) throws ReporteNotFound {
+	public void deleteActividad(Long id) throws ReporteNotFound {
 		ActividadComercial reporte = findById(id);
 		actividadComercialRepository.delete(reporte);
 	}
 
 	@Override
-	public List<ActividadComercial> getAllReportes() {
+	public List<ActividadComercial> getAllActividades() {
 		return (List<ActividadComercial>) actividadComercialRepository.findAll();
 	}
 

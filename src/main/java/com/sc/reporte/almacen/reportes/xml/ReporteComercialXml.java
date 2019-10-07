@@ -3,6 +3,7 @@ package com.sc.reporte.almacen.reportes.xml;
 import java.io.Serializable;
 
 import com.sc.reporte.almacen.entity.Actividad;
+import com.sc.reporte.almacen.entity.ActividadComercial;
 import com.sc.reporte.almacen.to.ReporteTo;
 import com.sc.reporte.almacen.util.ConstantesXml;
 import com.sc.reporte.almacen.util.HelperXml;
@@ -42,6 +43,57 @@ public class ReporteComercialXml implements Serializable {
 		reporteComercialXml.append(HelperXml.closeTag(ConstantesXml.TAG_REPORTE_COMERCIAL));
 
 		return reporteComercialXml.toString();
+	}
+	
+	public static String generarXmlActividadComercial(ReporteTo pReporteTo) {
+		StringBuilder reporteXml = new StringBuilder();
+
+		reporteXml.append(ConstantesXml.TAG_DECLARACION_XML);
+		reporteXml.append(HelperXml.openTag(ConstantesXml.TAG_REPORTE_COMERCIAL));
+		reporteXml.append(HelperXml.generarTag(ConstantesXml.TAG_NUMERO, pReporteTo.getNumero()));
+		reporteXml.append(HelperXml.generarTag(ConstantesXml.TAG_ELABORADO_POR, pReporteTo.getElaboradoPor()));
+		reporteXml.append(HelperXml.generarTag(ConstantesXml.TAG_REVISADO_POR, pReporteTo.getRevisadoPor()));
+		reporteXml.append(HelperXml.generarTag(ConstantesXml.TAG_FECHA, pReporteTo.getFecha()));
+		reporteXml.append(HelperXml.generarTag(ConstantesXml.TAG_HORA_ENTRADA, pReporteTo.getActividadComercial().getHoraEntrada()));
+		reporteXml.append(HelperXml.generarTag(ConstantesXml.TAG_HORA_SALIDA, pReporteTo.getActividadComercial().getHoraSalida()));
+		reporteXml.append(HelperXml.generarTag(ConstantesXml.TAG_NOMBRE, pReporteTo.getActividadComercial().getNombre()));
+		reporteXml.append(HelperXml.generarTag(ConstantesXml.TAG_POBLACION, pReporteTo.getActividadComercial().getPoblacion()));
+		reporteXml.append(HelperXml.generarTag(ConstantesXml.TAG_REPARTO, pReporteTo.getActividadComercial().getReparto()));
+		reporteXml.append(HelperXml.generarTag(ConstantesXml.TAG_COBRO, pReporteTo.getActividadComercial().getCobro()));
+		reporteXml.append(HelperXml.generarTag(ConstantesXml.TAG_PEDIDO, pReporteTo.getActividadComercial().getPedido()));
+		reporteXml.append(HelperXml.generarTag(ConstantesXml.TAG_OBSERVACIONES, pReporteTo.getActividadComercial().getObservaciones()));
+		reporteXml.append(HelperXml.generarTag(ConstantesXml.TAG_INCIDENCIAS, pReporteTo.getActividadComercial().getIncidencias()));
+		reporteXml.append(HelperXml.closeTag(ConstantesXml.TAG_REPORTE_COMERCIAL));
+
+		return reporteXml.toString();
+	}
+	
+	public static String generarXmlActividadComerciales(ReporteTo pReporteTo) {
+		StringBuilder reporteXml = new StringBuilder();
+
+		reporteXml.append(ConstantesXml.TAG_DECLARACION_XML);
+		reporteXml.append(HelperXml.openTag(ConstantesXml.TAG_REPORTE_COMERCIAL));
+		reporteXml.append(HelperXml.generarTag(ConstantesXml.TAG_NUMERO, pReporteTo.getNumero()));
+		reporteXml.append(HelperXml.generarTag(ConstantesXml.TAG_ELABORADO_POR, pReporteTo.getElaboradoPor()));
+		reporteXml.append(HelperXml.generarTag(ConstantesXml.TAG_FECHA, pReporteTo.getFecha()));
+
+		reporteXml.append(HelperXml.openTag(ConstantesXml.TAG_ACTIVIDADES_COMERCIAL));
+		for (ActividadComercial actividad : pReporteTo.getActividadesComercial()) {
+			reporteXml.append(HelperXml.openTag(ConstantesXml.TAG_REPORTE));
+			reporteXml.append(HelperXml.generarTag(ConstantesXml.TAG_ID, actividad.getId()));
+			reporteXml.append(HelperXml.generarTag(ConstantesXml.TAG_NOMBRE, actividad.getNombre()));
+			reporteXml.append(HelperXml.generarTag(ConstantesXml.TAG_POBLACION, actividad.getPoblacion()));
+			reporteXml.append(HelperXml.generarTag(ConstantesXml.TAG_REPARTO, actividad.getReparto()));
+			reporteXml.append(HelperXml.generarTag(ConstantesXml.TAG_COBRO, actividad.getCobro()));
+			reporteXml.append(HelperXml.generarTag(ConstantesXml.TAG_PEDIDO, actividad.getPedido()));
+			reporteXml.append(HelperXml.generarTag(ConstantesXml.TAG_OBSERVACIONES, actividad.getObservaciones()));
+			reporteXml.append(HelperXml.generarTag(ConstantesXml.TAG_INCIDENCIAS, actividad.getIncidencias()));
+			reporteXml.append(HelperXml.closeTag(ConstantesXml.TAG_REPORTE));
+		}
+		reporteXml.append(HelperXml.closeTag(ConstantesXml.TAG_ACTIVIDADES_COMERCIAL));
+		reporteXml.append(HelperXml.closeTag(ConstantesXml.TAG_REPORTE_COMERCIAL));
+
+		return reporteXml.toString();
 	}
 
 }

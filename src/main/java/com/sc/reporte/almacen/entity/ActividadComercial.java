@@ -15,7 +15,7 @@ import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-@Entity(name = "REPORTE_ACTIVIDAD")
+@Entity(name = "ACTIVIDAD_COMERCIAL")
 public class ActividadComercial implements Serializable {
 
 	private static final long serialVersionUID = -6833167247955613395L;

@@ -22,6 +22,8 @@ import com.sc.reporte.almacen.util.ConstantesUtil;
 @Controller
 public class ActividadesController extends BaseController {
 
+	private static final long serialVersionUID = 100331716290211869L;
+
 	@Autowired
 	private ActividadRepository actividadRepository;
 
