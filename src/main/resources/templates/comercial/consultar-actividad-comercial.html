@@ -17,52 +17,65 @@
 		<div layout:fragment="content" th:remove="tag">
 			<div class="container py-3">
 				<div class="row">
-					<div class="mx-auto col-sm-6 col-lg-12">
-						<div class="jumbotron">
-							<h3>Reporte Comercial</h3>
-						</div>
-					</div>
-				</div>
-				<div class="row">
 					<div class="mx-auto col-sm-12 col-lg-12">
 						<div class="card">
 							<div class="card-header">
-								<h5 class="mb-0">Información</h5>
+								<h5 class="mb-0">Reporte Comerciales</h5>
 							</div>
 							<div class="card-body">
-								<div th:if="${#authorization.expression('hasRole(''ADMIN'')')} or ${#authorization.expression('hasRole(''COMERCIAL'')')}">
-									<div class="table-responsive">
-										<table id="reportesComercial"
-											class="table table-bordered table-hover table-striped">
-											<thead class="thead-light">
-												<tr>
-													<th scope="col">Fecha</th>
-													<th scope="col">Hora Entrada</th>
-													<th scope="col">Hora Salida</th>
-													<th scope="col">Nombre</th>
-													<th scope="col">Poblacion</th>
-													<th scope="col">Reparto</th>
-													<th scope="col">Cobro</th>
-													<th scope="col">Pedido</th>
-													<th scope="col">Acciones</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr th:each="actividadComercial : ${actividadesComercial}">
-													<td th:text="${actividadComercial.fechaCreacion}"></td>
-													<td th:text="${actividadComercial.horaEntrada}"></td>
-													<td th:text="${actividadComercial.horaSalida}"></td>
-													<td th:text="${actividadComercial.nombre}"></td>
-													<td th:text="${actividadComercial.poblacion}"></td>
-													<td th:text="${actividadComercial.reparto}"></td>
-													<td th:text="${actividadComercial.cobro}"></td>
-													<td th:text="${actividadComercial.pedido}"></td>
-													<td><a th:href="@{descargarReporteComercial/} + ${actividadComercial.id}" th:text="Descargar" class="btn btn-outline-info"></a></td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-									<a th:href="@{descargarReporteComerciales}" th:text="Descargar" class="btn btn-outline-info"></a>
+								<div th:if="${#authorization.expression('hasRole(''ADMIN'')')} or ${#authorization.expression('hasRole(''COMERCIAL'')')} or ${#authorization.expression('hasRole(''PROPIETARIO'')')}">
+									<form class="form" role="form" autocomplete="off" th:action="@{consultarActividadComercial}" th:object="${actividadComercial}" method="post">
+										<div class="row mb-4">
+											<div class="col">
+												<label class="col-form-label form-control-label form-control-sm" for="fecha-desde-id">Fecha desde:</label>
+												<input id="fecha-desde-id" name="fecha-desde" type="date" class="form-control form-control-sm" th:field="${actividadComercial.fechaDesde}" >
+											</div>
+											<div class="col">
+												<label class="col-form-label form-control-label form-control-sm" for="fecha-hasta-id">Fecha hasta:</label>
+												<input id="fecha-hasta-id" name="fecha-hasta" type="date" class="form-control form-control-sm" th:field="${{actividadComercial.fechaHasta}}" >
+											</div>
+										</div>
+										<div class="row mb-4">
+											<div class="col">
+												<input type="submit" class="btn btn-primary" value="Consultar">
+											</div>
+										</div>
+									
+										<div class="table-responsive" th:if="${actividadesComercial != null or actividadesComercial != ''}">
+											<table id="reportesComercial"
+												class="table table-bordered table-hover table-striped">
+												<thead class="thead-light">
+													<tr>
+														<th scope="col">Fecha</th>
+														<th scope="col">Hora Entrada</th>
+														<th scope="col">Hora Salida</th>
+														<th scope="col">Nombre</th>
+														<th scope="col">Poblacion</th>
+														<th scope="col">Reparto</th>
+														<th scope="col">Cobro</th>
+														<th scope="col">Pedido</th>
+														<th scope="col">Acciones</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr th:each="actividadComercial : ${actividadesComercial}">
+														<td th:text="${#dates.format(actividadComercial.fechaCreacion, 'dd-MM-yyyy')}"></td>
+														<td th:text="${#dates.format(actividadComercial.horaEntrada, 'HH:mm')}"></td>
+														<td th:text="${#dates.format(actividadComercial.horaSalida, 'HH:mm')}"></td>
+														<td th:text="${actividadComercial.nombre}"></td>
+														<td th:text="${actividadComercial.poblacion}"></td>
+														<td th:text="${actividadComercial.reparto}"></td>
+														<td th:text="${actividadComercial.cobro}"></td>
+														<td th:text="${actividadComercial.pedido}"></td>
+														<td><a th:href="@{descargarReporteComercial/} + ${actividadComercial.id}" th:text="Descargar" class="btn btn-outline-info"></a></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<div th:if="${actividadesComercial != null or actividadesComercial != ''}">
+											<a th:href="@{descargarReporteComerciales/} + ${actividadComercial.fechaDesde} + '/' + ${actividadComercial.fechaHasta}" th:text="Descargar" class="btn btn-outline-info"></a>
+										</div>
+									</form>
 								</div>
 							</div>
 						</div>

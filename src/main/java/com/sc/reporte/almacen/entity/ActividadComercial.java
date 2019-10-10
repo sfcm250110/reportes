@@ -73,6 +73,14 @@ public class ActividadComercial implements Serializable {
 	@Transient
 	private String fechaCrear;
 
+	@Transient
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	private String fechaDesde;
+
+	@Transient
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	private String fechaHasta;
+
 	public Long getId() {
 		return id;
 	}
@@ -183,6 +191,22 @@ public class ActividadComercial implements Serializable {
 
 	public void setFechaCrear(String fechaCrear) {
 		this.fechaCrear = fechaCrear;
+	}
+
+	public String getFechaDesde() {
+		return fechaDesde;
+	}
+
+	public void setFechaDesde(String fechaDesde) {
+		this.fechaDesde = fechaDesde;
+	}
+
+	public String getFechaHasta() {
+		return fechaHasta;
+	}
+
+	public void setFechaHasta(String fechaHasta) {
+		this.fechaHasta = fechaHasta;
 	}
 
 }

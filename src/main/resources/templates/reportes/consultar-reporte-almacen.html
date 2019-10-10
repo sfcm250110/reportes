@@ -17,20 +17,13 @@
 		<div layout:fragment="content" th:remove="tag">
 			<div class="container py-3">
 				<div class="row">
-					<div class="mx-auto col-sm-6 col-lg-12">
-						<div class="jumbotron">
-							<h3>Reporte Almacenes</h3>
-						</div>
-					</div>
-				</div>
-				<div class="row">
 					<div class="mx-auto col-sm-12 col-lg-12">
 						<div class="card">
 							<div class="card-header">
-								<h5 class="mb-0">Información</h5>
+								<h5 class="mb-0">Reporte Almacenes</h5>
 							</div>
 							<div class="card-body">
-								<div th:if="${#authorization.expression('hasRole(''ADMIN'')')} or ${#authorization.expression('hasRole(''ALMACEN'')')}">
+								<div th:if="${#authorization.expression('hasRole(''ADMIN'')')} or ${#authorization.expression('hasRole(''ALMACEN'')')} or ${#authorization.expression('hasRole(''PROPIETARIO'')')}">
 									<div class="table-responsive">
 										<table id="reportesAlmacen"
 											class="table table-bordered table-hover table-striped">
@@ -63,7 +56,7 @@
 													<td th:text="${reporteAlmacen.otros}"></td>
 													<td th:text="${reporteAlmacen.proveedoresDescargados}"></td>
 													<td th:text="${reporteAlmacen.repartosGeorge}"></td>
-													<td><a th:href="@{descargarReporteAlmacen/} + ${reporteAlmacen.id}" th:text="Descargar" class="btn btn-outline-danger"></a></td>
+													<td><a th:href="@{descargarReporteAlmacen/} + ${reporteAlmacen.id}" th:text="Descargar" class="btn btn-outline-info"></a></td>
 												</tr>
 											</tbody>
 										</table>

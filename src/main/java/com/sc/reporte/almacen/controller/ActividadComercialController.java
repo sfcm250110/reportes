@@ -2,6 +2,8 @@ package com.sc.reporte.almacen.controller;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,22 +45,25 @@ public class ActividadComercialController extends BaseController {
 	@Autowired
 	private ReporteService reporteService;
 
-	@GetMapping("consultarActividadComercial")
-	public String consultarActividadComercial(Model pModel) {
-		List<ActividadComercial> reportes = (List<ActividadComercial>) actividadComercialRepository.findAll();
-		pModel.addAttribute("actividadesComercial", reportes);
-
-		return "comercial/consultar-actividad-comercial";
-	}
-
 	@GetMapping("crearActividadComercial")
 	public String crearActividadComercial(Model pModel) {
-		ActividadComercial reporte = new ActividadComercial();
-		pModel.addAttribute("actividadComercial", reporte);
+		ActividadComercial actividadComercial = new ActividadComercial();
+		pModel.addAttribute("actividadComercial", actividadComercial);
 
 		return "comercial/crear-actividad-comercial";
 	}
+	
+	@GetMapping("consultarActividadComercial")
+	public String consultarActividadComercial(Model pModel) {
+		ActividadComercial actividadComercial = new ActividadComercial();
+		List<ActividadComercial> actividadesComercial = new ArrayList<ActividadComercial>();
+		
+		pModel.addAttribute("actividadComercial", actividadComercial);
+		pModel.addAttribute("actividadesComercial", actividadesComercial);
 
+		return "comercial/consultar-actividad-comercial";
+	}
+	
 	@PostMapping("guardarActividadComercial")
 	public String guardarAlmacen(@Valid @ModelAttribute("actividadComercial") ActividadComercial actividadComercial, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
@@ -79,6 +84,19 @@ public class ActividadComercialController extends BaseController {
 		}
 
 		return "redirect:" + "consultarActividadComercial";
+	}
+	
+	@PostMapping("consultarActividadComercial")
+	public String consultarActividadComercial(@Valid @ModelAttribute("actividadComercial") ActividadComercial actividadComercial, ModelMap pModel) {
+		Date fechaDesde = obtenerFecha(actividadComercial.getFechaDesde());
+		Date fechaHasta = obtenerFecha(actividadComercial.getFechaHasta());
+		
+		List<ActividadComercial> actividadesComercial = (List<ActividadComercial>) actividadComercialRepository.getAllBetweenDates(fechaDesde, fechaHasta);
+		
+		pModel.addAttribute("actividadesComercial", actividadesComercial);
+		pModel.addAttribute("actividadComercial", actividadComercial);
+
+		return "comercial/consultar-actividad-comercial";
 	}
 
 	@GetMapping(value = "descargarReporteComercial/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
@@ -106,15 +124,18 @@ public class ActividadComercialController extends BaseController {
 		return "redirect:" + "consultarActividadComercial";
 	}
 	
-	@GetMapping(value = "descargarReporteComerciales", produces = MediaType.APPLICATION_PDF_VALUE)
-	public String descargarReporteComerciales(HttpServletResponse pResponse, HttpServletRequest pHttpServletRequest) {
+	@GetMapping(value = "descargarReporteComerciales/{fechaDesde}/{fechaHasta}", produces = MediaType.APPLICATION_PDF_VALUE)
+	public String descargarReporteComerciales(@PathVariable(value = "fechaDesde") String pFechaDesde, @PathVariable(value = "fechaHasta") String pFechaHasta, HttpServletResponse pResponse, HttpServletRequest pHttpServletRequest) {
 		try {
-			List<ActividadComercial> actividades = (List<ActividadComercial>) actividadComercialService.getAllActividades();
+			Date fechaDesde = obtenerFecha(pFechaDesde);
+			Date fechaHasta = obtenerFecha(pFechaHasta);
+			
+			List<ActividadComercial> actividadesComercial = (List<ActividadComercial>) actividadComercialRepository.getAllBetweenDates(fechaDesde, fechaHasta);
 
 			Reporte reporte = new Reporte();
 			reporte.setTipo(ConstantesUtil.TIPO_REPORTE_COMERCIAL);
 			reporte.setElaboradoPor(obtenerUsuarioAutenticado());
-			reporte.setActividadesComercial(actividades);
+			reporte.setActividadesComercial(actividadesComercial);
 			reporte = reporteService.crearReporte(reporte);
 
 			String contenidoXsl = ReporteHelper.obtenerPlantillaXsl(ConstantesUtil.PATH_REPORTE_COMERCIALES);
@@ -128,6 +149,8 @@ public class ActividadComercialController extends BaseController {
 			pResponse.setHeader("Content-Length", String.valueOf(out.length));
 
 			FileCopyUtils.copy(in, pResponse.getOutputStream());
+			
+			in.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();

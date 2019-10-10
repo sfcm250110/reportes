@@ -17,20 +17,13 @@
 		<div layout:fragment="content" th:remove="tag">
 			<div class="container py-3">
 				<div class="row">
-					<div class="mx-auto col-sm-6 col-lg-12">
-						<div class="jumbotron">
-							<h3>Reporte Comercial</h3>
-						</div>
-					</div>
-				</div>
-				<div class="row">
 					<div class="mx-auto col-sm-12 col-lg-12">
 						<div class="card">
 							<div class="card-header">
-								<h5 class="mb-0">Información</h5>
+								<h5 class="mb-0">Crear Reporte Comercial</h5>
 							</div>
 							<div class="card-body">
-								<div th:with="disableFields=${#authorization.expression('hasRole(''ADMIN'')')} or ${#authorization.expression('hasRole(''ALMACEN'')')}">
+								<div th:with="disableFields=${#authorization.expression('hasRole(''ADMIN'')')} or ${#authorization.expression('hasRole(''COMERCIAL'')')}">
 									<form class="form" role="form" autocomplete="off" th:action="@{guardarActividadComercial}" th:object="${actividadComercial}" method="post">
 										<div class="row mb-3">
 											<div class="col">
@@ -68,21 +61,30 @@
 										<div class="row mb-3">
 											<div class="col">
 												<label class="col-form-label form-control-label form-control-sm" for="reparto-id">Reparto:</label>
-												<input id="reparto-id" name="reparto" type="text" class="form-control form-control-sm" th:field="${actividadComercial.reparto}" th:disabled="!${disableFields}">
+												<select id="reparto-id" name="reparto" class="form-control form-control-sm" th:field="${actividadComercial.reparto}" th:disabled="!${disableFields}">
+												    <option th:value="'NO'" th:text="NO"></option>
+												    <option th:value="'SI'" th:text="SI"></option>
+												</select>
 											</div>
 											<div class="col">
 												<label class="col-form-label form-control-label form-control-sm" for="cobro-id">Cobro:</label>
-												<input id="cobro-id" name="cobro"type="text" class="form-control form-control-sm" th:field="${actividadComercial.cobro}" th:disabled="!${disableFields}">
+												<select id="cobro-id" name="cobro" class="form-control form-control-sm" th:field="${actividadComercial.cobro}" th:disabled="!${disableFields}">
+												    <option th:value="'NO'" th:text="NO"></option>
+												    <option th:value="'SI'" th:text="SI"></option>
+												</select>
 											</div>
 											<div class="col">
 												<label class="col-form-label form-control-label form-control-sm" for="pedido-id">Pedido:</label>
-												<input id="pedido-id" name="pedido"type="text" class="form-control form-control-sm" th:field="${actividadComercial.pedido}" th:disabled="!${disableFields}">
+												<select id="pedido-id" name="pedido" class="form-control form-control-sm" th:field="${actividadComercial.pedido}" th:disabled="!${disableFields}">
+												    <option th:value="'NO'" th:text="NO"></option>
+												    <option th:value="'SI'" th:text="SI"></option>
+												</select>
 											</div>
 										</div>
 										
 										<div class="row mb-3">
 											<div class="col">
-												<label class="col-form-label form-control-label form-control-sm" for="observaciones-id">Observacione:</label>
+												<label class="col-form-label form-control-label form-control-sm" for="observaciones-id">Observaciones:</label>
 												<input id="observaciones-id" name="observaciones" type="text" class="form-control form-control-sm" th:field="${actividadComercial.observaciones}" th:disabled="!${disableFields}">
 											</div>
 										</div>
