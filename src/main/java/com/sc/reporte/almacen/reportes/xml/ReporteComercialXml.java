@@ -6,6 +6,7 @@ import com.sc.reporte.almacen.entity.Actividad;
 import com.sc.reporte.almacen.entity.ActividadComercial;
 import com.sc.reporte.almacen.to.ReporteTo;
 import com.sc.reporte.almacen.util.ConstantesXml;
+import com.sc.reporte.almacen.util.FechasUtil;
 import com.sc.reporte.almacen.util.HelperXml;
 
 public class ReporteComercialXml implements Serializable {
@@ -81,6 +82,7 @@ public class ReporteComercialXml implements Serializable {
 		for (ActividadComercial actividad : pReporteTo.getActividadesComercial()) {
 			reporteXml.append(HelperXml.openTag(ConstantesXml.TAG_REPORTE));
 			reporteXml.append(HelperXml.generarTag(ConstantesXml.TAG_ID, actividad.getId()));
+			reporteXml.append(HelperXml.generarTag(ConstantesXml.TAG_FECHA, FechasUtil.formatearFecha(actividad.getFechaCreacion())));
 			reporteXml.append(HelperXml.generarTag(ConstantesXml.TAG_NOMBRE, actividad.getNombre()));
 			reporteXml.append(HelperXml.generarTag(ConstantesXml.TAG_POBLACION, actividad.getPoblacion()));
 			reporteXml.append(HelperXml.generarTag(ConstantesXml.TAG_REPARTO, actividad.getReparto()));

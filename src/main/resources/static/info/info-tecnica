@@ -89,6 +89,14 @@ mvn spring-boot:run
 H2
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 https://stackoverflow.com/questions/53395200/h2-console-is-not-showing-in-browser
+http://localhost:8082/h2-console
+
+WebSecurityConfig.java
+        configure(...)
+                http.csrf().disable();
+                http.headers().frameOptions().disable();
+                http.authorizeRequests().antMatchers(resources).permitAll().antMatchers("/", "/index", "/signup", "/home", "/h2-console/test.do").permitAll();
+
 jdbc:h2:file:E:/desarrollo/auto-estudio/reportes
 url: jdbc:h2:mem:testdb
 
@@ -99,3 +107,14 @@ url: jdbc:h2:mem:testdb
 SPRIN-BOOT: INSERT DATA.SQL
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 https://docs.spring.io/spring-boot/docs/current/reference/html/howto-database-initialization.html
+
+
+
+
+https://howtodoinjava.com/spring-boot2/h2-database-example/
+https://igorski.co/java/spring-boot/layout-dialect-spring-boot-2/
+https://github.com/igorstojanovski/basic-spring-boot-example/blob/master/src/main/resources/static/css/core.css
+
+https://startbootstrap.com/previews/heroic-features/
+
+https://www.thymeleaf.org/doc/articles/layouts.html

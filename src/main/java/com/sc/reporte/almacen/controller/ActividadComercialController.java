@@ -47,8 +47,22 @@ public class ActividadComercialController extends BaseController {
 
 	@GetMapping("crearActividadComercial")
 	public String crearActividadComercial(Model pModel) {
-		ActividadComercial actividadComercial = new ActividadComercial();
-		pModel.addAttribute("actividadComercial", actividadComercial);
+		try {
+			int horaEntrada = 8;
+			int horaSalida = 17;
+			int minuto = 0;
+
+			ActividadComercial actividadComercial = new ActividadComercial();
+			actividadComercial.setElaboradoPor(obtenerNombreUsuarioAutenticado());
+			actividadComercial.setHoraEntrada(obtenerHoraMinuto(horaEntrada, minuto));
+			actividadComercial.setHoraSalida(obtenerHoraMinuto(horaSalida, minuto));
+
+			pModel.addAttribute("actividadComercial", actividadComercial);
+
+		} catch (Exception e) {
+			// TODO: revisar
+			pModel.addAttribute("formErrorMessage", e.getMessage());
+		}
 
 		return "comercial/crear-actividad-comercial";
 	}

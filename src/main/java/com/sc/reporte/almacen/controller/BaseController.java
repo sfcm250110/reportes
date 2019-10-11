@@ -3,6 +3,7 @@ package com.sc.reporte.almacen.controller;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,15 @@ public class BaseController implements Serializable {
 
 		return usuarioAutenticado;
 	}
-	
+
+	public String obtenerNombreUsuarioAutenticado() throws UsernameOrIdNotFound {
+		String userName = SpringWebUtil.obtenerUsuarioAutenticado();
+		User usuario = userService.getUserByUsername(userName);
+		String nombreUsuarioAutenticado = usuario.getFirstName();
+
+		return nombreUsuarioAutenticado;
+	}
+
 	public Date obtenerFecha(String pFecha) {
 		SimpleDateFormat formatter = new SimpleDateFormat(ConstantesUtil.FORMATO_FECHA_YYYYMMDD);
 		Date fechaCreacion;
@@ -42,6 +51,14 @@ public class BaseController implements Serializable {
 		}
 
 		return fechaCreacion;
+	}
+
+	public Date obtenerHoraMinuto(int pHora, int pMinuto) {
+		Calendar hora = Calendar.getInstance();
+		hora.set(Calendar.HOUR_OF_DAY, pHora);
+		hora.set(Calendar.MINUTE, pMinuto);
+
+		return hora.getTime();
 	}
 
 }
