@@ -1,7 +1,5 @@
 package com.sc.reporte.almacen.service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -22,7 +20,6 @@ public class ActividadComercialServiceImpl implements ActividadComercialService 
 
 	@Override
 	public ActividadComercial crearActividad(ActividadComercial pReporte) throws Exception {
-		pReporte.setFechaCreacion(obtenerFechaCreacion(pReporte.getFechaCrear()));
 		pReporte = actividadComercialRepository.save(pReporte);
 
 		return pReporte;
@@ -70,20 +67,6 @@ public class ActividadComercialServiceImpl implements ActividadComercialService 
 		}
 
 		return reporte;
-	}
-
-	private Date obtenerFechaCreacion(String fechaCrear) {
-		SimpleDateFormat formatter = new SimpleDateFormat(ConstantesUtil.FORMATO_FECHA_YYYYMMDDHHMM);
-		Date fechaCreacion;
-
-		try {
-			fechaCreacion = formatter.parse(fechaCrear);
-
-		} catch (ParseException e) {
-			fechaCreacion = new Date();
-		}
-
-		return fechaCreacion;
 	}
 
 }

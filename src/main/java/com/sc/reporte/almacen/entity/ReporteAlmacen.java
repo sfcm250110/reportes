@@ -35,11 +35,7 @@ public class ReporteAlmacen implements Serializable {
 	private String elaboradoPor;
 
 	@Column
-	// TODO: Revisar:
-	//@DateTimeFormat(pattern = "dd/MM/yyyy'T'HH:mm")
-	//@DateTimeFormat(pattern = "dd-MM-yyyy")
-	//@Temporal(TemporalType.TIMESTAMP)
-	//@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	private Date fechaCreacion;
 	
 	@Column

@@ -28,7 +28,7 @@
 										<div class="row mb-3">
 											<div class="col">
 												<label class="col-form-label form-control-label form-control-sm" for="fecha-creacion-id">Fecha creación:</label>
-												<input id="fecha-creacion-id" name="fecha-creacion" type="datetime-local" class="form-control form-control-sm" th:field="${{actividadComercial.fechaCrear}}" th:disabled="!${disableFields}">
+												<input id="fecha-creacion-id" name="fecha-creacion" type="datetime-local" class="form-control form-control-sm" th:field="${actividadComercial.fechaCreacion}" th:disabled="!${disableFields}">
 											</div>
 											<div class="col">
 												<label class="col-form-label form-control-label form-control-sm" for="elaborado-por-id">Elaborado por:</label>
@@ -39,11 +39,11 @@
 										<div class="row mb-3">
 											<div class="col">
 												<label class="col-form-label form-control-label form-control-sm" for="hora-entrada-id">Hora entrada:</label>
-												<input id="hora-entrada-id" name="hora-entrada" type="time" class="form-control form-control-sm" th:field="${{actividadComercial.horaEntrada}}" th:disabled="!${disableFields}">
+												<input id="hora-entrada-id" name="hora-entrada" type="time" class="form-control form-control-sm" th:field="${actividadComercial.horaEntrada}" th:disabled="!${disableFields}">
 											</div>
 											<div class="col">
 												<label class="col-form-label form-control-label form-control-sm" for="hora-salida-id">Hora salida:</label>
-												<input id="hora-salida-id" name="hora-salida" type="time" class="form-control form-control-sm" th:field="${{actividadComercial.horaSalida}}" th:disabled="!${disableFields}">
+												<input id="hora-salida-id" name="hora-salida" type="time" class="form-control form-control-sm" th:field="${actividadComercial.horaSalida}" th:disabled="!${disableFields}">
 											</div>
 										</div>
 	

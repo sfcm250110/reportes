@@ -41,7 +41,7 @@ public class ActividadComercialController extends BaseController {
 
 	@Autowired
 	private ActividadComercialRepository actividadComercialRepository;
-	
+
 	@Autowired
 	private ReporteService reporteService;
 
@@ -56,6 +56,7 @@ public class ActividadComercialController extends BaseController {
 			actividadComercial.setElaboradoPor(obtenerNombreUsuarioAutenticado());
 			actividadComercial.setHoraEntrada(obtenerHoraMinuto(horaEntrada, minuto));
 			actividadComercial.setHoraSalida(obtenerHoraMinuto(horaSalida, minuto));
+			actividadComercial.setFechaCreacion(new Date());
 
 			pModel.addAttribute("actividadComercial", actividadComercial);
 
@@ -66,18 +67,18 @@ public class ActividadComercialController extends BaseController {
 
 		return "comercial/crear-actividad-comercial";
 	}
-	
+
 	@GetMapping("consultarActividadComercial")
 	public String consultarActividadComercial(Model pModel) {
 		ActividadComercial actividadComercial = new ActividadComercial();
 		List<ActividadComercial> actividadesComercial = new ArrayList<ActividadComercial>();
-		
+
 		pModel.addAttribute("actividadComercial", actividadComercial);
 		pModel.addAttribute("actividadesComercial", actividadesComercial);
 
 		return "comercial/consultar-actividad-comercial";
 	}
-	
+
 	@PostMapping("guardarActividadComercial")
 	public String guardarAlmacen(@Valid @ModelAttribute("actividadComercial") ActividadComercial actividadComercial, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
@@ -99,14 +100,14 @@ public class ActividadComercialController extends BaseController {
 
 		return "redirect:" + "consultarActividadComercial";
 	}
-	
+
 	@PostMapping("consultarActividadComercial")
 	public String consultarActividadComercial(@Valid @ModelAttribute("actividadComercial") ActividadComercial actividadComercial, ModelMap pModel) {
 		Date fechaDesde = obtenerFecha(actividadComercial.getFechaDesde());
 		Date fechaHasta = obtenerFecha(actividadComercial.getFechaHasta());
-		
+
 		List<ActividadComercial> actividadesComercial = (List<ActividadComercial>) actividadComercialRepository.getAllBetweenDates(fechaDesde, fechaHasta);
-		
+
 		pModel.addAttribute("actividadesComercial", actividadesComercial);
 		pModel.addAttribute("actividadComercial", actividadComercial);
 
@@ -137,13 +138,13 @@ public class ActividadComercialController extends BaseController {
 
 		return "redirect:" + "consultarActividadComercial";
 	}
-	
+
 	@GetMapping(value = "descargarReporteComerciales/{fechaDesde}/{fechaHasta}", produces = MediaType.APPLICATION_PDF_VALUE)
 	public String descargarReporteComerciales(@PathVariable(value = "fechaDesde") String pFechaDesde, @PathVariable(value = "fechaHasta") String pFechaHasta, HttpServletResponse pResponse, HttpServletRequest pHttpServletRequest) {
 		try {
 			Date fechaDesde = obtenerFecha(pFechaDesde);
 			Date fechaHasta = obtenerFecha(pFechaHasta);
-			
+
 			List<ActividadComercial> actividadesComercial = (List<ActividadComercial>) actividadComercialRepository.getAllBetweenDates(fechaDesde, fechaHasta);
 
 			Reporte reporte = new Reporte();
@@ -163,7 +164,7 @@ public class ActividadComercialController extends BaseController {
 			pResponse.setHeader("Content-Length", String.valueOf(out.length));
 
 			FileCopyUtils.copy(in, pResponse.getOutputStream());
-			
+
 			in.close();
 
 		} catch (Exception e) {

@@ -32,11 +32,7 @@ public class ActividadComercial implements Serializable {
 	private String elaboradoPor;
 
 	@Column
-	// TODO: Revisar:
-	// @DateTimeFormat(pattern = "dd/MM/yyyy'T'HH:mm")
-	// @DateTimeFormat(pattern = "dd-MM-yyyy")
-	// @Temporal(TemporalType.TIMESTAMP)
-	// @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	private Date fechaCreacion;
 
 	@Column
@@ -69,9 +65,6 @@ public class ActividadComercial implements Serializable {
 
 	@Column
 	private String incidencias;
-
-	@Transient
-	private String fechaCrear;
 
 	@Transient
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
@@ -183,14 +176,6 @@ public class ActividadComercial implements Serializable {
 
 	public void setIncidencias(String incidencias) {
 		this.incidencias = incidencias;
-	}
-
-	public String getFechaCrear() {
-		return fechaCrear;
-	}
-
-	public void setFechaCrear(String fechaCrear) {
-		this.fechaCrear = fechaCrear;
 	}
 
 	public String getFechaDesde() {
